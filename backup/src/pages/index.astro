@@ -1,0 +1,86 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<Layout title="Najem KŚ — Automatyzacja, Systemy, Rozwój">
+  <!-- HERO -->
+  <section class="section-dark">
+    <div class="container-site mx-auto text-center py-24 md:py-32">
+      <h1 class="text-white text-5xl md:text-6xl mb-6">Automatyzacja i systemy dla najmu krótkoterminowego</h1>
+      <p class="text-xl text-cream/90 max-w-2xl mx-auto mb-10">Uwolnij swój czas, zwiększ zyski i wyeliminuj stres dzięki architekturze operacyjnej przetestowanej w boju.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/blog" class="btn btn-gold">Zacznij za darmo</a>
+        <a href="/automatyzacja" class="btn btn-outline">Zobacz usługę wdrożenia</a>
+      </div>
+      <div class="mt-10 flex justify-center gap-3">
+        <span class="badge">Poradniki</span>
+        <span class="badge">Gotowe szablony</span>
+        <span class="badge badge-gold">Wdrożenie pod klucz</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASEK ZAUFANIA -->
+  <section class="border-y border-line bg-cream">
+    <div class="container-site mx-auto py-8 text-center text-primary font-heading text-lg">
+      <p>Architektura przetestowana na <strong>40+ nieruchomościach</strong></p>
+    </div>
+  </section>
+
+  <!-- CO ZNAJDZIESZ -->
+  <section class="section container-site mx-auto">
+    <h2 class="text-center mb-12">Co znajdziesz na platformie?</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {[
+        { t: 'Poradniki', d: 'Krok po kroku o Beds24, AI i automatyzacji.' },
+        { t: 'Kursy video', d: 'Techniczne wdrożenia dla opornych.' },
+        { t: 'Narzędzia i GitHub', d: 'Gotowy kod do skopiowania.' },
+        { t: 'Własne projekty', d: 'Szablony, które działają.' }
+      ].map(item => (
+        <div class="card">
+          <h3 class="mb-3 text-accent">{item.t}</h3>
+          <p class="text-sm text-text-muted">{item.d}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- DARMOWY START -->
+  <section class="container-site mx-auto pb-16">
+    <div class="card border-accent border-2 text-center p-8">
+      <h2 class="text-2xl mb-4">Potrzebujesz szybkiego startu?</h2>
+      <p class="mb-6">Odbierz darmowy poradnik i automatyzuj najem jeszcze dziś.</p>
+      <a href="/blog" class="btn btn-gold">Odbierz poradnik gratis</a>
+    </div>
+  </section>
+
+  <!-- NAJNOWSZE PORADNIKI -->
+  <section class="section container-site mx-auto">
+    <h2 class="text-center mb-10">Najnowsze poradniki</h2>
+    <div class="grid gap-8 md:grid-cols-3">
+      {posts.map((post) => (
+        <a href={`/blog/${post.slug}`} class="card block hover:shadow-lg transition-shadow">
+          <time class="text-xs uppercase tracking-wide text-accent font-medium">
+            {post.data.pubDate.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })}
+          </time>
+          <h3 class="mb-2 mt-2 text-primary">{post.data.title}</h3>
+          <p class="text-sm text-text-muted">{post.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- SEKCJA USŁUGI -->
+  <section class="section-dark section text-center">
+    <div class="container-site mx-auto">
+      <h2 class="text-white mb-6">Chcesz to wszystko wdrożone u siebie?</h2>
+      <p class="text-cream/80 max-w-xl mx-auto mb-10">Beds24, bot Telegram, AI, grafiki sprzątania — zajmę się techniczną stroną Twojego biznesu, abyś Ty mogła zająć się rozwojem.</p>
+      <a href="/automatyzacja" class="btn btn-gold text-lg px-10 py-4">Umów konsultację wdrożeniową</a>
+    </div>
+  </section>
+</Layout>

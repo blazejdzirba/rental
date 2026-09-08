@@ -1,0 +1,111 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { SITE_TITLE } from '../../consts';
+
+const tutorials = (await getCollection('wideo'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const levelLabels: Record<string, string> = {
+  'początkujący': 'Początkujący',
+  'średni': 'Poziom średni',
+  'zaawansowany': 'Zaawansowany',
+};
+
+function embedUrl(videoUrl: string): string {
+  // YouTube: https://www.youtube.com/watch?v=ID lub youtu.be/ID → oembed
+  const yt = videoUrl.match(
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]{6,})/
+  );
+  if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
+  // Vimeo: https://vimeo.com/123456
+  const vm = videoUrl.match(/vimeo\.com\/(\d+)/);
+  if (vm) return `https://player.vimeo.com/video/${vm[1]}`;
+  return videoUrl;
+}
+---
+
+<Layout
+  title={`${SITE_TITLE} – Wideo`}
+  description="Tutoriale wideo pokazujące krok po kroku uruchamianie i konfigurację narzędzi dla najmu krótkoterminowego."
+>
+  <section class="mx-auto max-w-6xl px-4 py-14 md:px-8 md:py-16">
+    <p class="eyebrow mb-3">Wideo</p>
+    <h1 class="mb-4">Wideo i tutoriale</h1>
+    <p class="max-w-3xl text-lg leading-relaxed text-text-muted">
+      Krok po kroku na ekranie: jak uruchomić, skonfigurować i połączyć usługi, o których
+      piszą poradniki. Nowe materiały pojawiają się w miarę rozwoju bazy.
+    </p>
+
+    <div class="mt-8 flex items-start gap-3 rounded-2xl border border-border bg-cream p-5 text-sm leading-relaxed text-text-muted">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--color-accent)" stroke-width="1.7" class="mt-0.5 shrink-0" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="14" rx="3" />
+        <path d="M10.5 9.5l4.5 2.5-4.5 2.5z" fill="var(--color-accent)" stroke="none" />
+      </svg>
+      <p>
+        <strong class="text-primary">Sekcja w budowie.</strong> Poniższe tutoriale mają
+        zaplanowany scenariusz i czekają na nagranie. W międzyczasie poradniki pisane
+        pokrywają te same tematy.
+      </p>
+    </div>
+
+    {tutorials.length === 0 ? (
+      <p class="mt-8 text-text-muted">Brak materiałów.</p>
+    ) : (
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        {tutorials.map((t) => (
+          <article class="card card-hover flex h-full flex-col overflow-hidden !p-0">
+            <div class="relative aspect-video w-full bg-primary-dark">
+              {t.data.videoUrl ? (
+                <iframe
+                  src={embedUrl(t.data.videoUrl)}
+                  title={t.data.title}
+                  class="absolute inset-0 h-full w-full"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              ) : (
+                <div class="video-placeholder absolute inset-0 flex flex-col items-center justify-center gap-3">
+                  <span class="play-badge">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+                      <path d="M8.5 5.5l11 6.5-11 6.5z" />
+                    </svg>
+                  </span>
+                  <span class="text-sm font-semibold text-cream/90">Materiał w przygotowaniu</span>
+                </div>
+              )}
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <div class="mb-3 flex flex-wrap items-center gap-2">
+                <span class="pill pill-accent">{levelLabels[t.data.level] || t.data.level}</span>
+                {t.data.duration ? <span class="pill pill-muted">{t.data.duration}</span> : null}
+              </div>
+              <h2 class="text-lg leading-snug">{t.data.title}</h2>
+              <p class="mt-2 text-sm leading-relaxed text-text-muted">{t.data.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+  </section>
+</Layout>
+
+<style>
+  .video-placeholder {
+    background:
+      radial-gradient(20rem 12rem at 70% 20%, rgb(201 162 77 / 0.12) 0%, transparent 60%),
+      var(--color-primary-dark);
+  }
+  .play-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 999px;
+    background: var(--color-accent-light);
+    color: var(--color-primary-dark);
+    box-shadow: 0 12px 30px -10px rgb(0 0 0 / 0.5);
+  }
+</style>

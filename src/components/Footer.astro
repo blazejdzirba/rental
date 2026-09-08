@@ -1,59 +1,101 @@
 ---
 import { NAV, CONTACT } from '../consts';
 const year = new Date().getFullYear();
+const hasContact =
+  (CONTACT.telegram && CONTACT.telegram !== '{{DO_UZUPEŁNIENIA}}') ||
+  (CONTACT.email && CONTACT.email !== '{{DO_UZUPEŁNIENIA}}');
 ---
 
-<footer class="bg-primary text-white">
-  <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-3 md:px-8">
-    <!-- Kolumna 1: O platformie -->
+<footer class="bg-primary-dark text-cream">
+  <div class="container-site grid gap-10 py-14 md:grid-cols-[1.3fr_1fr_1fr] md:gap-8">
+    <!-- Kolumna 1: o stronie -->
     <div>
-      <h3 class="mb-3 font-heading text-lg font-semibold text-white">O platformie</h3>
-      <p class="text-sm text-white/70">
-        Praktyczne poradniki, kursy i narzędzia AI dla gospodarzy najmu krótkoterminowego. Automatyzacja, Beds24, systemy operacyjne.
+      <a href="/" class="mb-4 inline-flex items-center gap-2.5" aria-label="Najem KŚ — strona główna">
+        <span
+          class="inline-flex h-9 w-9 items-center justify-center rounded-xl text-accent-light"
+          style="background: rgb(255 255 255 / 0.06); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);"
+        >
+          <svg viewBox="0 0 24 24" fill="none" width="17" height="17" aria-hidden="true">
+            <path d="M12 2.5 L14 10 L21.5 12 L14 14 L12 21.5 L10 14 L2.5 12 L10 10 Z" fill="currentColor" />
+          </svg>
+        </span>
+        <span class="font-heading text-lg font-semibold text-white">Najem&thinsp;KŚ</span>
+      </a>
+      <p class="max-w-sm text-sm leading-relaxed text-cream/70">
+        Otwarta baza narzędzi open source, projektów z GitHub i poradników krok po kroku
+        dla osób zarządzających najmem krótkoterminowym. Darmowy dostęp, bez abonamentów.
       </p>
     </div>
 
     <!-- Kolumna 2: Nawigacja -->
-    <div>
-      <h3 class="mb-3 font-heading text-lg font-semibold text-white">Nawigacja</h3>
-      <ul class="space-y-2 text-sm text-white/70">
+    <nav aria-label="Nawigacja w stopce">
+      <h2 class="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-cream/50">
+        Nawigacja
+      </h2>
+      <ul class="grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm md:grid-cols-1">
         {NAV.map((link) => (
           <li>
-            <a href={link.href} class="hover:text-accent">
+            <a
+              href={link.href}
+              class="text-cream/80 transition-colors hover:text-accent-light"
+            >
               {link.label}
             </a>
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
 
     <!-- Kolumna 3: Kontakt -->
     <div>
-      <h3 class="mb-3 font-heading text-lg font-semibold text-white">Kontakt</h3>
-      <ul class="space-y-2 text-sm text-white/70">
-        {CONTACT.telegram && CONTACT.telegram !== '{{DO_UZUPEŁNIENIA}}' ? (
+      <h2 class="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-cream/50">
+        Kontakt
+      </h2>
+      <ul class="space-y-2.5 text-sm">
+        {hasContact ? (
+          <>
+            {CONTACT.telegram && CONTACT.telegram !== '{{DO_UZUPEŁNIENIA}}' ? (
+              <li>
+                <a
+                  href={CONTACT.telegram}
+                  class="text-cream/80 transition-colors hover:text-accent-light"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Telegram
+                </a>
+              </li>
+            ) : null}
+            {CONTACT.email && CONTACT.email !== '{{DO_UZUPEŁNIENIA}}' ? (
+              <li>
+                <a
+                  href={`mailto:${CONTACT.email}`}
+                  class="text-cream/80 transition-colors hover:text-accent-light"
+                >
+                  {CONTACT.email}
+                </a>
+              </li>
+            ) : null}
+          </>
+        ) : (
           <li>
-            <a href={CONTACT.telegram} class="hover:text-accent" target="_blank" rel="noopener">
-              Telegram →
+            <a href="/kontakt/" class="text-cream/80 transition-colors hover:text-accent-light">
+              Strona kontaktowa
             </a>
           </li>
-        ) : null}
-        {CONTACT.email && CONTACT.email !== '{{DO_UZUPEŁNIENIA}}' ? (
-          <li>
-            <a href={`mailto:${CONTACT.email}`} class="hover:text-accent">
-              {CONTACT.email}
-            </a>
-          </li>
-        ) : null}
-        {(!CONTACT.telegram || CONTACT.telegram === '{{DO_UZUPEŁNIENIA}}') && (!CONTACT.email || CONTACT.email === '{{DO_UZUPEŁNIENIA}}') ? (
-          <li class="text-white/40 italic">Dane kontaktowe w przygotowaniu</li>
-        ) : null}
+        )}
       </ul>
+      <p class="mt-5 text-xs leading-relaxed text-cream/40">
+        Masz pomysł na narzędzie lub poradnik? Napisz — baza rośnie z każdego zgłoszenia.
+      </p>
     </div>
   </div>
 
-  <!-- Pasek dolny z granatowym tłem + złoty separator -->
-  <div class="border-t-2 border-accent bg-primary-dark py-6 text-center text-xs text-white/50">
-    © {year} Najem KŚ. Wszelkie prawa zastrzeżone.
+  <!-- Pasek dolny -->
+  <div class="border-t border-white/10">
+    <div class="container-site flex flex-col items-center justify-between gap-2 py-5 text-xs text-cream/50 sm:flex-row">
+      <p>© {year} Najem KŚ. Darmowa baza wiedzy i narzędzi.</p>
+      <p>Zbudowane na otwartych komponentach — open source, self-hosted.</p>
+    </div>
   </div>
 </footer>

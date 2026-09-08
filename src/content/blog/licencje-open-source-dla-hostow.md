@@ -3,7 +3,7 @@ title: "Zanim użyjesz darmowego narzędzia z GitHub: licencje dla hostów, łam
 description: "MIT, Apache, GPL, AGPL — co wolno Ci robić z darmowym narzędziem jako host najmu krótkoterminowego, a co grozi mandatem. Bez prawnika, na przykładach."
 pubDate: 2026-09-08
 tags: ["licencje", "open-source", "poradnik"]
-access: free
+readingTime: "8 min"
 ---
 
 Darmowe nie znaczy „rób co chcesz”. Każde narzędzie z [katalogu](/narzedzia/) ma licencję,
@@ -23,10 +23,10 @@ która mówi, co wolno Ci zrobić z kodem. Krótki przewodnik dla hosta — bez 
 
 ## Co to znaczy dla Twojego biznesu
 
-1. **PMS na MIT (np. Movin' In)** — możesz go postawić dla swoich obiektów, zmienić logo
+1. **PMS na MIT** — możesz go postawić dla swoich obiektów, zmienić logo
    i obsługiwać nim 10 apartamentów. Możesz nawet wziąć pieniądze od innych hostów za „zarządzanie
    ich obiektami w Twoim systemie”.
-2. **Narzędzie na AGPL (np. FreeScout)** — postaw dla siebie, podłącz maila Booking.com,
+2. **Narzędzie na AGPL (np. FreeScout, Grafana)** — postaw dla siebie, podłącz maila Booking.com,
    używaj. Nie pakuj jego kodu w aplikację, którą sprzedasz jako swoją.
 3. **Scraper (np. pyairbnb)** — licencja MIT, ale to **warunki Airbnb**, nie licencja, są tu
    problemem. Publiczne dane do analizy własnej — OK; systematyczne masowe pobieranie — ryzyko.
@@ -47,7 +47,11 @@ która mówi, co wolno Ci zrobić z kodem. Krótki przewodnik dla hosta — bez 
 3. Jeśli brak licencji: napisz do autora o zgodę albo wybierz coś innego z katalogu.
 4. Zachowaj oryginalne pliki licencji w swoich wdrożeniach (to obowiązek w MIT/Apache).
 
----
+## Gdzie szukać dalej
 
-Chcesz, żebym sprawdził licencje pod Twoje konkretne wdrożenie? [Napisz](/kontakt/) — audyt
-zaczyna się od 490 zł.
+- Pełny spis licencji z [katalogu](/narzedzia/) jest oznaczony kolorami przy każdej pozycji —
+  przed instalacją spójrz na chip przy nazwie narzędzia.
+- W razie wątpliwości przeczytaj `LICENSE` dwa razy i zachowaj go w swoim repozytorium.
+
+Znalazłeś narzędzie, o którego licencji nie jestem pewien? Podaj link przez
+[stronę kontaktową](/kontakt/) — dopiszę analizę do poradnika.

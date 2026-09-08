@@ -2,12 +2,50 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="O mnie" description="Kim jestem i czym się zajmuję.">
-  <section class="mx-auto max-w-3xl px-4 py-16 md:px-8">
-    <h1 class="mb-6">O mnie</h1>
+<Layout
+  title="O stronie"
+  description="Co to jest Najem KŚ: zasady bazy, zaufanie do treści i brak paywalla."
+>
+  <section class="mx-auto max-w-3xl px-4 py-14 md:px-8 md:py-16">
+    <p class="eyebrow mb-3">O stronie</p>
+    <h1 class="mb-6">Dlaczego ta strona istnieje</h1>
+
     <div class="prose-content">
-        <p>Inżynier Systemów & Automatyzacji. Pomagam gospodarzom najmu krótkoterminowego wdrażać systemy, które oszczędzają czas i pieniądze.</p>
-        <p>Specjalizuję się w łączeniu Beds24 z botami Telegram, AI oraz narzędziami do automatyzacji procesów operacyjnych.</p>
+      <p>
+        <strong>Najem KŚ</strong> to otwarta baza wiedzy i narzędzi dla osób zarządzających
+        najmem krótkoterminowym. Zbieram tu to, co faktycznie działa: aplikacje open source,
+        projekty z GitHub i instrukcje, które da się odtworzyć krok po kroku.
+      </p>
+      <p>
+        Cała treść jest <strong>darmowa</strong>. Nie sprzedaję wdrożeń, konsultacji ani
+        dostępów — strona ma jedną rolę: żebyś sam/samą potrafiła uruchomić i skonfigurować
+        rozwiązania, bez zależności od zewnętrznego usługodawcy.
+      </p>
+
+      <h2>Zasady bazy</h2>
+      <ul>
+        <li>
+          <strong>Każde narzędzie z katalogu jest weryfikowane</strong> — licencja, data
+          ostatniej zmiany, stan repozytorium. Nieaktywne projekty oznaczam.
+        </li>
+        <li>
+          <strong>Każdy poradnik opiera się na konfiguracji, którą da się odtworzyć</strong> —
+          jeśli instrukcja nie działa, jest do poprawienia.
+        </li>
+        <li>
+          <strong>Brak paywalla</strong> — nie ma dostępu premium ani płatnych pakietów.
+          Jeśli coś się zmieni (licencja, cena, projekt), poprawiam opis zamiast ukrywać.
+        </li>
+        <li>
+          <strong>Zgłoszenia czytelników decydują o kolejności tematów</strong> — pytania,
+          które pojawiają się najczęściej, trafiają do kolejnych poradników.
+        </li>
+      </ul>
+
+      <p>
+        Masz pomysł na narzędzie, projekt albo temat poradnika? Napisz przez
+        <a href="/kontakt/">stronę kontaktową</a> — lista pomysłów rośnie z każdą wiadomością.
+      </p>
     </div>
   </section>
 </Layout>

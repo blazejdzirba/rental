@@ -1,10 +1,10 @@
 ---
 title: "iCal Cleaner"
-description: "Skrypt Python do łączenia kalendarzy iCal z różnych kanałów."
+description: "Skrypt Python do łączenia kalendarzy iCal z różnych kanałów w jeden porządkowany plik — baza poradnika o synchronizacji."
 pubDate: 2026-08-10
-access: free
-repoUrl: "https://github.com/example/ical-cleaner"
-demoUrl: ""
+level: początkujący
+requirements: ["Python 3.10+", "pliki .ics z kanałów"]
 tags: ["python", "ical", "kalendarze"]
+guideUrl: "/blog/sync-kalendarzy-ical-za-darmo/"
 ---
-Opis projektu.
+Opis projektu (w przygotowaniu) — docelowo link do repozytorium oraz poradnik krok po kroku.

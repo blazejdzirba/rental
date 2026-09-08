@@ -1,135 +1,494 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap');
-
 @import "tailwindcss";
-@import "tailwindcss/theme";
+
+/* ═══════════════════════════════════════════════════════════════════
+   Najem KŚ — design system
+   Paleta: petrol (kolor mocny) + krem/jasne tła + złoty akcent.
+   Złoty jest kolorem AKCENTOWYM — nie malujemy nim całej strony.
+   ═══════════════════════════════════════════════════════════════════ */
 
 @theme {
+  /* Kolorystyka — baza z istniejącej palety, skorygowana pod kontrast */
   --color-primary: #173643;
   --color-primary-light: #2C4854;
   --color-primary-dark: #0E232C;
-  --color-secondary: #FAF6EE;
-  --color-secondary-dark: #F0EADC;
+  --color-cream: #F5F1E6;
+  --color-background: #FBF9F5;
+  --color-surface: #FFFFFF;
   --color-accent: #B3862C;
   --color-accent-light: #C9A24D;
-  --color-accent-dark: #8F6B22;
-  --color-background: #FFFFFF;
-  --color-text: #2C2F33;
-  --color-text-muted: #5C6066;
-  --color-line: #DED5C4;        /* linie/obramowania z oferty PDF */
-  --color-cream: #F7F4EE;       /* kremowe tło z oferty PDF */
+  --color-accent-dark: #8A6420;
+  --color-text: #24282C;
+  --color-text-muted: #5A6068;
+  --color-border: #E7E0CF;
+  --color-border-strong: #D9D0BC;
 
-  --font-heading: "Playfair Display", serif;
-  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  /* Typografia: nagłówki Sora (charakterystyczny, techniczny sans),
+     tekst i interfejs Inter (czytelny, pełny latin-ext) */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-heading: "Sora", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  /* Zaokrąglenia — jeden system zamiast ostrych prostokątów */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  /* Cienie — bardzo subtelne */
+  --shadow-card: 0 1px 2px rgb(23 54 67 / 0.05);
+  --shadow-card-hover: 0 14px 30px -16px rgb(23 54 67 / 0.22);
+  --shadow-pop: 0 24px 48px -24px rgb(23 54 67 / 0.35);
 }
 
-/* ── Klasy pomocnicze (design system z oferty PDF) ───────────────── */
+/* ── Baza ─────────────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #EAD9AF;
+  color: var(--color-primary-dark);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Skala typograficzna — jedna hierarchia na całej stronie */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 1.15rem + 3vw, 2.9rem);
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 1.15rem + 1.3vw, 2.05rem);
+  line-height: 1.22;
+  letter-spacing: -0.018em;
+}
+
+h3 {
+  font-size: 1.1875rem;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+/* Lead — tekst prowadzący sekcji i hero */
+.lead {
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+}
+
+/* Dostępność: link "przejdź do treści" */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.6rem 1.1rem;
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* ── Kontener i sekcje — jeden system kontenerów ─────────────────── */
 
 .container-site {
-  max-width: 1080px;
+  width: 100%;
+  max-width: 74rem;
   margin-inline: auto;
-  padding-inline: 1rem;
+  padding-inline: 1.25rem;
 }
 @media (min-width: 768px) {
   .container-site { padding-inline: 2rem; }
 }
 
-.section { padding-block: 3.5rem; }
+.section {
+  padding-block: 4rem;
+}
 @media (min-width: 768px) {
-  .section { padding-block: 5rem; }
+  .section { padding-block: 6rem; }
 }
 
-/* Ciemna sekcja CTA — granat + kremowy tekst (jak w ofercie) */
+.section-alt {
+  background-color: var(--color-cream);
+  border-block: 1px solid var(--color-border);
+}
+
 .section-dark {
   background-color: var(--color-primary);
   color: var(--color-cream);
 }
-.section-dark h1, .section-dark h2, .section-dark h3 { color: #fff; }
+.section-dark h1,
+.section-dark h2,
+.section-dark h3 {
+  color: #fff;
+}
 
-/* Przyciski */
+/* Nagłówek sekcji: nadpis (eyebrow) + tytuł + lead */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+}
+.eyebrow::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-accent-light);
+}
+.section-dark .eyebrow {
+  color: var(--color-accent-light);
+}
+
+/* ── Przyciski — zaokrąglone, z wyraźną hierarchią ───────────────── */
+
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 8px;
-  padding: 0.7rem 1.4rem;
-  font-weight: 600;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  padding: 0.72rem 1.55rem;
+  font-family: var(--font-sans);
   font-size: 0.95rem;
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
-  cursor: pointer;
+  line-height: 1.2;
+  font-weight: 600;
   text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    color 0.18s ease, transform 0.12s ease;
 }
-.btn-gold {
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-lg {
+  padding: 0.95rem 2rem;
+  font-size: 1.02rem;
+}
+.btn-sm {
+  padding: 0.5rem 1.05rem;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
   background-color: var(--color-accent-light);
   color: var(--color-primary-dark);
 }
-.btn-gold:hover { background-color: var(--color-accent); }
-.btn-outline {
-  border: 1.5px solid var(--color-line);
-  color: var(--color-text);
-  background: transparent;
+.btn-primary:hover {
+  background-color: var(--color-accent);
 }
-.btn-outline:hover { border-color: var(--color-accent); color: var(--color-accent-dark); }
-.section-dark .btn-outline { border-color: rgba(247,244,238,0.4); color: var(--color-cream); }
-.section-dark .btn-outline:hover { border-color: var(--color-accent-light); color: var(--color-accent-light); }
 
-/* Karta */
+.btn-secondary {
+  background-color: var(--color-surface);
+  border-color: var(--color-border-strong);
+  color: var(--color-primary);
+}
+.btn-secondary:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
+}
+
+/* Przyciski na ciemnym tle */
+.section-dark .btn-primary {
+  background-color: var(--color-accent-light);
+  color: var(--color-primary-dark);
+}
+.section-dark .btn-primary:hover {
+  background-color: #D6B265;
+}
+.section-dark .btn-secondary {
+  background-color: transparent;
+  border-color: rgb(247 243 234 / 0.4);
+  color: var(--color-cream);
+}
+.section-dark .btn-secondary:hover {
+  border-color: var(--color-accent-light);
+  color: var(--color-accent-light);
+  background-color: rgb(247 243 234 / 0.06);
+}
+
+/* ── Karty — spójne obramowanie, radius, hover ───────────────────── */
+
 .card {
-  background: #fff;
-  border: 1px solid var(--color-line);
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(23, 54, 67, 0.08);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   padding: 1.5rem;
 }
 
-/* Pigułka / badge (jak "OBSŁUGA 24/7" w ofercie) */
-.badge {
-  display: inline-block;
-  border: 1px solid var(--color-line);
-  border-radius: 999px;
-  padding: 0.25rem 0.9rem;
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  background: var(--color-secondary);
-  color: var(--color-primary);
+.card-hover {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
-.badge-gold {
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-border-strong);
+}
+.card-hover:hover .card-arrow {
+  transform: translateX(4px);
+  color: var(--color-accent-dark);
+}
+.card-arrow {
+  transition: transform 0.18s ease, color 0.18s ease;
+}
+
+/* ── Pigułki / badge — tagi, kategorie, statusy ──────────────────── */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  background-color: var(--color-cream);
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+.pill-accent {
+  background-color: #F6EBCF;
+  border-color: #EBD9AC;
+  color: #7A5A17;
+}
+.pill-green {
+  background-color: #E4F2E7;
+  border-color: #CCE6D4;
+  color: #1E6B3C;
+}
+.pill-muted {
+  background-color: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+.pill-dot::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
   background: var(--color-accent-light);
-  border-color: var(--color-accent);
+}
+
+/* Chipy licencji (katalog narzędzi) */
+.lic {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.18rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.lic-ok {
+  background: #E4F2E7;
+  color: #1E6B3C;
+}
+.lic-warn {
+  background: #FBF0D7;
+  color: #8A6420;
+}
+.lic-bad {
+  background: #FBE4E1;
+  color: #A33B2E;
+}
+
+/* ── Navbar ──────────────────────────────────────────────────────── */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: rgb(251 249 245 / 0.86);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.42rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.nav-link:hover {
+  background-color: var(--color-cream);
   color: var(--color-primary-dark);
 }
-.badge-free {
-  background: #dcfce7; /* zielony */
-  border-color: #bbf7d0;
-  color: #166534;
-}
-.badge-paid {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
+.nav-link-active,
+.nav-link-active:hover {
+  background-color: var(--color-primary);
   color: var(--color-cream);
 }
 
-body {
-  @apply bg-background text-text font-sans antialiased;
+/* ── Tabele (katalog narzędzi) ────────────────────────────────────── */
+
+.table-wrap {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.table-scroll {
+  overflow-x: auto;
 }
 
-h1, h2, h3, h4 {
-  @apply font-heading text-primary;
+/* ── Treść artykułów ─────────────────────────────────────────────── */
+
+.prose-content {
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+.prose-content h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.45rem;
+  line-height: 1.3;
+  color: var(--color-primary);
+}
+.prose-content h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+  color: var(--color-primary);
+}
+.prose-content p {
+  margin-bottom: 1.25rem;
+  color: var(--color-text);
+}
+.prose-content a {
+  color: var(--color-accent-dark);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: #D8C58F;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+.prose-content a:hover {
+  color: var(--color-primary);
+  text-decoration-color: var(--color-primary);
+}
+.prose-content ul,
+.prose-content ol {
+  margin: 0 0 1.25rem 1.4rem;
+}
+.prose-content ul {
+  list-style: disc;
+}
+.prose-content ol {
+  list-style: decimal;
+}
+.prose-content li {
+  margin-bottom: 0.5rem;
+}
+.prose-content li::marker {
+  color: var(--color-accent);
+}
+.prose-content code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--color-cream);
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  padding: 0.1rem 0.35rem;
+  color: var(--color-primary);
+}
+.prose-content pre {
+  background: var(--color-primary-dark);
+  color: #DCE8EC;
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.25rem;
+  overflow-x: auto;
+  margin: 0 0 1.5rem;
+}
+.prose-content pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+.prose-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+}
+.prose-content th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-primary);
+  border-bottom: 2px solid var(--color-border-strong);
+  padding: 0.55rem 0.75rem;
+}
+.prose-content td {
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.55rem 0.75rem;
+  vertical-align: top;
+}
+.prose-content blockquote {
+  border-left: 3px solid var(--color-accent-light);
+  padding: 0.25rem 0 0.25rem 1rem;
+  margin: 0 0 1.5rem;
+  color: var(--color-text-muted);
+  font-style: italic;
 }
 
-h1 {
-  @apply text-4xl md:text-5xl font-bold leading-tight;
-}
+/* ── Ruch — szanujemy prefers-reduced-motion ─────────────────────── */
 
-h2 {
-  @apply text-3xl md:text-4xl font-semibold leading-snug;
-}
-
-h3 {
-  @apply text-xl md:text-2xl font-semibold;
-}
-
-a {
-  @apply transition-colors duration-200;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .card-hover,
+  .btn,
+  .card-arrow {
+    transition: none;
+  }
+  .card-hover:hover {
+    transform: none;
+  }
 }

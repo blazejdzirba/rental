@@ -1,86 +1,238 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CategoryCard from '../components/CategoryCard.astro';
+import ToolCard from '../components/ToolCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
+import tools from '../data/tools.json';
 
-const posts = (await getCollection('blog'))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+const allPosts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = allPosts.slice(0, 3);
+
+const projects = (await getCollection('programy'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const wideo = await getCollection('wideo');
+
+const featuredTools = tools.filter((t) => t.featured).slice(0, 6);
+
+const CAT_LABELS: Record<string, string> = {
+  ical: 'Kalendarze iCal',
+  locks: 'Zamki i IoT',
+  comm: 'Komunikacja',
+  ai: 'Agenci AI',
+  auto: 'Automatyzacja',
+  data: 'Dane i ceny',
+};
+
+const categories = [
+  {
+    href: '/narzedzia/',
+    title: 'Narzędzia',
+    description: 'Aplikacje i rozwiązania open source przydatne w codziennej pracy: kalendarze, komunikacja, zamki, dane.',
+    icon: 'tools' as const,
+    count: `${tools.length} pozycji`,
+  },
+  {
+    href: '/blog/',
+    title: 'Poradniki',
+    description: 'Instrukcje krok po kroku: jak uruchomić, skonfigurować i połączyć usługi — od podstaw po zaawansowane ustawienia.',
+    icon: 'guide' as const,
+    count: `${allPosts.length} poradników`,
+  },
+  {
+    href: '/programy/',
+    title: 'Projekty',
+    description: 'Gotowe projekty z GitHub i własne narzędzia — do sklonowania, skonfigurowania i uruchomienia u siebie.',
+    icon: 'projects' as const,
+    count: `${projects.length} projekty`,
+  },
+  {
+    href: '/wideo/',
+    title: 'Wideo',
+    description: 'Tutoriale wideo pokazujące uruchamianie i konfigurację krok po kroku. Nowe materiały wkrótce.',
+    icon: 'video' as const,
+    count: `${wideo.length} w przygotowaniu`,
+  },
+];
 ---
 
-<Layout title="Najem KŚ — Automatyzacja, Systemy, Rozwój">
-  <!-- HERO -->
-  <section class="section-dark">
-    <div class="container-site mx-auto text-center py-24 md:py-32">
-      <h1 class="text-white text-5xl md:text-6xl mb-6">Automatyzacja i systemy dla najmu krótkoterminowego</h1>
-      <p class="text-xl text-cream/90 max-w-2xl mx-auto mb-10">Uwolnij swój czas, zwiększ zyski i wyeliminuj stres dzięki architekturze operacyjnej przetestowanej w boju.</p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/blog" class="btn btn-gold">Zacznij za darmo</a>
-        <a href="/automatyzacja" class="btn btn-outline">Zobacz usługę wdrożenia</a>
-      </div>
-      <div class="mt-10 flex justify-center gap-3">
-        <span class="badge">Poradniki</span>
-        <span class="badge">Gotowe szablony</span>
-        <span class="badge badge-gold">Wdrożenie pod klucz</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- PASEK ZAUFANIA -->
-  <section class="border-y border-line bg-cream">
-    <div class="container-site mx-auto py-8 text-center text-primary font-heading text-lg">
-      <p>Architektura przetestowana na <strong>40+ nieruchomościach</strong></p>
-    </div>
-  </section>
-
-  <!-- CO ZNAJDZIESZ -->
-  <section class="section container-site mx-auto">
-    <h2 class="text-center mb-12">Co znajdziesz na platformie?</h2>
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {[
-        { t: 'Poradniki', d: 'Krok po kroku o Beds24, AI i automatyzacji.' },
-        { t: 'Kursy video', d: 'Techniczne wdrożenia dla opornych.' },
-        { t: 'Narzędzia i GitHub', d: 'Gotowy kod do skopiowania.' },
-        { t: 'Własne projekty', d: 'Szablony, które działają.' }
-      ].map(item => (
-        <div class="card">
-          <h3 class="mb-3 text-accent">{item.t}</h3>
-          <p class="text-sm text-text-muted">{item.d}</p>
+<Layout>
+  <!-- A. HERO -->
+  <section class="hero-section relative overflow-hidden">
+    <div class="container-site grid items-center gap-14 py-14 md:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+      <div>
+        <span class="pill pill-accent pill-dot mb-6">
+          Darmowa baza narzędzi i poradników
+        </span>
+        <h1 class="mb-6">
+          Narzędzia, poradniki i projekty dla
+          <span class="text-accent-dark">najmu krótkoterminowego</span>
+        </h1>
+        <p class="lead mb-9 max-w-xl">
+          Zbieram tu sprawdzone aplikacje open source, projekty z GitHub i instrukcje
+          krok po kroku — wszystko do samodzielnego uruchomienia. Bez abonamentów,
+          bez pośredników, z konkretnymi ustawieniami.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/narzedzia/" class="btn btn-primary btn-lg">Przeglądaj narzędzia</a>
+          <a href="/blog/" class="btn btn-secondary btn-lg">Zobacz poradniki</a>
         </div>
-      ))}
+        <ul class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-text-muted">
+          <li class="inline-flex items-center gap-2">
+            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="var(--color-accent)" stroke-width="1.8" aria-hidden="true">
+              <path d="M3 8.5l3 3 7-7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            {tools.length} zweryfikowanych narzędzi
+          </li>
+          <li class="inline-flex items-center gap-2">
+            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="var(--color-accent)" stroke-width="1.8" aria-hidden="true">
+              <path d="M3 8.5l3 3 7-7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            {allPosts.length} poradników krok po kroku
+          </li>
+          <li class="inline-flex items-center gap-2">
+            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="var(--color-accent)" stroke-width="1.8" aria-hidden="true">
+              <path d="M3 8.5l3 3 7-7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            100% darmowy dostęp
+          </li>
+        </ul>
+      </div>
+      <HeroVisual />
     </div>
   </section>
 
-  <!-- DARMOWY START -->
-  <section class="container-site mx-auto pb-16">
-    <div class="card border-accent border-2 text-center p-8">
-      <h2 class="text-2xl mb-4">Potrzebujesz szybkiego startu?</h2>
-      <p class="mb-6">Odbierz darmowy poradnik i automatyzuj najem jeszcze dziś.</p>
-      <a href="/blog" class="btn btn-gold">Odbierz poradnik gratis</a>
+  <!-- B. KATEGORIE -->
+  <section id="kategorie" class="section-alt section">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="Zacznij od kategorii"
+        title="Co znajdziesz w bazie?"
+        lead="Cztery obszary, jedna zasada: wszystko możesz uruchomić sam/sama, zgodnie z instrukcją."
+      />
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {categories.map((c) => (
+          <CategoryCard
+            href={c.href}
+            title={c.title}
+            description={c.description}
+            icon={c.icon}
+            count={c.count}
+          />
+        ))}
+      </div>
     </div>
   </section>
 
-  <!-- NAJNOWSZE PORADNIKI -->
-  <section class="section container-site mx-auto">
-    <h2 class="text-center mb-10">Najnowsze poradniki</h2>
-    <div class="grid gap-8 md:grid-cols-3">
-      {posts.map((post) => (
-        <a href={`/blog/${post.slug}`} class="card block hover:shadow-lg transition-shadow">
-          <time class="text-xs uppercase tracking-wide text-accent font-medium">
-            {post.data.pubDate.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })}
-          </time>
-          <h3 class="mb-2 mt-2 text-primary">{post.data.title}</h3>
-          <p class="text-sm text-text-muted">{post.data.description}</p>
-        </a>
-      ))}
+  <!-- C. WYRÓŻNIONE NARZĘDZIA -->
+  <section class="section">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="Katalog"
+        title="Wybrane narzędzia"
+        lead="Sprawdzone projekty open source, które realnie oszczędzają czas w codziennym zarządzaniu. Pełna lista — z licencjami i datami aktualizacji — czeka w katalogu."
+        actionHref="/narzedzia/"
+        actionLabel={`Wszystkie ${tools.length} narzędzi`}
+      />
+      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {featuredTools.map((t) => (
+          <ToolCard
+            name={t.name}
+            who={t.who}
+            description={t.description}
+            stars={t.stars}
+            license={t.license}
+            pushed_at={t.pushed_at}
+            archived={t.archived}
+            categoryLabel={CAT_LABELS[t.category] || t.category}
+            level={t.level}
+            guide={t.guide || undefined}
+            url={t.url}
+          />
+        ))}
+      </div>
     </div>
   </section>
 
-  <!-- SEKCJA USŁUGI -->
-  <section class="section-dark section text-center">
-    <div class="container-site mx-auto">
-      <h2 class="text-white mb-6">Chcesz to wszystko wdrożone u siebie?</h2>
-      <p class="text-cream/80 max-w-xl mx-auto mb-10">Beds24, bot Telegram, AI, grafiki sprzątania — zajmę się techniczną stroną Twojego biznesu, abyś Ty mogła zająć się rozwojem.</p>
-      <a href="/automatyzacja" class="btn btn-gold text-lg px-10 py-4">Umów konsultację wdrożeniową</a>
+  <!-- D. NAJNOWSZE PORADNIKI -->
+  <section class="section-alt section">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="Poradniki"
+        title="Najnowsze poradniki"
+        lead="Instrukcje, które da się odtworzyć: co zainstalować, co skopiować, gdzie kliknąć. Bez ogólników."
+        actionHref="/blog/"
+        actionLabel="Wszystkie poradniki"
+      />
+      <div class="mt-10 grid gap-5 md:grid-cols-3">
+        {posts.map((post) => (
+          <ArticleCard
+            id={post.id}
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            tags={post.data.tags}
+            readingTime={post.data.readingTime}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- E. PROJEKTY DO SAMODZIELNEGO URUCHOMIENIA -->
+  <section class="section">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="Projekty"
+        title="Projekty do samodzielnego uruchomienia"
+        lead="Skopiuj, skonfiguruj, uruchom. Do każdego projektu wymagania startowe i link do kodu albo poradnika."
+        actionHref="/programy/"
+        actionLabel="Wszystkie projekty"
+      />
+      <div class="mt-10 grid gap-5 md:grid-cols-2">
+        {projects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            level={project.data.level}
+            requirements={project.data.requirements}
+            tags={project.data.tags}
+            repoUrl={project.data.repoUrl || undefined}
+            demoUrl={project.data.demoUrl || undefined}
+            guideUrl={project.data.guideUrl || undefined}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- F. CTA KOŃCOWE (niesprzedażowe) -->
+  <section class="section-dark section">
+    <div class="container-site mx-auto max-w-2xl text-center">
+      <p class="eyebrow mb-4 justify-center">Dołącz do bazy</p>
+      <h2 class="mb-4">Masz pomysł na narzędzie lub poradnik?</h2>
+      <p class="mx-auto mb-9 max-w-xl text-lg leading-relaxed text-cream/80">
+        Ta baza rośnie dzięki pomysłom czytelników. Podpowiedz, co dodać — albo wyłap
+        błąd w instrukcji, a poprawię ją w kolejnej wersji.
+      </p>
+      <div class="flex flex-col justify-center gap-3 sm:flex-row">
+        <a href="/kontakt/" class="btn btn-primary btn-lg">Napisz do mnie</a>
+        <a href="#kategorie" class="btn btn-secondary btn-lg">Wróć do kategorii</a>
+      </div>
     </div>
   </section>
 </Layout>
+
+<style>
+  .hero-section {
+    background:
+      radial-gradient(52rem 26rem at 82% -12%, rgb(201 162 77 / 0.16) 0%, transparent 62%),
+      radial-gradient(40rem 22rem at -8% 8%, rgb(23 54 67 / 0.07) 0%, transparent 58%),
+      var(--color-background);
+  }
+</style>

@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Nie znaleziono strony" description="Ta strona nie istnieje — wróć na start.">
+  <section class="section">
+    <div class="container-site max-w-xl text-center">
+      <p class="eyebrow mb-4 justify-center">404</p>
+      <h1 class="mb-4">Ta strona wyjechała na nocleg.</h1>
+      <p class="lead mb-9">
+        Adres nie istnieje albo został przeniesiony. Zacznij od strony głównej albo
+        przejrzyj katalog narzędzi.
+      </p>
+      <div class="flex flex-col justify-center gap-3 sm:flex-row">
+        <a href="/" class="btn btn-primary">Wróć na start</a>
+        <a href="/narzedzia/" class="btn btn-secondary">Katalog narzędzi</a>
+      </div>
+    </div>
+  </section>
+</Layout>

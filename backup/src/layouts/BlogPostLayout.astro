@@ -1,0 +1,84 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  pubDate: Date;
+  tags?: string[];
+  heroImage?: string;
+  access?: 'free' | 'paid';
+}
+
+const { title, description, pubDate, tags = [], heroImage, access = 'free' } = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString('pl-PL', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Layout title={title} description={description}>
+  <article class="mx-auto max-w-3xl px-4 py-12 md:px-8">
+    {heroImage && (
+      <img
+        src={heroImage}
+        alt={title}
+        class="mb-8 h-64 w-full rounded-lg object-cover md:h-96"
+      />
+    )}
+
+    <div class="mb-6 flex flex-wrap items-center gap-3 text-sm text-text/60">
+      <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span class="rounded-full bg-secondary px-3 py-1 text-xs font-medium uppercase tracking-wide text-primary">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <h1 class="mb-8">{title}</h1>
+
+    {access === 'paid' ? (
+      <div class="rounded-xl border-2 border-accent bg-secondary p-6 text-center">
+        <h2 class="text-2xl text-primary mb-3">Ten materiał jest częścią dostępu Premium</h2>
+        <p class="text-text-muted mb-6">Kup dostęp, aby odblokować pełną treść tego poradnika.</p>
+        <a href="/automatyzacja" class="btn btn-gold mb-3 inline-block">
+          Odblokuj dostęp
+        </a>
+        {/* TODO: integracja płatności */}
+        <p class="mt-4 text-sm text-text-muted">
+          Masz pytania? <a href="/automatyzacja" class="text-accent underline">Napisz do nas</a>.
+        </p>
+      </div>
+    ) : (
+      <div class="prose-content">
+        <slot />
+      </div>
+    )}
+
+    <div class="mt-12 rounded-xl border-2 border-accent bg-secondary p-6 text-center">
+      <h3 class="text-xl text-primary mb-3">Wolisz mieć to wdrożone bez wysiłku?</h3>
+      <p class="text-text-muted mb-4">Zamów usługę automatyzacji pod klucz i zacznij oszczędzać czas.</p>
+      <a href="/automatyzacja" class="btn btn-gold inline-block">Zobacz usługę wdrożenia</a>
+    </div>
+  </article>
+</Layout>
+
+<style is:global>
+  /* Style wpisu blogowego — czysty CSS (Tailwind v4 @apply nie działa w <style>) */
+  .prose-content h2 { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; line-height: 2rem; color: var(--color-primary); }
+  .prose-content h3 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.25rem; line-height: 1.75rem; color: var(--color-primary); }
+  .prose-content p { margin-bottom: 1.25rem; line-height: 1.625; color: var(--color-text); }
+  .prose-content a { color: var(--color-accent); text-decoration: underline; }
+  .prose-content a:hover { color: var(--color-primary); }
+  .prose-content ul,
+  .prose-content ol { margin-bottom: 1.25rem; margin-left: 1.5rem; list-style: disc; }
+  .prose-content ol { list-style: decimal; }
+  .prose-content li + li { margin-top: 0.5rem; }
+</style>

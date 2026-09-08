@@ -1,0 +1,145 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import tools from '../../data/tools.json';
+
+const CATS: Record<string, { label: string; desc: string }> = {
+  ical: { label: 'Kalendarze iCal', desc: 'Sync kalendarzy Airbnb/Booking, parsowanie feedów, kalendarze dla ekipy.' },
+  pms: { label: 'Zarządzanie obiektem (PMS)', desc: 'Rezerwacje, sprzątanie, usterek, rozliczenia właścicielskie.' },
+  locks: { label: 'Zamki i IoT', desc: 'Kody do drzwi generowane z rezerwacji, czujniki temperatury/hałasu/wilgoci.' },
+  comm: { label: 'Komunikacja', desc: 'Skrzynki omnichannel, boty Telegram, WhatsApp dla ekip sprzątających.' },
+  ai: { label: 'Agenci AI', desc: 'Serwery MCP, wizualne buildery agentów — AI konierże i asystenci hosta.' },
+  auto: { label: 'Automatyzacja', desc: 'Wizualne workflow bez kodu: n8n i alternatywy.' },
+  data: { label: 'Dane i ceny', desc: 'Scrapery, hurtownie BI, analizy rynku i dokumentacje API.' },
+};
+
+const LIC_COLORS: Record<string, string> = {
+  MIT: 'green',
+  'Apache-2.0': 'green',
+  BSD: 'green',
+  'BSD-2': 'green',
+  'BSD-3': 'green',
+  'MPL-2.0': 'amber',
+  'LGPL-3.0': 'amber',
+  EPL: 'amber',
+  'GPL-3.0': 'amber',
+  'AGPL-3.0': 'amber',
+  'OSL-3.0': 'amber',
+  NOASSERTION: 'amber',
+  None: 'red',
+};
+
+function licColor(l: string | undefined): string {
+  if (!l || l === 'null') return 'red';
+  return LIC_COLORS[l] ?? 'amber';
+}
+
+const sorted = [...tools].sort((a, b) => (b.stars || 0) - (a.stars || 0));
+---
+
+<Layout
+  title="Katalog narzędzi"
+  description="46 zweryfikowanych darmowych narzędzi open-source dla hostów najmu krótkoterminowego: kalendarze, zamki, komunikacja, AI. Z licencjami i polskimi opisami."
+>
+  <section class="mx-auto max-w-6xl px-4 py-16 md:px-8">
+    <h1>Katalog narzędzi</h1>
+    <p class="mt-4 text-text-muted">
+      Wszystkie pozycje zweryfikowane przez API GitHub ({new Date().getFullYear()}) — linki prowadzą
+      wprost do repozytoriów. Kolor licencji:{' '}
+      <span class="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800"
+        >MIT/Apache/BSD</span
+      >{' '}
+      = komercyjnie OK,{' '}
+      <span class="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800"
+        >copyleft / wymagka</span
+      >{' '}
+      = używaj jako usługi,{' '}
+      <span class="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800"
+        >brak licencji</span
+      >{' '}
+      = all rights reserved, nie używaj komercyjnie.
+    </p>
+
+    <nav class="mt-8 flex flex-wrap gap-3" aria-label="Kategorie narzędzi">
+      {Object.entries(CATS).map(([k, c]) => (
+        <a
+          href={`#${k}`}
+          class="rounded-full border border-primary/20 bg-white px-4 py-1.5 text-sm font-semibold text-primary transition-colors hover:border-primary hover:bg-primary/5"
+        >
+          {c.label} ({tools.filter((t) => t.category === k).length})
+        </a>
+      ))}
+    </nav>
+
+    {Object.entries(CATS).map(([k, c]) => (
+      <section id={k} class="mt-12 scroll-mt-24">
+        <h2 class="text-primary">{c.label}</h2>
+        <p class="mt-2 text-text-muted">{c.desc}</p>
+        <div class="mt-6 overflow-x-auto">
+          <table class="w-full border-collapse text-sm">
+            <thead class="border-b-2 border-primary/20 bg-secondary">
+              <tr>
+                <th class="px-4 py-3 text-left font-semibold text-primary">Narzędzie</th>
+                <th class="px-4 py-3 text-left font-semibold text-primary">Do czego</th>
+                <th class="px-4 py-3 text-left font-semibold text-primary">Gwiazdki</th>
+                <th class="px-4 py-3 text-left font-semibold text-primary">Licencja</th>
+                <th class="px-4 py-3 text-left font-semibold text-primary">Ostatnia zmiana</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sorted
+                .filter((t) => t.category === k)
+                .map((t) => (
+                  <tr id={t.repo} class="border-b border-secondary-dark scroll-mt-24">
+                    <td class="px-4 py-3">
+                      <a
+                        href={t.url}
+                        rel="noopener"
+                        class="font-semibold text-accent hover:text-primary"
+                        >{t.name}</a
+                      >
+                      {t.archived && (
+                        <span
+                          class="ml-2 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800"
+                          title="Repo zarchiwizowane"
+                          >archiwum</span
+                        >
+                      )}
+                      <div class="mt-1 text-xs text-text-muted">{t.who}</div>
+                    </td>
+                    <td class="px-4 py-3 text-text-muted">{t.description}</td>
+                    <td class="px-4 py-3">⭐ {t.stars}</td>
+                    <td class="px-4 py-3">
+                      <span
+                        class={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                          licColor(t.license) === 'green'
+                            ? 'bg-green-100 text-green-800'
+                            : licColor(t.license) === 'amber'
+                              ? 'bg-amber-100 text-amber-800'
+                              : 'bg-red-100 text-red-800'
+                        }`}
+                      >
+                        {t.license}
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-xs text-text-muted">{t.pushed_at}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    ))}
+
+    <section class="mt-16 rounded-xl border-2 border-accent bg-secondary p-8">
+      <h2 class="text-primary">Chcesz, żeby to zadziałało u Ciebie?</h2>
+      <p class="mt-3 text-text">
+        Katalog mówi <em>co</em> istnieje. Jeśli chcesz <em>jak</em> — konkretny plan wdrożenia dla
+        Twoich obiektów —{' '}
+        <a href="/kontakt" class="font-semibold text-accent underline hover:text-primary">
+          napisz do mnie
+        </a>
+        . Audyt zaczyna się od 490 zł, zaliczane na wdrożenie.
+      </p>
+    </section>
+  </section>
+</Layout>

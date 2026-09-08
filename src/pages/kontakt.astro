@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { CONTACT } from '../consts';
+
+const telegram =
+  CONTACT.telegram && CONTACT.telegram !== '{{DO_UZUPEŁNIENIA}}' ? CONTACT.telegram : null;
+const email = CONTACT.email && CONTACT.email !== '{{DO_UZUPEŁNIENIA}}' ? CONTACT.email : null;
+---
+
+<Layout
+  title="Kontakt"
+  description="Napisz: pytanie do poradnika, pomysł na narzędzie albo zgłoszenie błędu w instrukcji."
+>
+  <section class="mx-auto max-w-3xl px-4 py-14 md:px-8 md:py-16">
+    <p class="eyebrow mb-3">Kontakt</p>
+    <h1 class="mb-4">Kontakt</h1>
+    <p class="mb-9 max-w-2xl text-lg leading-relaxed text-text-muted">
+      Masz pytanie do poradnika, pomysł na nowe narzędzie albo znalazłeś błąd w instrukcji?
+      Najprościej napisać — odpowiadam na wszystko, co dotyczy bazy.
+    </p>
+
+    <div class="card p-6 md:p-8">
+      {telegram || email ? (
+        <ul class="space-y-3">
+          {telegram ? (
+            <li>
+              <a
+                href={telegram}
+                target="_blank"
+                rel="noopener"
+                class="group flex items-center justify-between gap-3 rounded-xl border border-border bg-background px-5 py-4 transition-colors hover:border-primary"
+              >
+                <span>
+                  <span class="block font-semibold text-primary">Telegram</span>
+                  <span class="block text-sm text-text-muted">Najszybsza droga — odpisuję pierwszy</span>
+                </span>
+                <span class="card-arrow text-primary" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </a>
+            </li>
+          ) : null}
+          {email ? (
+            <li>
+              <a
+                href={`mailto:${email}`}
+                class="group flex items-center justify-between gap-3 rounded-xl border border-border bg-background px-5 py-4 transition-colors hover:border-primary"
+              >
+                <span>
+                  <span class="block font-semibold text-primary">{email}</span>
+                  <span class="block text-sm text-text-muted">E-mail — dla dłuższych opisów i załączników</span>
+                </span>
+                <span class="card-arrow text-primary" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </a>
+            </li>
+          ) : null}
+        </ul>
+      ) : (
+        <p class="text-text-muted">
+          Dane kontaktowe w przygotowaniu — wrzuć link do kanału na
+          <a href="https://github.com" class="font-semibold text-accent-dark underline underline-offset-2">GitHub</a>
+          albo śledź bieżące porady na stronie.
+        </p>
+      )}
+
+      <p class="mt-6 text-sm leading-relaxed text-text-muted">
+        Staram się odpowiadać w ciągu 1–2 dni. Zgłoszenia błędów w poradnikach traktuję
+        priorytetowo — dzięki nim instrukcje się poprawiają.
+      </p>
+    </div>
+  </section>
+</Layout>

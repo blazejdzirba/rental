@@ -3,7 +3,7 @@ title: "Sync kalendarzy Airbnb i Booking za darmo: iCal na własnym serwerze"
 description: "Krok po kroku: zbierasz feedy iCal wszystkich kanałów na własnym serwerze i widzisz jeden kalendarz. Zero abonamentu, pełna kontrola. Na bazie Sync-Rentals-Calendar."
 pubDate: 2026-09-08
 tags: ["kalendarze", "ical", "poradnik"]
-access: free
+readingTime: "7 min"
 ---
 
 Podwójne rezerwacje biorą się z tego, że każdy kanał ma „swój” kalendarz. Rozwiązanie znasz:
@@ -25,7 +25,7 @@ komponentach z [katalogu](/narzedzia/). Pokażę najprostszą wersję.
 
 ## Krok 1. Zbierz adresy feedów
 
-W panelu każdego kanału znajdź eksport kalendarza (Airbnb: Profil → Ustawzenia → Integracje →
+W panelu każdego kanału znajdź eksport kalendarza (Airbnb: Profil → Ustawienia → Integracje →
 Kalendarz → Eksport; Booking podobnie). Zapisz URL-e — to zwykłe linki `.ics`.
 
 ## Krok 2. Postaw Sync-Rentals-Calendar na VPS
@@ -61,7 +61,10 @@ Cron wystarczy:
 
 ## Kiedy to nie wystarcza
 
-Powyżej ~4 obiektów i 2 kanałów chcesz już reguł (min. pobyt, blokady serwisowe, ceny).
-To moment na [audyt](/kontakt/) — pokażę Ci, które elementy z katalogu złożyć w system,
-który robi to bez abonamentu, albo dlaczego w Twoim przypadku Beds24 + automatyzacje
-wyjdzie taniej niż klejenie wszystkiego ręcznie.
+Powyżej ~4 obiektów i 2 kanałów sam kalendarz to za mało — chcesz reguł: minimalnego pobytu,
+blokad serwisowych, stref cen. Wtedy ma sens bardziej rozbudowany PMS z [katalogu](/narzedzia/)
+albo własna warstwa reguł nałożona na ten zestaw.
+
+Uważasz, że brakuje tu jakiegoś scenariusza albo kolejności kroków? Napisz przez
+[stronę kontaktową](/kontakt/) — tematy z największym zainteresowaniem trafiają do kolejnych
+poradników.
