@@ -7,9 +7,10 @@ interface Props {
   pubDate: Date;
   tags?: string[];
   heroImage?: string;
+  access?: 'free' | 'paid';
 }
 
-const { title, description, pubDate, tags = [], heroImage } = Astro.props;
+const { title, description, pubDate, tags = [], heroImage, access = 'free' } = Astro.props;
 
 const formattedDate = pubDate.toLocaleDateString('pl-PL', {
   day: 'numeric',
@@ -43,8 +44,28 @@ const formattedDate = pubDate.toLocaleDateString('pl-PL', {
 
     <h1 class="mb-8">{title}</h1>
 
-    <div class="prose-content">
-      <slot />
+    {access === 'paid' ? (
+      <div class="rounded-xl border-2 border-accent bg-secondary p-6 text-center">
+        <h2 class="text-2xl text-primary mb-3">Ten materiał jest częścią dostępu Premium</h2>
+        <p class="text-text-muted mb-6">Kup dostęp, aby odblokować pełną treść tego poradnika.</p>
+        <a href="/automatyzacja" class="btn btn-gold mb-3 inline-block">
+          Odblokuj dostęp
+        </a>
+        {/* TODO: integracja płatności */}
+        <p class="mt-4 text-sm text-text-muted">
+          Masz pytania? <a href="/automatyzacja" class="text-accent underline">Napisz do nas</a>.
+        </p>
+      </div>
+    ) : (
+      <div class="prose-content">
+        <slot />
+      </div>
+    )}
+
+    <div class="mt-12 rounded-xl border-2 border-accent bg-secondary p-6 text-center">
+      <h3 class="text-xl text-primary mb-3">Wolisz mieć to wdrożone bez wysiłku?</h3>
+      <p class="text-text-muted mb-4">Zamów usługę automatyzacji pod klucz i zacznij oszczędzać czas.</p>
+      <a href="/automatyzacja" class="btn btn-gold inline-block">Zobacz usługę wdrożenia</a>
     </div>
   </article>
 </Layout>
