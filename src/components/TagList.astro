@@ -1,0 +1,14 @@
+---
+interface Props {
+  tags: string[];
+}
+const { tags } = Astro.props;
+---
+
+{tags.length > 0 && (
+  <div class="flex flex-wrap gap-1.5">
+    {tags.map((t) => (
+      <a href={`/tags/${t}`} class="pill link-underline">{t}</a>
+    ))}
+  </div>
+)}

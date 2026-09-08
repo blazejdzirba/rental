@@ -1,101 +1,15 @@
 ---
-import { NAV, CONTACT } from '../consts';
+import { NAME, SOCIAL } from '../consts';
 const year = new Date().getFullYear();
-const hasContact =
-  (CONTACT.telegram && CONTACT.telegram !== '{{DO_UZUPEŁNIENIA}}') ||
-  (CONTACT.email && CONTACT.email !== '{{DO_UZUPEŁNIENIA}}');
 ---
 
-<footer class="bg-primary-dark text-cream">
-  <div class="container-site grid gap-10 py-14 md:grid-cols-[1.3fr_1fr_1fr] md:gap-8">
-    <!-- Kolumna 1: o stronie -->
-    <div>
-      <a href="/" class="mb-4 inline-flex items-center gap-2.5" aria-label="Najem KŚ — strona główna">
-        <span
-          class="inline-flex h-9 w-9 items-center justify-center rounded-xl text-accent-light"
-          style="background: rgb(255 255 255 / 0.06); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);"
-        >
-          <svg viewBox="0 0 24 24" fill="none" width="17" height="17" aria-hidden="true">
-            <path d="M12 2.5 L14 10 L21.5 12 L14 14 L12 21.5 L10 14 L2.5 12 L10 10 Z" fill="currentColor" />
-          </svg>
-        </span>
-        <span class="font-heading text-lg font-semibold text-white">Najem&thinsp;KŚ</span>
-      </a>
-      <p class="max-w-sm text-sm leading-relaxed text-cream/70">
-        Otwarta baza narzędzi open source, projektów z GitHub i poradników krok po kroku
-        dla osób zarządzających najmem krótkoterminowym. Darmowy dostęp, bez abonamentów.
-      </p>
-    </div>
-
-    <!-- Kolumna 2: Nawigacja -->
-    <nav aria-label="Nawigacja w stopce">
-      <h2 class="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-cream/50">
-        Nawigacja
-      </h2>
-      <ul class="grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm md:grid-cols-1">
-        {NAV.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              class="text-cream/80 transition-colors hover:text-accent-light"
-            >
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-
-    <!-- Kolumna 3: Kontakt -->
-    <div>
-      <h2 class="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-cream/50">
-        Kontakt
-      </h2>
-      <ul class="space-y-2.5 text-sm">
-        {hasContact ? (
-          <>
-            {CONTACT.telegram && CONTACT.telegram !== '{{DO_UZUPEŁNIENIA}}' ? (
-              <li>
-                <a
-                  href={CONTACT.telegram}
-                  class="text-cream/80 transition-colors hover:text-accent-light"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  Telegram
-                </a>
-              </li>
-            ) : null}
-            {CONTACT.email && CONTACT.email !== '{{DO_UZUPEŁNIENIA}}' ? (
-              <li>
-                <a
-                  href={`mailto:${CONTACT.email}`}
-                  class="text-cream/80 transition-colors hover:text-accent-light"
-                >
-                  {CONTACT.email}
-                </a>
-              </li>
-            ) : null}
-          </>
-        ) : (
-          <li>
-            <a href="/kontakt/" class="text-cream/80 transition-colors hover:text-accent-light">
-              Strona kontaktowa
-            </a>
-          </li>
-        )}
-      </ul>
-      <p class="mt-5 text-xs leading-relaxed text-cream/40">
-        Masz pomysł na narzędzie lub poradnik? Napisz — baza rośnie z każdego zgłoszenia.
-      </p>
-    </div>
-  </div>
-
-  <!-- Pasek dolny -->
-  <div class="border-t border-white/10">
-    <div class="container-site flex flex-col items-center justify-between gap-2 py-5 text-xs text-cream/50 sm:flex-row">
-      <p>© {year} Najem KŚ. Darmowa baza wiedzy i narzędzi.</p>
-      <p>Zbudowane na otwartych komponentach — open source, self-hosted.</p>
+<footer class="border-t border-[--color-border] py-10">
+  <div class="container-wide flex flex-col items-center justify-between gap-4 text-sm text-text-faint sm:flex-row">
+    <p>&copy; {year} {NAME}</p>
+    <div class="flex gap-5">
+      <a href="/rss.xml" class="link-underline">RSS</a>
+      <a href={SOCIAL.github} target="_blank" rel="noopener" class="link-underline">GitHub</a>
+      <a href={`mailto:${SOCIAL.email}`} class="link-underline">Email</a>
     </div>
   </div>
 </footer>

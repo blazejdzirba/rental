@@ -1,20 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { NAME } from '../consts';
 ---
 
-<Layout title="Nie znaleziono strony" description="Ta strona nie istnieje — wróć na start.">
-  <section class="section">
-    <div class="container-site max-w-xl text-center">
-      <p class="eyebrow mb-4 justify-center">404</p>
-      <h1 class="mb-4">Ta strona wyjechała na nocleg.</h1>
-      <p class="lead mb-9">
-        Adres nie istnieje albo został przeniesiony. Zacznij od strony głównej albo
-        przejrzyj katalog narzędzi.
-      </p>
-      <div class="flex flex-col justify-center gap-3 sm:flex-row">
-        <a href="/" class="btn btn-primary">Wróć na start</a>
-        <a href="/narzedzia/" class="btn btn-secondary">Katalog narzędzi</a>
-      </div>
-    </div>
+<Layout title="404" description="Page not found.">
+  <section class="container-prose py-24 text-center">
+    <p class="mono-label">404</p>
+    <h1 class="mt-4">Page not found</h1>
+    <p class="lead mt-2">The page you're looking for doesn't exist or has been moved.</p>
+    <a href="/" class="btn mt-8">Go home</a>
   </section>
 </Layout>

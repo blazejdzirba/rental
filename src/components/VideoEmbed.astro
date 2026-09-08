@@ -1,0 +1,37 @@
+---
+interface VideoData {
+  youtubeId?: string;
+  file?: string;
+  url?: string;
+  caption?: string;
+}
+interface Props {
+  video: VideoData;
+  class?: string;
+}
+const { video, class: className } = Astro.props;
+---
+
+<div class:list={[className]}>
+  {video.youtubeId && (
+    <div class="aspect-video overflow-hidden rounded-md border border-[--color-border]">
+      <iframe
+        class="h-full w-full"
+        src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}`}
+        title={video.caption ?? 'Video'}
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  )}
+  {video.file && (
+    <video controls class="w-full rounded-md border border-[--color-border]">
+      <source src={video.file} />
+    </video>
+  )}
+  {!video.youtubeId && !video.file && video.url && (
+    <a href={video.url} target="_blank" rel="noopener" class="btn">Watch video ↗</a>
+  )}
+  {video.caption && <p class="mt-2 text-sm text-text-faint">{video.caption}</p>}
+</div>

@@ -1,0 +1,15 @@
+---
+import { TYPE_LABEL } from '../lib/content';
+
+interface Props {
+  type: keyof typeof TYPE_LABEL;
+  author?: string;
+}
+
+const { type, author } = Astro.props;
+const isFound = type === 'github';
+---
+
+<span class:list={['pill', isFound ? '' : 'pill-accent']}>
+  {isFound ? `Found on GitHub${author ? ` · by ${author}` : ''}` : TYPE_LABEL[type]}
+</span>

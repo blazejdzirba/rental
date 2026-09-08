@@ -1,3 +1,126 @@
+# Full App Blueprint
+
+> Generated automatically from the current Astro project.
+
+## Purpose
+
+This file contains the current application source code and relevant configuration needed to understand and rebuild the website.
+
+## Project root
+
+`/home/blaise/rental`
+
+## Included files
+
+- `astro.config.mjs`
+- `package-lock.json`
+- `package.json`
+- `public/robots.txt`
+- `src/components/ArticleCard.astro`
+- `src/components/BaseHead.astro`
+- `src/components/CategoryCard.astro`
+- `src/components/Footer.astro`
+- `src/components/FormattedDate.astro`
+- `src/components/Header.astro`
+- `src/components/HeaderLink.astro`
+- `src/components/HeroVisual.astro`
+- `src/components/Navbar.astro`
+- `src/components/ProjectCard.astro`
+- `src/components/SectionHeading.astro`
+- `src/components/ToolCard.astro`
+- `src/consts.ts`
+- `src/content.config.ts`
+- `src/content/blog/ile-placisz-za-saas.md`
+- `src/content/blog/jak-podpiac-beds24-do-telegrama.md`
+- `src/content/blog/licencje-open-source-dla-hostow.md`
+- `src/content/blog/sync-kalendarzy-ical-za-darmo.md`
+- `src/content/kursy/pierwsze-kroki-w-automatyzacji.md`
+- `src/content/kursy/szablon-cennika-dynamicznego.md`
+- `src/content/programy/beds24-telegram-bot.md`
+- `src/content/programy/ical-cleaner.md`
+- `src/content/wideo/pierwsze-kroki-w-automatyzacji.md`
+- `src/content/wideo/szablon-cennika-dynamicznego.md`
+- `src/data/tools.json`
+- `src/layouts/BlogPost.astro`
+- `src/layouts/BlogPostLayout.astro`
+- `src/layouts/Layout.astro`
+- `src/pages/404.astro`
+- `src/pages/about.astro`
+- `src/pages/automatyzacja.astro`
+- `src/pages/blog/[...slug].astro`
+- `src/pages/blog/index.astro`
+- `src/pages/index.astro`
+- `src/pages/kontakt.astro`
+- `src/pages/kursy/index.astro`
+- `src/pages/narzedzia/index.astro`
+- `src/pages/programy/index.astro`
+- `src/pages/rss.xml.js`
+- `src/pages/wideo/index.astro`
+- `src/styles/global.css`
+- `tsconfig.json`
+
+---
+
+# Source files
+
+## `astro.config.mjs`
+
+```javascript
+// @ts-check
+
+import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
+import { defineConfig, fontProviders } from 'astro/config';
+
+import tailwindcss from '@tailwindcss/vite';
+
+// https://astro.build/config
+export default defineConfig({
+  site: 'https://example.com',
+  integrations: [mdx(), sitemap()],
+
+  fonts: [
+      {
+          provider: fontProviders.local(),
+          name: 'Atkinson',
+          cssVariable: '--font-atkinson',
+          fallbacks: ['sans-serif'],
+          options: {
+              variants: [
+                  {
+                      src: ['./src/assets/fonts/atkinson-regular.woff'],
+                      weight: 400,
+                      style: 'normal',
+                      display: 'swap',
+                  },
+                  {
+                      src: ['./src/assets/fonts/atkinson-bold.woff'],
+                      weight: 700,
+                      style: 'normal',
+                      display: 'swap',
+                  },
+              ],
+          },
+      },
+	],
+
+  vite: {
+    plugins: [tailwindcss()],
+    css: {
+      postcss: {
+        plugins: [],
+      },
+    },
+  },
+});
+```
+
+
+---
+
+## `package-lock.json`
+
+```json
 {
   "name": "rental",
   "version": "0.0.1",
@@ -8,6 +131,7 @@
       "name": "rental",
       "version": "0.0.1",
       "dependencies": {
+        "@astrojs/markdown-satteri": "^0.4.0",
         "@astrojs/mdx": "^8.0.0",
         "@astrojs/rss": "^4.0.19",
         "@astrojs/sitemap": "^3.7.4",
@@ -5037,3 +5161,4081 @@
     }
   }
 }
+```
+
+
+---
+
+## `package.json`
+
+```json
+{
+  "name": "rental",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/markdown-satteri": "^0.4.0",
+    "@astrojs/mdx": "^8.0.0",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.1",
+    "sharp": "^0.35.0",
+    "tailwindcss": "^4.3.3"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}
+```
+
+
+---
+
+## `public/robots.txt`
+
+```
+User-agent: *
+Allow: /
+Sitemap: https://najemks.pl/sitemap-index.xml
+```
+
+
+---
+
+## `src/components/ArticleCard.astro`
+
+```astro
+---
+interface Props {
+  id: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  tags?: string[];
+  readingTime?: string;
+}
+
+const { id, title, description, pubDate, tags = [], readingTime } = Astro.props;
+const category = tags[0] || 'Poradnik';
+
+const formattedDate = pubDate.toLocaleDateString('pl-PL', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<a href={`/blog/${id}/`} class="card card-hover group flex h-full flex-col">
+  <div class="mb-3.5 flex items-center justify-between gap-3">
+    <span class="pill pill-accent">{category}</span>
+    {readingTime ? <span class="text-xs font-medium text-text-muted">~ {readingTime} czytania</span> : null}
+  </div>
+
+  <h3 class="group-hover:text-accent-dark transition-colors">{title}</h3>
+  <p class="mt-2 flex-1 text-sm leading-relaxed text-text-muted">{description}</p>
+
+  <div class="mt-4 flex items-center justify-between border-t border-border pt-4 text-xs text-text-muted">
+    <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+    <span class="card-arrow inline-flex items-center gap-1 font-semibold text-primary">
+      Czytaj
+      <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </span>
+  </div>
+</a>
+```
+
+
+---
+
+## `src/components/BaseHead.astro`
+
+```astro
+---
+// Import the global.css file here so that it is included on
+// all pages through the use of the <BaseHead /> component.
+import '../styles/global.css';
+import type { ImageMetadata } from 'astro';
+import FallbackImage from '../assets/blog-placeholder-1.jpg';
+import { SITE_TITLE } from '../consts';
+import { Font } from 'astro:assets';
+
+interface Props {
+	title: string;
+	description: string;
+	image?: ImageMetadata;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const { title, description, image = FallbackImage } = Astro.props;
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link
+	rel="alternate"
+	type="application/rss+xml"
+	title={SITE_TITLE}
+	href={new URL('rss.xml', Astro.site)}
+/>
+<meta name="generator" content={Astro.generator} />
+
+<Font cssVariable="--font-atkinson" preload />
+
+<!-- Theme color — granatowy z oferty (dla mobile status bar) -->
+<meta name="theme-color" content="#173643" />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="description" content={description} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image.src, Astro.url)} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+```
+
+
+---
+
+## `src/components/CategoryCard.astro`
+
+```astro
+---
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  icon: 'tools' | 'guide' | 'projects' | 'video';
+  count?: string;
+}
+
+const { href, title, description, icon, count } = Astro.props;
+---
+
+<a href={href} class="card card-hover group flex h-full flex-col">
+  <div class="mb-4 flex items-center justify-between">
+    <span
+      class="icon-tile"
+      aria-hidden="true"
+    >
+      {icon === 'tools' && (
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14.7 6.3a4.5 4.5 0 0 0-6 5.6L3 17.6V21h3.4l5.7-5.7a4.5 4.5 0 0 0 5.6-6l-3 3-2.8-.7-.7-2.8 3.5-2.5z" />
+        </svg>
+      )}
+      {icon === 'guide' && (
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5H6.5A2.5 2.5 0 0 0 4 21z" />
+          <path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20" />
+          <path d="M9 7.5h7M9 10.5h5" />
+        </svg>
+      )}
+      {icon === 'projects' && (
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 5l-2 14" />
+        </svg>
+      )}
+      {icon === 'video' && (
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="5" width="18" height="14" rx="3" />
+          <path d="M10.5 9.5l4.5 2.5-4.5 2.5z" fill="currentColor" stroke="none" />
+        </svg>
+      )}
+    </span>
+    {count ? <span class="pill pill-muted">{count}</span> : null}
+  </div>
+  <h3 class="mb-1.5">{title}</h3>
+  <p class="flex-1 text-sm leading-relaxed text-text-muted">{description}</p>
+  <span
+    class="card-arrow mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary"
+  >
+    Zobacz
+    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+      <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </span>
+</a>
+
+<style>
+  .icon-tile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: var(--color-cream);
+    border: 1px solid var(--color-border);
+    color: var(--color-primary);
+    transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  }
+  .group:hover .icon-tile {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-accent-light);
+  }
+</style>
+```
+
+
+---
+
+## `src/components/Footer.astro`
+
+```astro
+---
+import { NAV, CONTACT } from '../consts';
+const year = new Date().getFullYear();
+const hasContact =
+  (CONTACT.telegram && CONTACT.telegram !== '{{DO_UZUPEŁNIENIA}}') ||
+  (CONTACT.email && CONTACT.email !== '{{DO_UZUPEŁNIENIA}}');
+---
+
+<footer class="bg-primary-dark text-cream">
+  <div class="container-site grid gap-10 py-14 md:grid-cols-[1.3fr_1fr_1fr] md:gap-8">
+    <!-- Kolumna 1: o stronie -->
+    <div>
+      <a href="/" class="mb-4 inline-flex items-center gap-2.5" aria-label="Najem KŚ — strona główna">
+        <span
+          class="inline-flex h-9 w-9 items-center justify-center rounded-xl text-accent-light"
+          style="background: rgb(255 255 255 / 0.06); box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.1);"
+        >
+          <svg viewBox="0 0 24 24" fill="none" width="17" height="17" aria-hidden="true">
+            <path d="M12 2.5 L14 10 L21.5 12 L14 14 L12 21.5 L10 14 L2.5 12 L10 10 Z" fill="currentColor" />
+          </svg>
+        </span>
+        <span class="font-heading text-lg font-semibold text-white">Najem&thinsp;KŚ</span>
+      </a>
+      <p class="max-w-sm text-sm leading-relaxed text-cream/70">
+        Otwarta baza narzędzi open source, projektów z GitHub i poradników krok po kroku
+        dla osób zarządzających najmem krótkoterminowym. Darmowy dostęp, bez abonamentów.
+      </p>
+    </div>
+
+    <!-- Kolumna 2: Nawigacja -->
+    <nav aria-label="Nawigacja w stopce">
+      <h2 class="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-cream/50">
+        Nawigacja
+      </h2>
+      <ul class="grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm md:grid-cols-1">
+        {NAV.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="text-cream/80 transition-colors hover:text-accent-light"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- Kolumna 3: Kontakt -->
+    <div>
+      <h2 class="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-cream/50">
+        Kontakt
+      </h2>
+      <ul class="space-y-2.5 text-sm">
+        {hasContact ? (
+          <>
+            {CONTACT.telegram && CONTACT.telegram !== '{{DO_UZUPEŁNIENIA}}' ? (
+              <li>
+                <a
+                  href={CONTACT.telegram}
+                  class="text-cream/80 transition-colors hover:text-accent-light"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Telegram
+                </a>
+              </li>
+            ) : null}
+            {CONTACT.email && CONTACT.email !== '{{DO_UZUPEŁNIENIA}}' ? (
+              <li>
+                <a
+                  href={`mailto:${CONTACT.email}`}
+                  class="text-cream/80 transition-colors hover:text-accent-light"
+                >
+                  {CONTACT.email}
+                </a>
+              </li>
+            ) : null}
+          </>
+        ) : (
+          <li>
+            <a href="/kontakt/" class="text-cream/80 transition-colors hover:text-accent-light">
+              Strona kontaktowa
+            </a>
+          </li>
+        )}
+      </ul>
+      <p class="mt-5 text-xs leading-relaxed text-cream/40">
+        Masz pomysł na narzędzie lub poradnik? Napisz — baza rośnie z każdego zgłoszenia.
+      </p>
+    </div>
+  </div>
+
+  <!-- Pasek dolny -->
+  <div class="border-t border-white/10">
+    <div class="container-site flex flex-col items-center justify-between gap-2 py-5 text-xs text-cream/50 sm:flex-row">
+      <p>© {year} Najem KŚ. Darmowa baza wiedzy i narzędzi.</p>
+      <p>Zbudowane na otwartych komponentach — open source, self-hosted.</p>
+    </div>
+  </div>
+</footer>
+```
+
+
+---
+
+## `src/components/FormattedDate.astro`
+
+```astro
+---
+interface Props {
+	date: Date;
+}
+
+const { date } = Astro.props;
+---
+
+<time datetime={date.toISOString()}>
+	{
+		date.toLocaleDateString('en-us', {
+			year: 'numeric',
+			month: 'short',
+			day: 'numeric',
+		})
+	}
+</time>
+```
+
+
+---
+
+## `src/components/Header.astro`
+
+```astro
+---
+import { SITE_TITLE } from '../consts';
+import HeaderLink from './HeaderLink.astro';
+---
+
+<header>
+	<nav>
+		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<div class="internal-links">
+			<HeaderLink href="/">Home</HeaderLink>
+			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/about">About</HeaderLink>
+		</div>
+		<div class="social-links">
+			<a href="https://m.webtoo.ls/@astro" target="_blank">
+				<span class="sr-only">Follow Astro on Mastodon</span>
+				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
+					><path
+						fill="currentColor"
+						d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a3.614 3.614 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522c0-.859.22-1.541.66-2.046.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764.442.505.661 1.187.661 2.046v4.203z"
+					></path></svg
+				>
+			</a>
+			<a href="https://twitter.com/astrodotbuild" target="_blank">
+				<span class="sr-only">Follow Astro on Twitter</span>
+				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
+					><path
+						fill="currentColor"
+						d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"
+					></path></svg
+				>
+			</a>
+			<a href="https://github.com/withastro/astro" target="_blank">
+				<span class="sr-only">Go to Astro's GitHub repo</span>
+				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
+					><path
+						fill="currentColor"
+						d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+					></path></svg
+				>
+			</a>
+		</div>
+	</nav>
+</header>
+<style>
+	header {
+		margin: 0;
+		padding: 0 1em;
+		background: white;
+		box-shadow: 0 2px 8px rgba(var(--black), 5%);
+	}
+	h2 {
+		margin: 0;
+		font-size: 1em;
+	}
+
+	h2 a,
+	h2 a.active {
+		text-decoration: none;
+	}
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	nav a {
+		padding: 1em 0.5em;
+		color: var(--black);
+		border-bottom: 4px solid transparent;
+		text-decoration: none;
+	}
+	nav a.active {
+		text-decoration: none;
+		border-bottom-color: var(--accent);
+	}
+	.social-links,
+	.social-links a {
+		display: flex;
+	}
+	@media (max-width: 720px) {
+		.social-links {
+			display: none;
+		}
+	}
+</style>
+```
+
+
+---
+
+## `src/components/HeaderLink.astro`
+
+```astro
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'a'>;
+
+const { href, class: className, ...props } = Astro.props;
+const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
+const subpath = pathname.match(/[^\/]+/g);
+const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
+---
+
+<a href={href} class:list={[className, { active: isActive }]} {...props}>
+	<slot />
+</a>
+<style>
+	a {
+		display: inline-block;
+		text-decoration: none;
+	}
+	a.active {
+		font-weight: bolder;
+		text-decoration: underline;
+	}
+</style>
+```
+
+
+---
+
+## `src/components/HeroVisual.astro`
+
+```astro
+---
+// Subtelny wizualny panel workflow — czysty HTML/CSS, bez ilustracji
+// marketingowych. Pokazuje, czym jest "automatyzacja" na tej stronie:
+// samodzielnie uruchamiane narzędzia spięte w prosty workflow.
+const rows = [
+  { label: 'Kalendarze', detail: 'sync iCal z kanałów', status: 'co 60 min', statusClass: 'pill-green', icon: 'calendar' },
+  { label: 'Bot Telegram', detail: 'powiadomienia o rezerwacjach', status: 'aktywny', statusClass: 'pill-green', icon: 'bot' },
+  { label: 'Ceny', detail: 'reguły minimalnego pobytu', status: 'reguły: 3', statusClass: '', icon: 'tag' },
+];
+---
+
+<div class="hero-visual" aria-hidden="true">
+  <div class="hv-panel">
+    <div class="hv-titlebar">
+      <span class="hv-dots">
+        <i></i><i></i><i class="gold"></i>
+      </span>
+      <span class="hv-title">workflow · najem-ks</span>
+    </div>
+    <div class="hv-body">
+      {rows.map((row) => (
+        <div class="hv-row">
+          <span class="hv-icon">
+            {row.icon === 'calendar' && (
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="5" width="18" height="16" rx="3" />
+                <path d="M3 10h18M8 3v4M16 3v4" />
+              </svg>
+            )}
+            {row.icon === 'bot' && (
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 4L3 11l6 2.5L11.5 20l3.5-5 6-11z" />
+              </svg>
+            )}
+            {row.icon === 'tag' && (
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 12.5L12.5 20a2 2 0 0 1-2.8 0L4 14.3V4h10.3l5.7 5.7a2 2 0 0 1 0 2.8z" />
+                <circle cx="8" cy="8" r="1.6" />
+              </svg>
+            )}
+          </span>
+          <span class="hv-text">
+            <strong>{row.label}</strong>
+            <small>{row.detail}</small>
+          </span>
+          <span class={`pill ${row.statusClass}`}>{row.status}</span>
+        </div>
+      ))}
+      <div class="hv-progress">
+        <span style="width: 78%;"></span>
+      </div>
+      <p class="hv-progress-label">4 z 5 automatyzacji skonfigurowanych</p>
+    </div>
+  </div>
+
+  <span class="hv-chip hv-chip-code">cron&nbsp; 0 * * * *  sync-ical</span>
+  <span class="hv-chip hv-chip-meta">12 obiektów · 3 kanały</span>
+</div>
+
+<style>
+  .hero-visual {
+    position: relative;
+    padding: 1rem 0.5rem;
+  }
+  .hv-panel {
+    position: relative;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-pop);
+    overflow: hidden;
+  }
+  .hv-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.8rem 1.25rem;
+    background: var(--color-cream);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .hv-dots {
+    display: inline-flex;
+    gap: 0.3rem;
+  }
+  .hv-dots i {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--color-border-strong);
+  }
+  .hv-dots i.gold {
+    background: var(--color-accent-light);
+  }
+  .hv-title {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+  }
+  .hv-body {
+    padding: 1.25rem;
+    display: grid;
+    gap: 0.9rem;
+  }
+  .hv-row {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.8rem 0.95rem;
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+  .hv-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--color-primary);
+    color: var(--color-accent-light);
+  }
+  .hv-text {
+    display: grid;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+  .hv-text strong {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+  .hv-text small {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .hv-row .pill {
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  .hv-progress {
+    height: 8px;
+    border-radius: 999px;
+    background: var(--color-cream);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+  .hv-progress span {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-accent-light), var(--color-accent));
+  }
+  .hv-progress-label {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    margin-top: -0.2rem;
+  }
+  .hv-chip {
+    position: absolute;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-pop);
+  }
+  .hv-chip-code {
+    left: -0.5rem;
+    bottom: -0.75rem;
+    padding: 0.55rem 0.95rem;
+    background: var(--color-primary-dark);
+    color: #DCE8EC;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+  .hv-chip-meta {
+    right: 0;
+    top: -0.85rem;
+    padding: 0.5rem 0.95rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+</style>
+```
+
+
+---
+
+## `src/components/Navbar.astro`
+
+```astro
+---
+import { NAV } from '../consts';
+
+function isActive(href: string): boolean {
+  const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+  if (href === '/') return path === '/';
+  const base = href.replace(/\/+$/, '');
+  return path === base || path.startsWith(base + '/');
+}
+---
+
+<header class="site-header">
+  <nav
+    class="container-site flex items-center justify-between gap-4 py-3.5 md:py-4"
+    aria-label="Główna nawigacja"
+  >
+    <!-- Marka: lekki wordmark zamiast ciężkiego kwadratowego badge'a -->
+    <a href="/" class="brand" aria-label="Najem KŚ — strona główna">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+          <path
+            d="M12 2.5 L14 10 L21.5 12 L14 14 L12 21.5 L10 14 L2.5 12 L10 10 Z"
+            fill="currentColor"
+          />
+        </svg>
+      </span>
+      <span class="brand-name">Najem&thinsp;<span class="brand-accent">KŚ</span></span>
+    </a>
+
+    <!-- Menu desktop -->
+    <ul class="hidden items-center gap-0.5 md:flex">
+      {NAV.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class={`nav-link ${isActive(link.href) ? 'nav-link-active' : ''}`}
+            aria-current={isActive(link.href) ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Hamburger (mobile) -->
+    <button
+      id="menu-toggle"
+      type="button"
+      class="menu-btn md:hidden"
+      aria-label="Otwórz menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path id="icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 7h16M4 12h16M4 17h16" />
+        <path id="icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Menu mobilne -->
+  <div id="mobile-menu" class="hidden md:hidden">
+    <ul class="container-site flex flex-col gap-1 pb-5 pt-1">
+      {NAV.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class={`mobile-link ${isActive(link.href) ? 'mobile-link-active' : ''}`}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+      <li class="mt-3">
+        <span class="pill pill-dot">Darmowy dostęp · bez abonamentów</span>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<style>
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+  }
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, #204453 0%, #0E232C 100%);
+    color: #C9A24D;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.08);
+  }
+  .brand-name {
+    font-family: var(--font-heading);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-primary);
+  }
+  .brand-accent {
+    color: var(--color-accent-dark);
+  }
+  .menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+  }
+  .menu-btn:hover {
+    border-color: var(--color-border-strong);
+    background: var(--color-cream);
+  }
+  .mobile-link {
+    display: block;
+    padding: 0.7rem 0.9rem;
+    border-radius: var(--radius-md);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+  }
+  .mobile-link:hover {
+    background: var(--color-cream);
+  }
+  .mobile-link-active,
+  .mobile-link-active:hover {
+    background: var(--color-primary);
+    color: var(--color-cream);
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  toggle?.addEventListener('click', () => {
+    const nowHidden = menu?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', String(!nowHidden));
+    toggle.setAttribute('aria-label', nowHidden ? 'Otwórz menu' : 'Zamknij menu');
+    iconOpen?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+  });
+
+  // Zamknij menu po kliknięciu linku
+  menu?.querySelectorAll('a').forEach((a) =>
+    a.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+      toggle?.setAttribute('aria-expanded', 'false');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
+    })
+  );
+</script>
+```
+
+
+---
+
+## `src/components/ProjectCard.astro`
+
+```astro
+---
+interface Props {
+  title: string;
+  description: string;
+  level: string;
+  requirements?: string[];
+  tags?: string[];
+  repoUrl?: string;
+  demoUrl?: string;
+  guideUrl?: string;
+}
+
+const { title, description, level, requirements = [], tags = [], repoUrl, demoUrl, guideUrl } = Astro.props;
+---
+
+<article class="card card-hover flex h-full flex-col">
+  <div class="mb-3.5 flex items-center justify-between gap-3">
+    <span class="pill pill-accent">{level}</span>
+    <span class="pill pill-muted">do samodzielnego uruchomienia</span>
+  </div>
+
+  <h3>{title}</h3>
+  <p class="mt-2 text-sm leading-relaxed text-text-muted">{description}</p>
+
+  {requirements.length > 0 ? (
+    <div class="mt-4">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-[0.08em] text-text-muted">
+        Wymagania
+      </p>
+      <ul class="space-y-1.5">
+        {requirements.map((r) => (
+          <li class="flex items-start gap-2 text-sm text-text">
+            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="var(--color-accent)" stroke-width="1.8" class="mt-1 shrink-0" aria-hidden="true">
+              <path d="M3 8.5l3 3 7-7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>{r}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  ) : null}
+
+  {tags.length > 0 ? (
+    <div class="mt-4 flex flex-wrap gap-1.5">
+      {tags.map((tag) => (
+        <span class="pill">{tag}</span>
+      ))}
+    </div>
+  ) : null}
+
+  {(repoUrl || demoUrl || guideUrl) ? (
+  <div class="mt-5 flex flex-wrap items-center gap-3 border-t border-border pt-4">
+    {repoUrl ? (
+      <a href={repoUrl} target="_blank" rel="noopener" class="btn btn-sm btn-secondary">
+        <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+        </svg>
+        GitHub
+      </a>
+    ) : null}
+    {demoUrl ? (
+      <a href={demoUrl} target="_blank" rel="noopener" class="btn btn-sm btn-secondary">
+        Demo ↗
+      </a>
+    ) : null}
+    {guideUrl ? (
+      <a href={guideUrl} class="ml-auto inline-flex items-center gap-1.5 text-sm font-semibold text-accent-dark transition-colors hover:text-primary">
+        Otwórz poradnik
+        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+    ) : null}
+  </div>
+  ) : null}
+</article>
+```
+
+
+---
+
+## `src/components/SectionHeading.astro`
+
+```astro
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  align?: 'left' | 'center';
+  actionHref?: string;
+  actionLabel?: string;
+}
+
+const { eyebrow, title, lead, align = 'left', actionHref, actionLabel } = Astro.props;
+const centered = align === 'center';
+---
+
+<div
+  class={`flex flex-col gap-6 md:flex-row md:items-end md:justify-between ${
+    centered ? 'items-center text-center' : ''
+  }`}
+>
+  <div class={`max-w-2xl ${centered ? 'mx-auto' : ''}`}>
+    <p class="eyebrow mb-3">{eyebrow}</p>
+    <h2>{title}</h2>
+    {lead ? <p class={`lead mt-4 ${centered ? 'mx-auto' : ''}`}>{lead}</p> : null}
+  </div>
+  {actionHref && actionLabel ? (
+    <a
+      href={actionHref}
+      class="group inline-flex shrink-0 items-center gap-1.5 font-semibold text-primary transition-colors hover:text-accent-dark"
+    >
+      {actionLabel}
+      <span class="card-arrow inline-flex" aria-hidden="true">
+        <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </span>
+    </a>
+  ) : null}
+</div>
+```
+
+
+---
+
+## `src/components/ToolCard.astro`
+
+```astro
+---
+interface Props {
+  name: string;
+  who: string;
+  description: string;
+  stars: number;
+  license: string;
+  pushed_at: string;
+  archived?: boolean;
+  categoryLabel: string;
+  level: string;
+  guide?: string;
+  url: string;
+}
+
+const {
+  name, who, description, stars, license, pushed_at,
+  archived = false, categoryLabel, level, guide, url,
+} = Astro.props;
+
+const licClass =
+  /^(MIT|Apache-2\.0|BSD|BSD-2|BSD-3|BSD-3-Clause|ISC|Unlicense|CC0|CC-BY|Zlib)/.test(license)
+    ? 'lic-ok'
+    : license === 'None' || license === 'null'
+      ? 'lic-bad'
+      : 'lic-warn';
+
+const levelDots = level === 'zaawansowany' ? 3 : level === 'średni' ? 2 : 1;
+---
+
+<article class="card card-hover flex h-full flex-col">
+  <div class="mb-4 flex items-start justify-between gap-3">
+    <span class="tool-avatar" aria-hidden="true">{name.charAt(0).toUpperCase()}</span>
+    <span class="lic {licClass}" title={`Licencja: ${license}`}>{license}</span>
+  </div>
+
+  <h3 class="text-[1.05rem] leading-snug">
+    <a href={url} target="_blank" rel="noopener" class="transition-colors hover:text-accent-dark">
+      {name}
+      {archived ? (
+        <span class="lic lic-bad ml-2 align-middle" title="Repozytorium zarchiwizowane">
+          archiwum
+        </span>
+      ) : null}
+    </a>
+  </h3>
+  <p class="mt-1 text-xs font-medium uppercase tracking-[0.06em] text-text-muted/80">{who}</p>
+  <p class="mt-2.5 flex-1 text-sm leading-relaxed text-text-muted">{description}</p>
+
+  <div class="mt-4 flex flex-wrap items-center gap-1.5">
+    <span class="pill">{categoryLabel}</span>
+    <span class="pill pill-muted" title={`Poziom: ${level}`}>
+      <span class="level-dots" aria-hidden="true">
+        <i class={levelDots >= 1 ? 'on' : ''}></i>
+        <i class={levelDots >= 2 ? 'on' : ''}></i>
+        <i class={levelDots >= 3 ? 'on' : ''}></i>
+      </span>
+      {level}
+    </span>
+  </div>
+
+  <div class="mt-4 flex items-center justify-between gap-3 border-t border-border pt-4">
+    <span class="inline-flex items-center gap-3 text-xs text-text-muted">
+      <span class="inline-flex items-center gap-1">
+        <svg viewBox="0 0 16 16" width="13" height="13" fill="currentColor" class="text-accent" aria-hidden="true">
+          <path d="M8 1.5l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.3l-3.8 2-.7-4.3-3.1-3 4.3-.6z" />
+        </svg>
+        {stars.toLocaleString('pl-PL')}
+      </span>
+      <span class="hidden sm:inline">zmiana: {pushed_at}</span>
+    </span>
+    <span class="flex items-center gap-3 text-sm font-semibold">
+      {guide ? (
+        <a href={guide} class="text-accent-dark transition-colors hover:text-primary">
+          Poradnik
+        </a>
+      ) : null}
+      <a href={url} target="_blank" rel="noopener" class="group/github inline-flex items-center gap-1 text-primary transition-colors hover:text-accent-dark">
+        GitHub
+        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="M6.5 3.5H3.5v9.5h9.5v-3M9.5 2.5h4v4M13.5 2.5l-7 7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+    </span>
+  </div>
+</article>
+
+<style>
+  .tool-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    background: var(--color-primary);
+    color: var(--color-accent-light);
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .level-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .level-dots i {
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--color-border-strong);
+  }
+  .level-dots i.on {
+    background: var(--color-accent);
+  }
+</style>
+```
+
+
+---
+
+## `src/consts.ts`
+
+```typescript
+// Globalne dane strony — importuj skąd chcesz: `import { NAV } from '../consts'`
+
+export const SITE_TITLE = 'RentalDev';
+export const SITE_DESCRIPTION =
+  'Twoja baza wiedzy o automatyzacji najmu krótkoterminowego.';
+
+// Menu główne — kolejność = kolejność w navbarze
+export const NAV = [
+  { label: 'Start', href: '/' },
+  { label: 'Narzędzia', href: '/narzedzia' },
+  { label: 'Poradniki', href: '/blog' },
+  { label: 'Projekty', href: '/programy' },
+  { label: 'Wideo', href: '/wideo' },
+  { label: 'O stronie', href: '/about' },
+] as const;
+
+// Kontakt — {{DO_UZUPEŁNIENIA}}: podaj swoje dane
+export const CONTACT = {
+  telegram: '{{DO_UZUPEŁNIENIA}}', // np. https://t.me/twojanick
+  email: '{{DO_UZUPEŁNIENIA}}', // np. kontakt@twojadomena.pl
+};
+```
+
+
+---
+
+## `src/content.config.ts`
+
+```typescript
+import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
+
+// Poradniki — wszystkie treści są darmowe (schemat bez `access`/`price`
+// uniemożliwia przypadkowe przywrócenie paywalla).
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    heroImage: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    readingTime: z.string().optional(),
+  }),
+});
+
+// Wideo / tutoriale — miejsce pod przyszłe materiały wideo.
+// `videoUrl` (YouTube/Vimeo) — gdy puste, karta pokazuje stan "w przygotowaniu".
+const wideo = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/wideo' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    level: z.enum(['początkujący', 'średni', 'zaawansowany']).default('początkujący'),
+    videoUrl: z.string().optional(),
+    duration: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+  }),
+});
+
+// Projekty do samodzielnego uruchomienia (GitHub / open source / własne).
+const programy = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/programy' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    repoUrl: z.string().optional(),
+    demoUrl: z.string().optional(),
+    guideUrl: z.string().optional(),
+    level: z.enum(['początkujący', 'średni', 'zaawansowany']).default('początkujący'),
+    requirements: z.array(z.string()).default([]),
+    tags: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { blog, wideo, programy };
+```
+
+
+---
+
+## `src/content/blog/ile-placisz-za-saas.md`
+
+```markdown
+---
+title: "Ile naprawdę płacisz za SaaS-y do najmu? Policz to, zanim kupisz kolejny"
+description: "PMS, channel manager, narzędzie do sprzątania, dynamiczne ceny — host z 5 obiektów płaci 300–800 zł/mies. Pokazuję, ile z tego pokrywają darmowe odpowiedniki z katalogu."
+pubDate: 2026-09-08
+tags: ["koszty", "saas", "open-source"]
+readingTime: "6 min"
+---
+
+Cena abonamentu nigdy nie boli, bo jest rozłożona. Ale zsumuj kwartalne wyciągi — większość
+hostów tego nie robi.
+
+## Tabela prawdy (5 obiektów, PL, 2026)
+
+| Funkcja | Typowy SaaS | Darmowy odpowiednik z katalogu |
+|---|---|---|
+| Channel manager / sync iCal | 150–400 zł/mies | Sync-Rentals-Calendar + cron |
+| Kody do zamków z rezerwacji | 100–250 zł/mies | Home Assistant + własny skrypt |
+| Skrzynka wiadomości gości | 80–200 zł/mies | FreeScout + bot Telegram |
+| Plan sprzątań dla ekipy | 100–200 zł/mies | własny kalendarz iCal + czat |
+| Raporty rentowności | 150–300 zł/mies | Metabase + dbt (wzorce warehouse) |
+
+Suma SaaS: **580–1350 zł/mies.** Rocznie: **7–16 tys. zł.** To ceny za narzędzia, które
+raz skonfigurowane, robią rzeczy, do których nie potrzebujesz cudzej chmury.
+
+## Ale (i to ważne „ale”)
+
+Open-source nie jest darmowy w sensie „zero pracy”:
+
+1. **Ktoś musi to skonfigurować** — kilka godzin jednorazowo (Twoje albo kogoś, kto w to wchodzi).
+2. **Ktoś musi to utrzymywać** — aktualizacje, kopie zapasowe. To godziny w miesiącu, nie dni.
+3. **Nie każde narzędzie ma polskie wsparcie** — dokumentacje czytasz po angielsku.
+
+Dlatego zasada: **automatyzuj open-source tam, gdzie proces jest stabilny**
+(kalendarze, kody, alerty), i **płać za SaaS tam, gdzie liczy się wsparcie i szybka reakcja**
+(np. channel manager przy 10+ kanałach: każda godzina awarii to puste noce).
+
+## Kalkulator na marginesie kartki
+
+Zanim kupisz kolejny abonament, policz trzy liczby:
+
+1. Ile **godzin/mies.** realnie Cię to kosztuje dziś ręcznie?
+2. Ile kosztuje SaaS **rocznie**, z podatkiem?
+3. Po ilu miesiącach zwróciłyby się **godziny konfiguracji** na open-source?
+
+Jeśli punkt 3 wychodzi poniżej 12 miesięcy — zastanów się poważnie nad przejściem na
+open-source. Nie wiesz, które narzędzia z [katalogu](/narzedzia/) pasują do Twojej liczby
+obiektów? Podaj szczegóły przez [stronę kontaktową](/kontakt/) — pomogę dobrać zestaw
+i opiszę go w kolejnym poradniku.
+```
+
+
+---
+
+## `src/content/blog/jak-podpiac-beds24-do-telegrama.md`
+
+````markdown
+---
+title: "Jak podpiąć Beds24 do Telegrama"
+description: "Darmowe powiadomienia o rezerwacjach, anulowaniach i zmianach kalendarza prosto na Twój telefon. Własny bot, własny serwer, zero abonamentu."
+pubDate: 2026-09-01
+tags: ["beds24", "telegram", "automatyzacja"]
+readingTime: "9 min"
+---
+
+Zamiast co godzinę odświeżać panel Beds24, niech on sam napisze do Ciebie — na Telegrama.
+Poniżej najprostsza, w pełni darmowa wersja: hook z Beds24 → mały skrypt na Twoim serwerze →
+wiadomość do Twojego bota. Koszt: 0 zł/mies. (zakładając, że masz VPS — jeśli nie, zacznij od
+najtańszego dostępnego, wystarczy 1 vCPU).
+
+## Co dostaniesz
+
+- natychmiastową wiadomość na telefon przy zdarzeniu, które wybierzesz (np. nowa rezerwacja,
+  anulowanie, zmiana danych rezerwacji),
+- pełną kontrolę: treść, do kogo, jakie zdarzenia,
+- zero abonamentów i zero pośredników.
+
+## Czego potrzebujesz
+
+1. Konto Beds24 (z dostępem do ustawień hooków/webhooków).
+2. Bot w Telegramie (uruchomisz w 2 minuty).
+3. Adres URL do Twojego serwera z protokołem HTTPS (VPS + dowolny serwer web; do HTTPS
+   polecam Caddy — certyfikat załatwia sam).
+
+## Krok 1. Stwórz bota w Telegramie
+
+1. Otwórz Telegrama i znajdź **@BotFather** → `/newbot`.
+2. Podaj nazwę i użytkownika bota (np. `TwojNajemBot` / `twoj_najem_bot`).
+3. Zapisz **token** — wygląda jak `123456789:AAH...`. Trzymaj go jak hasło.
+
+## Krok 2. Pobierz swój chat_id
+
+1. Napisz do swojego bota cokolwiek (np. `start`).
+2. Otwórz w przeglądarce: `https://api.telegram.org/bot<TOKEN>/getUpdates`.
+3. W odpowiedzi JSON znajdziesz `"chat":{"id":123456789}` — to Twój `chat_id`.
+
+## Krok 3. Stwórz webhook w Beds24
+
+W panelu Beds24 wejdź w **Ustawienia → Hooks (Webhooks)** i dodaj nowy hook:
+
+1. **Zdarzenia** — zaznacz te, które Cię interesują (np. `Booking created`, `Booking cancelled`,
+   `Reservation modified`). Zaczynaj od jednego, żeby nie tonąć w wiadomościach.
+2. **URL** — podaj adres swojego endpointu, np. `https://twoj-serwer.pl/hook/beds24`.
+3. Jeśli Beds24 oferuje pole na dodatkowe nagłówki/sekret — użyj go (patrz Krok 5).
+
+Od tej chwili Beds24 przy każdym wybranym zdarzeniu wyśle do Twojego URL-a żądanie POST z
+danych tego zdarzenia.
+
+## Krok 4. Endpoint, który wysyła wiadomość
+
+Minimalny serwer w Pythonie (FastAPI) — na serwerze:
+
+```bash
+pip install fastapi uvicorn httpx
+```
+
+`webhook.py`:
+
+```python
+import os
+
+import httpx
+from fastapi import FastAPI, Request, HTTPException
+
+app = FastAPI()
+
+TOKEN = os.environ["TG_BOT_TOKEN"]   # token z kroku 1
+CHAT_ID = os.environ["TG_CHAT_ID"]   # chat_id z kroku 2
+SECRET = os.environ.get("HOOK_SECRET")  # opcjonalny wspólny sekret z Beds24
+
+
+@app.post("/hook/beds24")
+async def beds24_hook(request: Request):
+    # Weryfikacja sekretu (jeśli podałeś go w ustawieniach hooka)
+    if SECRET and request.headers.get("x-hook-secret") != SECRET:
+        raise HTTPException(status_code=403)
+
+    data = await request.json()
+
+    # Struktura payloadu zależy od zdarzenia — na start zaloguj całość
+    # (print(data)), sprawdź, jakie pola interesują Ciebie, i zbuduj treść.
+    event = data.get("hook_name") or data.get("event") or "zdarzenie"
+    fields = data.get("data") or data
+    lines = [f"🔔 Beds24: {event}"]
+    if isinstance(fields, dict):
+        lines += [f"{k}: {v}" for k, v in list(fields.items())[:8]]
+    text = "\n".join(lines)
+
+    async with httpx.AsyncClient(timeout=10) as client:
+        await client.post(
+            f"https://api.telegram.org/bot{TOKEN}/sendMessage",
+            json={"chat_id": CHAT_ID, "text": text},
+        )
+    return {"ok": True}
+```
+
+Uruchomienie:
+
+```bash
+TG_BOT_TOKEN="..." TG_CHAT_ID="123456789" HOOK_SECRET="..." \
+  uvicorn webhook:app --host 0.0.0.0 --port 8000
+```
+
+**Ważne:** dokładnie nie znam struktury payloadu dla każdego zdarzenia (Beds24 zmienia formaty) —
+dlatego skrypt na start loguje całość (`print(data)`). Obejrzyj 2–3 pierwsze zdarzenia i
+dopasuj listę pól do tego, co chcesz widzieć.
+
+## Krok 5. HTTPS, firewall i auto-start
+
+```Caddyfile
+# Caddyfile — Caddy sam wystawi i odnowi certyfikat
+twoj-serwer.pl {
+    reverse_proxy localhost:8000
+}
+```
+
+- **Nagłówek sekretu** — jeśli Beds24 pozwala na dodatkowe nagłówki, wstaw `x-hook-secret`
+  z losową wartością (skrypt powyżej go weryfikuje).
+- **Nieprzewidywalny path** — `/hook/beds24` jest OK, ale lepiej `/hook/x8k2m9` —
+  chroni przed losowymi skanami internetu.
+- **Auto-start** — systemd albo `pm2 start webhook.py --name beds24-webhook && pm2 save`.
+
+## Testowanie
+
+1. W panelu Beds24 wyszukaj opcję testu hooka (jednorazowe wywołanie) — albo poczekaj na
+   pierwsze naturalne zdarzenie.
+2. Sprawdź `journalctl -u caddy` / logi uvicorn, że dotarł POST.
+3. Telegram: powinna pojawić się wiadomość z nagłówkiem zdarzenia.
+
+## Ograniczenia i następne kroki
+
+- To **jednostronna** automatyzacja: dostajesz powiadomienia, ale nie odpowiadasz gościom.
+  Na auto-odpowiady gości potrzebujesz API Beds24 + frameworka botowego (aiogram/grammy —
+  oba w [katalogu](/narzedzia/)) i osobnego poradnika, który powstaje.
+- Hooki to „push”. Jeśli wolisz „pull” (sam co godzinę sprawdzasz API), Beds24 ma API
+  REST — to temat na kolejny wpis.
+
+Masz inne zdarzenie, które chcesz łapać (np. zmiana cen, wiadomość gościa)? Napisz przez
+[stronę kontaktową](/kontakt/) — jeśli temat się powtórzy, powstanie z niego osobny poradnik.
+````
+
+
+---
+
+## `src/content/blog/licencje-open-source-dla-hostow.md`
+
+```markdown
+---
+title: "Zanim użyjesz darmowego narzędzia z GitHub: licencje dla hostów, łamanie po polsku"
+description: "MIT, Apache, GPL, AGPL — co wolno Ci robić z darmowym narzędziem jako host najmu krótkoterminowego, a co grozi mandatem. Bez prawnika, na przykładach."
+pubDate: 2026-09-08
+tags: ["licencje", "open-source", "poradnik"]
+readingTime: "8 min"
+---
+
+Darmowe nie znaczy „rób co chcesz”. Każde narzędzie z [katalogu](/narzedzia/) ma licencję,
+która mówi, co wolno Ci zrobić z kodem. Krótki przewodnik dla hosta — bez prawnika.
+
+## Trzy kolory, którymi oznaczam narzędzia
+
+- **Zielony (MIT, Apache-2.0, BSD)** — używaj jak chcesz: komercyjnie, w swojej ofercie,
+  zmodyfikowany, nawet sprzedawaj. Jedyne wymagania: zachowaj informację o autorach w plikach
+  licencji. To jest „darmowe” w potocznym sensie.
+- **Żółty (GPL, AGPL, LGPL, MPL)** — wolno Ci **używać** narzędzia (uruchamiać je dla siebie
+  i klientów), ale jeśli zmienisz kod i rozpowszechniasz go dalej, musisz udostępnić swoje
+  zmiany na tych samych zasadach. AGPL dodatkowo „widzi” przez serwer. Praktyczna zasada dla hosta:
+  **używaj jako usługi, nie wbuduj w produkt, który sprzedajesz**.
+- **Czerwony (brak licencji)** — „all rights reserved”. Autor nie dał Ci żadnych praw.
+  Możesz patrzeć i uczyć się, ale nie kopiuj kodu.
+
+## Co to znaczy dla Twojego biznesu
+
+1. **PMS na MIT** — możesz go postawić dla swoich obiektów, zmienić logo
+   i obsługiwać nim 10 apartamentów. Możesz nawet wziąć pieniądze od innych hostów za „zarządzanie
+   ich obiektami w Twoim systemie”.
+2. **Narzędzie na AGPL (np. FreeScout, Grafana)** — postaw dla siebie, podłącz maila Booking.com,
+   używaj. Nie pakuj jego kodu w aplikację, którą sprzedasz jako swoją.
+3. **Scraper (np. pyairbnb)** — licencja MIT, ale to **warunki Airbnb**, nie licencja, są tu
+   problemem. Publiczne dane do analizy własnej — OK; systematyczne masowe pobieranie — ryzyko.
+
+## Szybka ściąga
+
+| Chcesz… | Licencja, której szukasz |
+|---|---|
+| używać narzędzia w swojej firmie | dowolna z zielonych |
+| wbudować w usługę dla klientów | MIT / Apache / BSD |
+| zmienić kod narzędzia dla siebie | dowolna, ale GPL wymaga publikacji zmian |
+| sprzedawać zmodyfikowaną wersję | tylko MIT / Apache / BSD |
+
+## Lista kontrolna przed wdrożeniem
+
+1. Sprawdź plik `LICENSE` w repo (nie opis na stronie).
+2. Jeśli GPL/AGPL: planujesz używać jako usługa? Jeśli tak — spokój.
+3. Jeśli brak licencji: napisz do autora o zgodę albo wybierz coś innego z katalogu.
+4. Zachowaj oryginalne pliki licencji w swoich wdrożeniach (to obowiązek w MIT/Apache).
+
+## Gdzie szukać dalej
+
+- Pełny spis licencji z [katalogu](/narzedzia/) jest oznaczony kolorami przy każdej pozycji —
+  przed instalacją spójrz na chip przy nazwie narzędzia.
+- W razie wątpliwości przeczytaj `LICENSE` dwa razy i zachowaj go w swoim repozytorium.
+
+Znalazłeś narzędzie, o którego licencji nie jestem pewien? Podaj link przez
+[stronę kontaktową](/kontakt/) — dopiszę analizę do poradnika.
+```
+
+
+---
+
+## `src/content/blog/sync-kalendarzy-ical-za-darmo.md`
+
+````markdown
+---
+title: "Sync kalendarzy Airbnb i Booking za darmo: iCal na własnym serwerze"
+description: "Krok po kroku: zbierasz feedy iCal wszystkich kanałów na własnym serwerze i widzisz jeden kalendarz. Zero abonamentu, pełna kontrola. Na bazie Sync-Rentals-Calendar."
+pubDate: 2026-09-08
+tags: ["kalendarze", "ical", "poradnik"]
+readingTime: "7 min"
+---
+
+Podwójne rezerwacje biorą się z tego, że każdy kanał ma „swój” kalendarz. Rozwiązanie znasz:
+channel manager za 150–400 zł/mies. Jest też droga darmowa — na własnym serwerze, na otwartych
+komponentach z [katalogu](/narzedzia/). Pokażę najprostszą wersję.
+
+## Co zbudujemy
+
+- jeden zbiorczy kalendarz wszystkich Twoich obiektów i kanałów,
+- odświeżany automatycznie (np. co godzinę),
+- dostępny w przeglądarce i do subskrypcji w telefonie,
+- koszt: 0 zł (zakładam, że masz VPS — jeśli nie, zacznij od [Radicale](#krok-0)).
+
+## Krok 0. Wybierz bazę
+
+- **Sync-Rentals-Calendar** (PHP) — najprostszy self-hosted „iCal middle layer” dla hostów.
+- **Radicale** (Python, GPL) — lekki serwer CalDAV: kalendarz subskrybowany w kalendarzu telefonu.
+- **node-ical** (Node) lub **icalendar** (Python) — jeśli chcesz napisać własny kawałek logiki.
+
+## Krok 1. Zbierz adresy feedów
+
+W panelu każdego kanału znajdź eksport kalendarza (Airbnb: Profil → Ustawienia → Integracje →
+Kalendarz → Eksport; Booking podobnie). Zapisz URL-e — to zwykłe linki `.ics`.
+
+## Krok 2. Postaw Sync-Rentals-Calendar na VPS
+
+```bash
+git clone https://github.com/pixelcrash/Sync-Rentals-Calendar.git
+cd Sync-Rentals-Calendar
+# postępuj wg README: PHP + lekki serwer (php -S lub nginx)
+```
+
+Wklej feedy wszystkich kanałów. Od tej chwili masz **jedno miejsce prawdy** dla dostępności.
+
+## Krok 3. Spraw, żeby kanały mówiły prawdę
+
+Ważne: samo „oglądanie” nie chroni przed podwójną rezerwacją. W panelu każdego kanału
+podaj też **import** z Twojego serwera (feed zwrotny). Kanały będą się blokować nawzajem
+w ciągu kilku minut od rezerwacji, zamiast czekać na ręczną aktualizację.
+
+## Krok 4. Automatyczne odświeżanie
+
+Cron wystarczy:
+
+```cron
+0 * * * * curl -s https://twoj-serwer.pl/sync.php > /dev/null
+```
+
+## Typowe problemy
+
+- **Feed przestaje działać po zmianie hasła Airbnb** — wygeneruj nowy link, podmień.
+- **Kanał cache'uje import** — Booking potrafi odświeżać rzadziej niż deklaruje; przy
+  obiektach z krótkimi horyzontami ustaw przypomnienie weryfikacji ręcznej wieczorem.
+- **Strefy czasowe** — iCal operuje na UTC; wyświetlaj lokalne, loguj UTC.
+
+## Kiedy to nie wystarcza
+
+Powyżej ~4 obiektów i 2 kanałów sam kalendarz to za mało — chcesz reguł: minimalnego pobytu,
+blokad serwisowych, stref cen. Wtedy ma sens bardziej rozbudowany PMS z [katalogu](/narzedzia/)
+albo własna warstwa reguł nałożona na ten zestaw.
+
+Uważasz, że brakuje tu jakiegoś scenariusza albo kolejności kroków? Napisz przez
+[stronę kontaktową](/kontakt/) — tematy z największym zainteresowaniem trafiają do kolejnych
+poradników.
+````
+
+
+---
+
+## `src/content/kursy/pierwsze-kroki-w-automatyzacji.md`
+
+```markdown
+---
+title: "Pierwsze kroki w automatyzacji najmu"
+description: "Darmowy kurs dla początkujących — od mapowania procesów po pierwszy automatyzacja."
+pubDate: 2026-08-15
+access: free
+level: początkujący
+tags: ["start", "automatyzacja", "dla-początkujących"]
+---
+Treść kursu.
+```
+
+
+---
+
+## `src/content/kursy/szablon-cennika-dynamicznego.md`
+
+```markdown
+---
+title: "Szablon cennika dynamicznego dla Airbnb i Booking"
+description: "Jak obniżyć stawkę przy 7-dniowej przerwie bez ręcznego klikania?"
+pubDate: 2026-09-02
+access: paid
+level: średni
+tags: ["cennik", "revenue", "automatyzacja"]
+---
+Treść kursu.
+```
+
+
+---
+
+## `src/content/programy/beds24-telegram-bot.md`
+
+```markdown
+---
+title: "Beds24 Telegram Bot"
+description: "Bot do obsługi wiadomości gości z poziomu Telegrama — powiadomienia o rezerwacjach i szybkie odpowiedzi bez wchodzenia do panelu."
+pubDate: 2026-08-20
+level: początkujący
+requirements: ["Python 3.11+", "token bota (BotFather)", "dostęp do API Beds24"]
+tags: ["beds24", "telegram", "python"]
+---
+Opis projektu (w przygotowaniu) — docelowo link do repozytorium oraz poradnik krok po kroku.
+```
+
+
+---
+
+## `src/content/programy/ical-cleaner.md`
+
+```markdown
+---
+title: "iCal Cleaner"
+description: "Skrypt Python do łączenia kalendarzy iCal z różnych kanałów w jeden porządkowany plik — baza poradnika o synchronizacji."
+pubDate: 2026-08-10
+level: początkujący
+requirements: ["Python 3.10+", "pliki .ics z kanałów"]
+tags: ["python", "ical", "kalendarze"]
+guideUrl: "/blog/sync-kalendarzy-ical-za-darmo/"
+---
+Opis projektu (w przygotowaniu) — docelowo link do repozytorium oraz poradnik krok po kroku.
+```
+
+
+---
+
+## `src/content/wideo/pierwsze-kroki-w-automatyzacji.md`
+
+```markdown
+---
+title: "Pierwsze kroki w automatyzacji najmu"
+description: "Od mapowania procesów po pierwszą automatyzację: co zautomatyzować, w jakiej kolejności i od którego narzędzia zacząć."
+pubDate: 2026-08-15
+level: początkujący
+tags: ["start", "automatyzacja"]
+---
+Treść tutoriala (w przygotowaniu).
+```
+
+
+---
+
+## `src/content/wideo/szablon-cennika-dynamicznego.md`
+
+```markdown
+---
+title: "Szablon cennika dynamicznego dla Airbnb i Booking"
+description: "Jak obniżyć stawkę przy dłuższych przerwach bez ręcznego klikania — reguły, wyjątki i testy na realnych danych."
+pubDate: 2026-09-02
+level: średni
+tags: ["cennik", "airbnb", "booking"]
+---
+Treść tutoriala (w przygotowaniu).
+```
+
+
+---
+
+## `src/data/tools.json`
+
+```json
+[
+  {
+    "name": "langflow",
+    "repo": "langflow-ai/langflow",
+    "url": "https://github.com/langflow-ai/langflow",
+    "category": "ai",
+    "description": "Wizualny builder przepływów LLM w Pythonie (MIT).",
+    "who": "Prototypowanie agentów bez kodu",
+    "stars": 154412,
+    "license": "MIT",
+    "pushed_at": "2026-09-08",
+    "archived": false
+  },
+  {
+    "name": "Flowise",
+    "repo": "FlowiseAI/Flowise",
+    "url": "https://github.com/FlowiseAI/Flowise",
+    "category": "ai",
+    "description": "Wizualny builder agentów LLM/RAG — demo AI koncjercierka w 20 minut (Apache-2.0 core).",
+    "who": "Szybkie demo AI dla gości",
+    "stars": 55429,
+    "license": "NOASSERTION",
+    "pushed_at": "2026-08-13",
+    "archived": true
+  },
+  {
+    "name": "mcp-server-airbnb",
+    "repo": "openbnb-org/mcp-server-airbnb",
+    "url": "https://github.com/openbnb-org/mcp-server-airbnb",
+    "category": "ai",
+    "description": "Serwer MCP: agent AI przeszukuje oferty Airbnb (MIT). Wzorzec do budowy własnego MCP dla PMS.",
+    "who": "Analiza konkurencji przez agenta AI",
+    "stars": 527,
+    "license": "MIT",
+    "pushed_at": "2026-08-06",
+    "archived": false
+  },
+  {
+    "name": "hostaway-mcp",
+    "repo": "prosperkartik/hostaway-mcp",
+    "url": "https://github.com/prosperkartik/hostaway-mcp",
+    "category": "ai",
+    "description": "Serwer MCP dla PMS Hostaway — dowód wzorca 'MCP dla systemu najmu' (MIT).",
+    "who": "Wzorzec integracji agent ↔ PMS",
+    "stars": 2,
+    "license": "MIT",
+    "pushed_at": "2026-05-07",
+    "archived": false
+  },
+  {
+    "name": "n8n",
+    "repo": "n8n-io/n8n",
+    "url": "https://github.com/n8n-io/n8n",
+    "category": "auto",
+    "description": "Wizualna automatyzacja workflow z węzłami AI, HTTP, cron (fair-code: wewnętrzne użycie i wdrożenia u klientów OK, hostowanie jako własny SaaS NIE).",
+    "who": "Automatyzacje bez kodu — kursy no-code",
+    "stars": 203679,
+    "license": "NOASSERTION",
+    "pushed_at": "2026-09-07",
+    "archived": false
+  },
+  {
+    "name": "activepieces",
+    "repo": "activepieces/activepieces",
+    "url": "https://github.com/activepieces/activepieces",
+    "category": "auto",
+    "description": "Alternatywa dla n8n z czystym MIT — można osadzać we własnym produkcie.",
+    "who": "Automatyzacje embedowane w produkcie",
+    "stars": 24325,
+    "license": "NOASSERTION",
+    "pushed_at": "2026-09-08",
+    "archived": false
+  },
+  {
+    "name": "chatwoot",
+    "repo": "chatwoot/chatwoot",
+    "url": "https://github.com/chatwoot/chatwoot",
+    "category": "comm",
+    "description": "Omnichannel inbox: WhatsApp, Telegram, e-mail, czat na stronie — gotowy frontend operatora (MIT core, 36k+ gwiazdek).",
+    "who": "Wspólna skrzynka gości i właścicieli",
+    "stars": 36584,
+    "license": "NOASSERTION",
+    "pushed_at": "2026-09-07",
+    "archived": false
+  },
+  {
+    "name": "python-telegram-bot",
+    "repo": "python-telegram-bot/python-telegram-bot",
+    "url": "https://github.com/python-telegram-bot/python-telegram-bot",
+    "category": "comm",
+    "description": "Pełny wrapper Telegram Bot API (LGPL-3.0, 29k+ gwiazdek).",
+    "who": "Boty dla ekip i alertów",
+    "stars": 29455,
+    "license": "GPL-3.0",
+    "pushed_at": "2026-09-06",
+    "archived": false
+  },
+  {
+    "name": "whatsapp-web.js",
+    "repo": "wwebjs/whatsapp-web.js",
+    "url": "https://github.com/wwebjs/whatsapp-web.js",
+    "category": "comm",
+    "description": "Klient WhatsApp Web przez Puppeteer (Apache-2.0, 22k+ gwiazdek).",
+    "who": "Szybkie prototypy WA",
+    "stars": 22530,
+    "license": "Apache-2.0",
+    "pushed_at": "2026-09-06",
+    "archived": false
+  },
+  {
+    "name": "Baileys",
+    "repo": "WhiskeySockets/Baileys",
+    "url": "https://github.com/WhiskeySockets/Baileys",
+    "category": "comm",
+    "description": "Biblioteka WhatsApp Web (MIT) — komponent pod Evolution API (ToS WhatsApp).",
+    "who": "Prototypy integracji WA",
+    "stars": 10975,
+    "license": "MIT",
+    "pushed_at": "2026-09-06",
+    "archived": false
+  },
+  {
+    "name": "evolution-api",
+    "repo": "evolution-foundation/evolution-api",
+    "url": "https://github.com/evolution-foundation/evolution-api",
+    "category": "comm",
+    "description": "Self-hosted API WhatsApp z webhookami (Apache-2.0; część kanałów nieoficjalna — ryzyko banów).",
+    "who": "Komunikacja z ekipą sprzątającą",
+    "stars": 9559,
+    "license": "NOASSERTION",
+    "pushed_at": "2026-07-14",
+    "archived": false
+  },
+  {
+    "name": "waha",
+    "repo": "devlikeapro/waha",
+    "url": "https://github.com/devlikeapro/waha",
+    "category": "comm",
+    "description": "WhatsApp HTTP API w Dockerze (Core darmowy).",
+    "who": "Alternatywa dla Evolution",
+    "stars": 7348,
+    "license": "Apache-2.0",
+    "pushed_at": "2026-09-01",
+    "archived": false
+  },
+  {
+    "name": "aiogram",
+    "repo": "aiogram/aiogram",
+    "url": "https://github.com/aiogram/aiogram",
+    "category": "comm",
+    "description": "Async framework Telegram z czystym MIT.",
+    "who": "Boty — gdy liczy się licencja",
+    "stars": 5860,
+    "license": "MIT",
+    "pushed_at": "2026-08-26",
+    "archived": false
+  },
+  {
+    "name": "freescout",
+    "repo": "freescout-help-desk/freescout",
+    "url": "https://github.com/freescout-help-desk/freescout",
+    "category": "comm",
+    "description": "Lekki helpdesk e-mail — skrzynka dla wiadomości Booking.com, które przychodzą mailem (AGPL-3.0).",
+    "who": "Tickety z maili OTA",
+    "stars": 4528,
+    "license": "AGPL-3.0",
+    "pushed_at": "2026-09-07",
+    "archived": false
+  },
+  {
+    "name": "grammY",
+    "repo": "grammyjs/grammY",
+    "url": "https://github.com/grammyjs/grammY",
+    "category": "comm",
+    "description": "Nowoczesny framework Telegram dla TS (MIT).",
+    "who": "Boty w Node",
+    "stars": 3735,
+    "license": "MIT",
+    "pushed_at": "2026-08-26",
+    "archived": false
+  },
+  {
+    "name": "pyairbnb",
+    "repo": "johnbalvin/pyairbnb",
+    "url": "https://github.com/johnbalvin/pyairbnb",
+    "category": "data",
+    "description": "Scraper Airbnb: ceny, recenzje, kalendarze (MIT; uwaga na ToS Airbnb — tylko dane publiczne).",
+    "who": "Research konkurencji",
+    "stars": 149,
+    "license": "MIT",
+    "pushed_at": "2026-08-22",
+    "archived": false
+  },
+  {
+    "name": "short-term-rentals-warehouse",
+    "repo": "rsanjabi/short-term-rentals-warehouse",
+    "url": "https://github.com/rsanjabi/short-term-rentals-warehouse",
+    "category": "data",
+    "description": "Hurtownia BI danych najmu: dbt + model danych (MIT).",
+    "who": "Wzorzec raportów rentowności",
+    "stars": 15,
+    "license": "brak/zobacz w repo",
+    "pushed_at": "2023-06-09",
+    "archived": false
+  },
+  {
+    "name": "strr",
+    "repo": "UPGo-McGill/strr",
+    "url": "https://github.com/UPGo-McGill/strr",
+    "category": "data",
+    "description": "Akademickie narzędzia analizy rynku najmu krótkoterminowego (R).",
+    "who": "Metodologia analizy rynku",
+    "stars": 5,
+    "license": "brak/zobacz w repo",
+    "pushed_at": "2024-06-09",
+    "archived": false
+  },
+  {
+    "name": "beds24",
+    "repo": "api-evangelist/beds24",
+    "url": "https://github.com/api-evangelist/beds24",
+    "category": "data",
+    "description": "Specyfikacja OpenAPI Beds24 — mapa endpointów przed budową integracji.",
+    "who": "Dokumentacja API Beds24",
+    "stars": 0,
+    "license": "brak/zobacz w repo",
+    "pushed_at": "2026-09-04",
+    "archived": false
+  },
+  {
+    "name": "api",
+    "repo": "Hostaway/api",
+    "url": "https://github.com/Hostaway/api",
+    "category": "data",
+    "description": "Dokumentacja API Hostaway w formacie Slate (MIT).",
+    "who": "Wzorzec dokumentacji API PMS",
+    "stars": 0,
+    "license": "NOASSERTION",
+    "pushed_at": "2026-09-07",
+    "archived": false
+  },
+  {
+    "name": "Radicale",
+    "repo": "Kozea/Radicale",
+    "url": "https://github.com/Kozea/Radicale",
+    "category": "ical",
+    "description": "Lekki serwer CalDAV — self-hosted magazyn kalendarzy subskrybowanych w telefonie (GPL: używać jako usługa, nie odsprzedawać zmodyfikowanego).",
+    "who": "Wspólny kalendarz dla ekipy sprzątającej",
+    "stars": 4977,
+    "license": "GPL-3.0",
+    "pushed_at": "2026-09-07",
+    "archived": false
+  },
+  {
+    "name": "calendar",
+    "repo": "nextcloud/calendar",
+    "url": "https://github.com/nextcloud/calendar",
+    "category": "ical",
+    "description": "Kalendarz z subskrypcją iCal — jeśli już używasz Nextclouda (AGPL).",
+    "who": "Hosty już na Nextcloudzie",
+    "stars": 1184,
+    "license": "AGPL-3.0",
+    "pushed_at": "2026-09-08",
+    "archived": false
+  },
+  {
+    "name": "ical.js",
+    "repo": "kewisch/ical.js",
+    "url": "https://github.com/kewisch/ical.js",
+    "category": "ical",
+    "description": "Parser iCal/vCard w JS używany w Thunderbirdzie (MPL-2.0).",
+    "who": "Parser do dashboardów frontendowych",
+    "stars": 1177,
+    "license": "MPL-2.0",
+    "pushed_at": "2026-08-31",
+    "archived": false
+  },
+  {
+    "name": "icalendar",
+    "repo": "collective/icalendar",
+    "url": "https://github.com/collective/icalendar",
+    "category": "ical",
+    "description": "Standardowy parser/generator iCal w Pythonie (BSD).",
+    "who": "Komponent bazowy dla Pythona",
+    "stars": 1171,
+    "license": "NOASSERTION",
+    "pushed_at": "2026-09-08",
+    "archived": false
+  },
+  {
+    "name": "ics-py",
+    "repo": "ics-py/ics-py",
+    "url": "https://github.com/ics-py/ics-py",
+    "category": "ical",
+    "description": "Pythoniczne czytanie i tworzenie plików ICS.",
+    "who": "Generowanie np. kalendarza sprzątań dla ekipy",
+    "stars": 721,
+    "license": "NOASSERTION",
+    "pushed_at": "2026-04-15",
+    "archived": false
+  },
+  {
+    "name": "node-ical",
+    "repo": "jens-maus/node-ical",
+    "url": "https://github.com/jens-maus/node-ical",
+    "category": "ical",
+    "description": "Parser iCal dla Node z obsługą URL i reguł cyklicznych (Apache-2.0).",
+    "who": "Komponent do budowy własnych integracji",
+    "stars": 170,
+    "license": "Apache-2.0",
+    "pushed_at": "2026-09-03",
+    "archived": false
+  },
+  {
+    "name": "python-recurring-ical-events",
+    "repo": "niccokunzmann/python-recurring-ical-events",
+    "url": "https://github.com/niccokunzmann/python-recurring-ical-events",
+    "category": "ical",
+    "description": "Rozwijanie zdarzeń cyklicznych z ICS (LGPL-3.0).",
+    "who": "Cykliczne kontrole i zadania",
+    "stars": 121,
+    "license": "LGPL-3.0",
+    "pushed_at": "2026-07-20",
+    "archived": false
+  },
+  {
+    "name": "Sync-Rentals-Calendar",
+    "repo": "pixelcrash/Sync-Rentals-Calendar",
+    "url": "https://github.com/pixelcrash/Sync-Rentals-Calendar",
+    "category": "ical",
+    "description": "Najprostszy self-hosted sync kalendarzy Airbnb/Booking — PHP, na własnym serwerze.",
+    "who": "Pierwszy krok do własnej automatyzacji kalendarza",
+    "stars": 41,
+    "license": "brak/zobacz w repo",
+    "pushed_at": "2020-01-23",
+    "archived": false
+  },
+  {
+    "name": "RentTools.io",
+    "repo": "Gribadan/RentTools.io",
+    "url": "https://github.com/Gribadan/RentTools.io",
+    "category": "ical",
+    "description": "Narzędzia dla gospodarzy oparte o kalendarze iCal (Next.js + SQLite, MIT).",
+    "who": "Sync kalendarzy wielu kanałów",
+    "stars": 22,
+    "license": "MIT",
+    "pushed_at": "2026-09-07",
+    "archived": false
+  },
+  {
+    "name": "core",
+    "repo": "home-assistant/core",
+    "url": "https://github.com/home-assistant/core",
+    "category": "locks",
+    "description": "Hub IoT dla apartamentu: temperatura, hałas, wycieki, energia → alerty (Apache-2.0, 75k+ gwiazdek).",
+    "who": "Monitoring obiektu bez abonamentu",
+    "stars": 90315,
+    "license": "Apache-2.0",
+    "pushed_at": "2026-09-08",
+    "archived": false
+  },
+  {
+    "name": "zigbee2mqtt",
+    "repo": "Koenkk/zigbee2mqtt",
+    "url": "https://github.com/Koenkk/zigbee2mqtt",
+    "category": "locks",
+    "description": "Bramka Zigbee → MQTT dla tanich czujników (GPL-3.0).",
+    "who": "Sensorika obiektu bez chmury",
+    "stars": 15610,
+    "license": "GPL-3.0",
+    "pushed_at": "2026-09-06",
+    "archived": false
+  },
+  {
+    "name": "esphome",
+    "repo": "esphome/esphome",
+    "url": "https://github.com/esphome/esphome",
+    "category": "locks",
+    "description": "Firmware dla własnych czujników (hałas, wilgoć) za kilkadziesiąt złotych.",
+    "who": "DIY czujniki do demo",
+    "stars": 11661,
+    "license": "NOASSERTION",
+    "pushed_at": "2026-09-08",
+    "archived": false
+  },
+  {
+    "name": "keymaster",
+    "repo": "FutureTense/keymaster",
+    "url": "https://github.com/FutureTense/keymaster",
+    "category": "locks",
+    "description": "Zarządzanie slotami kodów w zamkach Z-Wave/Zigbee w Home Assistant (MIT).",
+    "who": "Para do Rental Control",
+    "stars": 348,
+    "license": "MIT",
+    "pushed_at": "2026-09-07",
+    "archived": false
+  },
+  {
+    "name": "homeassistant-rental-control",
+    "repo": "tykeal/homeassistant-rental-control",
+    "url": "https://github.com/tykeal/homeassistant-rental-control",
+    "category": "locks",
+    "description": "Najdojrzalsza open-source ścieżka iCal → kod do zamka: czyta kalendarz Airbnb, generuje kody w turnusach check-in/out (Apache-2.0).",
+    "who": "Automatyczne kody do drzwi z rezerwacji",
+    "stars": 81,
+    "license": "Apache-2.0",
+    "pushed_at": "2026-09-07",
+    "archived": false
+  },
+  {
+    "name": "pynuki",
+    "repo": "pschmitt/pynuki",
+    "url": "https://github.com/pschmitt/pynuki",
+    "category": "locks",
+    "description": "Klient Python dla Nuki Bridge — integracja bez chmury (GPL-3.0).",
+    "who": "Hosty z zamkami Nuki",
+    "stars": 20,
+    "license": "GPL-3.0",
+    "pushed_at": "2026-07-20",
+    "archived": false
+  },
+  {
+    "name": "python",
+    "repo": "seamapi/python",
+    "url": "https://github.com/seamapi/python",
+    "category": "locks",
+    "description": "Ujednolicone SDK do zamków August, Yale, Schlage, Nuki, TTLock (MIT; samo API Seam płatne).",
+    "who": "Wielozamkowe portfele 20+ obiektów",
+    "stars": 19,
+    "license": "MIT",
+    "pushed_at": "2026-09-02",
+    "archived": false
+  },
+  {
+    "name": "QloApps",
+    "repo": "Qloapps/QloApps",
+    "url": "https://github.com/Qloapps/QloApps",
+    "category": "pms",
+    "description": "Hotelowy PMS z booking engine i modułem housekeeping. Ciężki, ale dojrzały — jako referencja lub hosting dla większego obiektu.",
+    "who": "Większe obiekty / pensjonaty",
+    "stars": 14340,
+    "license": "OSL-3.0",
+    "pushed_at": "2026-09-07",
+    "archived": false
+  },
+  {
+    "name": "microrealestate",
+    "repo": "microrealestate/microrealestate",
+    "url": "https://github.com/microrealestate/microrealestate",
+    "category": "pms",
+    "description": "System dla wynajmujących: najemcy, czynsze, dokumenty, umowy. Wzorzec rozliczeń właścicielskich (owner statements).",
+    "who": "Moduł rozliczeń dla zarządzających wieloma obiektami",
+    "stars": 1186,
+    "license": "NOASSERTION",
+    "pushed_at": "2026-09-01",
+    "archived": false
+  },
+  {
+    "name": "condo",
+    "repo": "open-condo-software/condo",
+    "url": "https://github.com/open-condo-software/condo",
+    "category": "pms",
+    "description": "Ticketing usterek, kontakty, faktury, mini-aplikacje. Dojrzały wzorzec modułowego systemu serwisowego.",
+    "who": "Śledzenie usterek i zleceń napraw",
+    "stars": 404,
+    "license": "MIT",
+    "pushed_at": "2026-09-07",
+    "archived": false
+  },
+  {
+    "name": "movinin",
+    "repo": "aelassas/movinin",
+    "url": "https://github.com/aelassas/movinin",
+    "category": "pms",
+    "description": "Kompletna platforma zarządzania najmem: panel admina, frontend rezerwacji i aplikacja mobilna. Licencja MIT pozwala używać komercyjnie.",
+    "who": "Direct booking engine dla hosta z kilkoma obiektami",
+    "stars": 221,
+    "license": "MIT",
+    "pushed_at": "2026-07-13",
+    "archived": false
+  },
+  {
+    "name": "OpenKos",
+    "repo": "senatroxx/OpenKos",
+    "url": "https://github.com/senatroxx/OpenKos",
+    "category": "pms",
+    "description": "Najem krótko- i długoterminowy w Laravelu (MIT).",
+    "who": "Mieszany portfel najmu",
+    "stars": 99,
+    "license": "Apache-2.0",
+    "pushed_at": "2026-09-04",
+    "archived": false
+  },
+  {
+    "name": "pesan-pms",
+    "repo": "pesanio/pesan-pms",
+    "url": "https://github.com/pesanio/pesan-pms",
+    "category": "pms",
+    "description": "Lekki PMS (Bun + React, MIT) — zarządzanie obiektami i rezerwacjami.",
+    "who": "Prosty starter PMS do własnej rozbudowy",
+    "stars": 58,
+    "license": "MIT",
+    "pushed_at": "2025-05-18",
+    "archived": false
+  },
+  {
+    "name": "kamra-pms",
+    "repo": "Kamra-PMS/kamra-pms",
+    "url": "https://github.com/Kamra-PMS/kamra-pms",
+    "category": "pms",
+    "description": "PMS z fakturowaniem na frameworku Frappe (Python).",
+    "who": "Fakturowanie najmu — kraje wymagające faktur",
+    "stars": 30,
+    "license": "AGPL-3.0",
+    "pushed_at": "2026-09-07",
+    "archived": false
+  },
+  {
+    "name": "drbookings",
+    "repo": "DrBookings/drbookings",
+    "url": "https://github.com/DrBookings/drbookings",
+    "category": "pms",
+    "description": "Desktop: rezerwacje + plan sprzątań + finanse w jednym (Java).",
+    "who": "Inspircja: iCal → sprzątanie → finanse",
+    "stars": 13,
+    "license": "GPL-2.0",
+    "pushed_at": "2021-12-07",
+    "archived": false
+  },
+  {
+    "name": "roost",
+    "repo": "captainarcher/roost",
+    "url": "https://github.com/captainarcher/roost",
+    "category": "pms",
+    "description": "Operacje najmu w Python/FastAPI (Apache-2.0).",
+    "who": "Baza pod własne narzędzie operacyjne w Pythonie",
+    "stars": 3,
+    "license": "Apache-2.0",
+    "pushed_at": "2026-05-26",
+    "archived": true
+  },
+  {
+    "name": "OpenSTR",
+    "repo": "lkilpatrick/OpenSTR",
+    "url": "https://github.com/lkilpatrick/OpenSTR",
+    "category": "pms",
+    "description": "Self-hosted zarządzanie sprzątaniem: checklisty, obowiązkowe zdjęcia before/after (GPL-3.0 — jako inspiracja/własna instancja).",
+    "who": "Kontrola jakości sprzątania",
+    "stars": 1,
+    "license": "GPL-3.0",
+    "pushed_at": "2026-04-07",
+    "archived": false
+  }
+]
+```
+
+
+---
+
+## `src/layouts/BlogPost.astro`
+
+```astro
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.hero-image {
+				width: 100%;
+			}
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 12px;
+				box-shadow: var(--box-shadow);
+			}
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+			}
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+				margin: 0 0 0.5em 0;
+			}
+			.date {
+				margin-bottom: 0.5em;
+				color: rgb(var(--gray));
+			}
+			.last-updated-on {
+				font-style: italic;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				<div class="hero-image">
+					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+				</div>
+				<div class="prose">
+					<div class="title">
+						<div class="date">
+							<FormattedDate date={pubDate} />
+							{
+								updatedDate && (
+									<div class="last-updated-on">
+										Last updated on <FormattedDate date={updatedDate} />
+									</div>
+								)
+							}
+						</div>
+						<h1>{title}</h1>
+						<hr />
+					</div>
+					<slot />
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
+```
+
+
+---
+
+## `src/layouts/BlogPostLayout.astro`
+
+```astro
+---
+import Layout from './Layout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  pubDate: Date;
+  tags?: string[];
+  heroImage?: string;
+  readingTime?: string;
+}
+
+const { title, description, pubDate, tags = [], heroImage, readingTime } = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString('pl-PL', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Layout title={title} description={description}>
+  <article class="mx-auto max-w-3xl px-4 py-12 md:px-8 md:py-16">
+    <a
+      href="/blog/"
+      class="mb-8 inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-accent-dark"
+    >
+      <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path d="M13 8H3M7 4L3 8l4 4" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      Wszystkie poradniki
+    </a>
+
+    {heroImage ? (
+      <img src={heroImage} alt={title} class="mb-8 h-64 w-full rounded-2xl object-cover md:h-96" />
+    ) : null}
+
+    <div class="mb-5 flex flex-wrap items-center gap-3 text-sm text-text-muted">
+      <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+      {readingTime ? (
+        <span class="inline-flex items-center gap-1.5">
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="8" cy="8" r="6.25" />
+            <path d="M8 4.5V8l2.5 1.5" stroke-linecap="round" />
+          </svg>
+          ~ {readingTime} czytania
+        </span>
+      ) : null}
+      {tags.length > 0 ? (
+        <span class="flex flex-wrap gap-1.5">
+          {tags.map((tag) => (
+            <span class="pill">{tag}</span>
+          ))}
+        </span>
+      ) : null}
+    </div>
+
+    <h1 class="mb-5">{title}</h1>
+    {description ? <p class="lead mb-9">{description}</p> : null}
+
+    <div class="prose-content">
+      <slot />
+    </div>
+
+    <div class="mt-14 rounded-2xl border border-border bg-cream p-6 md:p-8">
+      <h2 class="mb-2 text-lg">Było pomocne?</h2>
+      <p class="text-sm leading-relaxed text-text-muted">
+        Znalazłeś błąd w instrukcji albo masz pytanie do konfiguracji? Napisz przez
+        <a href="/kontakt/" class="font-semibold text-accent-dark underline underline-offset-2 hover:text-primary">
+          stronę kontaktową
+        </a>
+        — poprawię poradnik w kolejnej wersji.
+      </p>
+    </div>
+  </article>
+</Layout>
+```
+
+
+---
+
+## `src/layouts/Layout.astro`
+
+```astro
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
+const fullTitle = title === SITE_TITLE ? SITE_TITLE : `${title} — ${SITE_TITLE}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#173643" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- Fonty: Sora (nagłówki) + Inter (tekst), subset latin-ext, swap -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a class="skip-link" href="#tresc">Przejdź do treści</a>
+    <Navbar />
+    <main id="tresc" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+```
+
+
+---
+
+## `src/pages/404.astro`
+
+```astro
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Nie znaleziono strony" description="Ta strona nie istnieje — wróć na start.">
+  <section class="section">
+    <div class="container-site max-w-xl text-center">
+      <p class="eyebrow mb-4 justify-center">404</p>
+      <h1 class="mb-4">Ta strona wyjechała na nocleg.</h1>
+      <p class="lead mb-9">
+        Adres nie istnieje albo został przeniesiony. Zacznij od strony głównej albo
+        przejrzyj katalog narzędzi.
+      </p>
+      <div class="flex flex-col justify-center gap-3 sm:flex-row">
+        <a href="/" class="btn btn-primary">Wróć na start</a>
+        <a href="/narzedzia/" class="btn btn-secondary">Katalog narzędzi</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+```
+
+
+---
+
+## `src/pages/about.astro`
+
+```astro
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="O stronie"
+  description="Co to jest Najem KŚ: zasady bazy, zaufanie do treści i brak paywalla."
+>
+  <section class="mx-auto max-w-3xl px-4 py-14 md:px-8 md:py-16">
+    <p class="eyebrow mb-3">O stronie</p>
+    <h1 class="mb-6">Dlaczego ta strona istnieje</h1>
+
+    <div class="prose-content">
+      <p>
+        <strong>Najem KŚ</strong> to otwarta baza wiedzy i narzędzi dla osób zarządzających
+        najmem krótkoterminowym. Zbieram tu to, co faktycznie działa: aplikacje open source,
+        projekty z GitHub i instrukcje, które da się odtworzyć krok po kroku.
+      </p>
+      <p>
+        Cała treść jest <strong>darmowa</strong>. Nie sprzedaję wdrożeń, konsultacji ani
+        dostępów — strona ma jedną rolę: żebyś sam/samą potrafiła uruchomić i skonfigurować
+        rozwiązania, bez zależności od zewnętrznego usługodawcy.
+      </p>
+
+      <h2>Zasady bazy</h2>
+      <ul>
+        <li>
+          <strong>Każde narzędzie z katalogu jest weryfikowane</strong> — licencja, data
+          ostatniej zmiany, stan repozytorium. Nieaktywne projekty oznaczam.
+        </li>
+        <li>
+          <strong>Każdy poradnik opiera się na konfiguracji, którą da się odtworzyć</strong> —
+          jeśli instrukcja nie działa, jest do poprawienia.
+        </li>
+        <li>
+          <strong>Brak paywalla</strong> — nie ma dostępu premium ani płatnych pakietów.
+          Jeśli coś się zmieni (licencja, cena, projekt), poprawiam opis zamiast ukrywać.
+        </li>
+        <li>
+          <strong>Zgłoszenia czytelników decydują o kolejności tematów</strong> — pytania,
+          które pojawiają się najczęściej, trafiają do kolejnych poradników.
+        </li>
+      </ul>
+
+      <p>
+        Masz pomysł na narzędzie, projekt albo temat poradnika? Napisz przez
+        <a href="/kontakt/">stronę kontaktową</a> — lista pomysłów rośnie z każdą wiadomością.
+      </p>
+    </div>
+  </section>
+</Layout>
+```
+
+
+---
+
+## `src/pages/automatyzacja.astro`
+
+```astro
+---
+import Layout from '../layouts/Layout.astro';
+
+const CONTACT_TELEGRAM = '{{DO_UZUPEŁNIENIA}}';
+const CONTACT_EMAIL = '{{DO_UZUPEŁNIENIA}}';
+
+const problemRows = [
+  { before: 'Pisanie do gości z telefonu', after: 'Auto-odpowiedzi i statusy w Telegramie' },
+  { before: 'Koordynacja ekipy', after: 'Automatyczne harmonogramy + bot' },
+  { before: 'Urlop wymaga pełnej dostępności', after: 'Człowiek w pętli (HITL) + systemy' },
+  { before: 'Brak nadzoru nad cenami', after: 'Revenue manager + cennik dynamiczny' },
+];
+
+const filary = [
+  { title: 'Master Brief', desc: 'Architektura sprawdzona na 40+ obiektach.' },
+  { title: 'Smart Cost Router', desc: 'Dwuetapowe AI: decyzja i optymalizacja kosztów.' },
+  { title: 'Brama Telegram-First', desc: 'Główny kanał komunikacji z gośćmi i ekipą.' },
+  { title: 'Revenue Manager', desc: 'Cennik dynamiczny bez ręcznego klikania.' },
+];
+
+const weeks = [
+  'Tydzień 1: Audyt i fundamenty',
+  'Tydzień 2: Integracja systemów',
+  'Tydzień 3: Testy i poprawki',
+  'Tydzień 4: Start produkcyjny',
+];
+---
+
+<Layout title="Automatyzacja pod klucz — Najem KŚ" description="Cyfryzacja, automatyzacja i architektura operacyjna najmu krótkoterminowego.">
+  <!-- HERO -->
+  <section class="section-dark">
+    <div class="container-site mx-auto py-24 md:py-32 text-center">
+      <h1 class="text-white text-4xl md:text-6xl mb-6">Cyfryzacja, automatyzacja i architektura operacyjna najmu</h1>
+      <p class="text-cream/80 text-lg max-w-2xl mx-auto mb-10">Wdrażam pełne środowisko: Beds24, boty Telegram, AI, ekipa sprzątająca i revenue manager — tak, żebyś Ty mógł spać spokojnie.</p>
+      <a href={CONTACT_TELEGRAM} class="btn btn-gold text-lg px-10 py-4">Umów bezpłatną konsultację</a>
+      <p class="mt-4 text-sm text-cream/50">Wypełnij formularz lub napisz na Telegram</p>
+    </div>
+  </section>
+
+  <!-- PROBLEM / DIAGNOZA -->
+  <section class="section container-site mx-auto">
+    <h2 class="text-center mb-12">Stan obecny vs Po wdrożeniu</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm md:text-base border-collapse">
+        <thead>
+          <tr class="border-b-2 border-primary">
+            <th class="py-3 px-4 text-left text-primary-light">Stan obecny</th>
+            <th class="py-3 px-4 text-left text-primary-light">Po wdrożeniu</th>
+          </tr>
+        </thead>
+        <tbody>
+          {problemRows.map((row) => (
+            <tr class="border-b border-line">
+              <td class="py-3 px-4 text-text-muted">{row.before}</td>
+              <td class="py-3 px-4 font-medium text-accent">{row.after}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- JAK TO DZIAŁA -->
+  <section class="section container-site mx-auto bg-cream">
+    <h2 class="text-center mb-12">Jak to działa?</h2>
+    <div class="card text-center max-w-2xl mx-auto p-8">
+      <p class="text-lg text-primary mb-6">Beds24 ↔ Serwer VPS + AI → Telegram / Ekipa / Konserwator</p>
+      <p class="text-text-muted">Całość spięta w jeden spójny system. Gość rezerwuje → system aktualizuje kalendarz → bot powiadamia ekipę → AI odpowiada na wiadomości → Ty widzisz raport.</p>
+    </div>
+  </section>
+
+  <!-- 4 FILARY -->
+  <section class="section container-site mx-auto">
+    <h2 class="text-center mb-12">4 filary wdrożenia</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {filary.map((f) => (
+        <div class="card">
+          <h3 class="text-accent mb-3">{f.title}</h3>
+          <p class="text-sm text-text-muted">{f.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ZAKRES I WYCENA -->
+  <section class="section container-site mx-auto bg-cream">
+    <div class="card max-w-2xl mx-auto border-accent border-2 p-8 text-center">
+      <h2 class="mb-4">Zakres i orientacyjna wycena</h2>
+      <p class="text-text-muted mb-6">Każde wdrożenie jest inne — poniżej pakiet, który najczęściej wybierają klienci.</p>
+      <ul class="text-left text-text mb-6 space-y-2 list-disc pl-5">
+        <li>Audyt obecnych procesów</li>
+        <li>Konfiguracja Beds24 + API</li>
+        <li>Bot Telegram dla gości i ekipy</li>
+        <li>Integracja z AI (obsługa wiadomości)</li>
+        <li>Revenue manager / cennik dynamiczny</li>
+        <li>Monitoring i dokumentacja</li>
+      </ul>
+      <p class="text-2xl font-bold text-primary mb-6">od 2900 PLN</p>
+      <a href={CONTACT_TELEGRAM} class="btn btn-gold">Zapytaj o indywidualną wycenę</a>
+    </div>
+  </section>
+
+  <!-- HARMONOGRAM -->
+  <section class="section container-site mx-auto">
+    <h2 class="text-center mb-12">Harmonogram wdrożenia</h2>
+    <div class="grid md:grid-cols-4 gap-4">
+      {weeks.map((w, i) => (
+        <div class="card text-center">
+          <div class="text-accent font-bold text-2xl mb-2">{i + 1}</div>
+          <p class="text-sm text-primary font-medium">{w}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- GWARANCJA -->
+  <section class="section container-site mx-auto bg-cream">
+    <div class="card max-w-3xl mx-auto p-8 text-center">
+      <h2 class="mb-4">Gwarancja</h2>
+      <p class="text-text-muted mb-4">„Człowiek w pętli (HITL)” — żaden proces nie zostawia Cię sam na sam z systemem. Rozliczenie etapowe 50/50: pierwsza po akceptacji fundamentów, druga po uruchomieniu produkcyjnym.</p>
+      <p class="text-sm text-text-muted">Jeśli po wdrożeniu okaże się, że system nie działa zgodnie z ustaleniami — naprawiam na własny koszt.</p>
+    </div>
+  </section>
+
+  <!-- CTA KOŃCOWE -->
+  <section class="section-dark section text-center">
+    <div class="container-site mx-auto">
+      <h2 class="text-white mb-6">Jak zaczynamy?</h2>
+      <div class="grid md:grid-cols-3 gap-6 mb-10 max-w-4xl mx-auto text-cream/80">
+        <div>
+          <div class="text-accent font-bold text-3xl mb-2">1</div>
+          <p>Umów bezpłatną konsultację</p>
+        </div>
+        <div>
+          <div class="text-accent font-bold text-3xl mb-2">2</div>
+          <p>Otrzymasz plan i wycenę</p>
+        </div>
+        <div>
+          <div class="text-accent font-bold text-3xl mb-2">3</div>
+          <p>Startujemy w ciągu tygodnia</p>
+        </div>
+      </div>
+      <a href={CONTACT_TELEGRAM} class="btn btn-gold text-lg px-10 py-4">Umów bezpłatną konsultację</a>
+      {CONTACT_EMAIL !== '{{DO_UZUPEŁNIENIA}}' && (
+        <p class="mt-4 text-cream/60 text-sm">lub napisz: {CONTACT_EMAIL}</p>
+      )}
+    </div>
+  </section>
+</Layout>
+```
+
+
+---
+
+## `src/pages/blog/[...slug].astro`
+
+```astro
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: post,
+  }));
+}
+
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content } = await render(post);
+---
+
+<BlogPostLayout
+  title={post.data.title}
+  description={post.data.description}
+  pubDate={post.data.pubDate}
+  tags={post.data.tags}
+  heroImage={post.data.heroImage}
+  readingTime={post.data.readingTime}
+>
+  <Content />
+</BlogPostLayout>
+```
+
+
+---
+
+## `src/pages/blog/index.astro`
+
+```astro
+---
+import Layout from '../../layouts/Layout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+import { SITE_TITLE } from '../../consts';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout
+  title={`${SITE_TITLE} – Poradniki`}
+  description="Poradniki krok po kroku: jak uruchomić, skonfigurować i połączyć narzędzia open source dla najmu krótkoterminowego."
+>
+  <section class="mx-auto max-w-6xl px-4 py-14 md:px-8 md:py-16">
+    <p class="eyebrow mb-3">Poradniki</p>
+    <h1 class="mb-4">Poradniki</h1>
+    <p class="max-w-3xl text-lg leading-relaxed text-text-muted">
+      Instrukcje, które da się odtworzyć: co zainstalować, co skopiować, gdzie kliknąć.
+      Od synchronizacji kalendarzy, przez boty, po licencje open source.
+    </p>
+
+    {posts.length === 0 ? (
+      <p class="mt-8 text-text-muted">Brak wpisów.</p>
+    ) : (
+      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <ArticleCard
+            id={post.id}
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            tags={post.data.tags}
+            readingTime={post.data.readingTime}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+</Layout>
+```
+
+
+---
+
+## `src/pages/index.astro`
+
+```astro
+---
+import Layout from '../layouts/Layout.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CategoryCard from '../components/CategoryCard.astro';
+import ToolCard from '../components/ToolCard.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+import tools from '../data/tools.json';
+
+const allPosts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const posts = allPosts.slice(0, 3);
+
+const projects = (await getCollection('programy'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const wideo = await getCollection('wideo');
+
+const featuredTools = tools.filter((t) => t.featured).slice(0, 6);
+
+const CAT_LABELS: Record<string, string> = {
+  ical: 'Kalendarze iCal',
+  locks: 'Zamki i IoT',
+  comm: 'Komunikacja',
+  ai: 'Agenci AI',
+  auto: 'Automatyzacja',
+  data: 'Dane i ceny',
+};
+
+const categories = [
+  {
+    href: '/narzedzia/',
+    title: 'Narzędzia',
+    description: 'Aplikacje i rozwiązania open source przydatne w codziennej pracy: kalendarze, komunikacja, zamki, dane.',
+    icon: 'tools' as const,
+    count: `${tools.length} pozycji`,
+  },
+  {
+    href: '/blog/',
+    title: 'Poradniki',
+    description: 'Instrukcje krok po kroku: jak uruchomić, skonfigurować i połączyć usługi — od podstaw po zaawansowane ustawienia.',
+    icon: 'guide' as const,
+    count: `${allPosts.length} poradników`,
+  },
+  {
+    href: '/programy/',
+    title: 'Projekty',
+    description: 'Gotowe projekty z GitHub i własne narzędzia — do sklonowania, skonfigurowania i uruchomienia u siebie.',
+    icon: 'projects' as const,
+    count: `${projects.length} projekty`,
+  },
+  {
+    href: '/wideo/',
+    title: 'Wideo',
+    description: 'Tutoriale wideo pokazujące uruchamianie i konfigurację krok po kroku. Nowe materiały wkrótce.',
+    icon: 'video' as const,
+    count: `${wideo.length} w przygotowaniu`,
+  },
+];
+---
+
+<Layout>
+  <!-- A. HERO -->
+  <section class="hero-section relative overflow-hidden">
+    <div class="container-site grid items-center gap-14 py-14 md:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+      <div>
+        <span class="pill pill-accent pill-dot mb-6">
+          Darmowa baza narzędzi i poradników
+        </span>
+        <h1 class="mb-6">
+          Narzędzia, poradniki i projekty dla
+          <span class="text-accent-dark">najmu krótkoterminowego</span>
+        </h1>
+        <p class="lead mb-9 max-w-xl">
+          Zbieram tu sprawdzone aplikacje open source, projekty z GitHub i instrukcje
+          krok po kroku — wszystko do samodzielnego uruchomienia. Bez abonamentów,
+          bez pośredników, z konkretnymi ustawieniami.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="/narzedzia/" class="btn btn-primary btn-lg">Przeglądaj narzędzia</a>
+          <a href="/blog/" class="btn btn-secondary btn-lg">Zobacz poradniki</a>
+        </div>
+        <ul class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-text-muted">
+          <li class="inline-flex items-center gap-2">
+            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="var(--color-accent)" stroke-width="1.8" aria-hidden="true">
+              <path d="M3 8.5l3 3 7-7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            {tools.length} zweryfikowanych narzędzi
+          </li>
+          <li class="inline-flex items-center gap-2">
+            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="var(--color-accent)" stroke-width="1.8" aria-hidden="true">
+              <path d="M3 8.5l3 3 7-7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            {allPosts.length} poradników krok po kroku
+          </li>
+          <li class="inline-flex items-center gap-2">
+            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="var(--color-accent)" stroke-width="1.8" aria-hidden="true">
+              <path d="M3 8.5l3 3 7-7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            100% darmowy dostęp
+          </li>
+        </ul>
+      </div>
+      <HeroVisual />
+    </div>
+  </section>
+
+  <!-- B. KATEGORIE -->
+  <section id="kategorie" class="section-alt section">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="Zacznij od kategorii"
+        title="Co znajdziesz w bazie?"
+        lead="Cztery obszary, jedna zasada: wszystko możesz uruchomić sam/sama, zgodnie z instrukcją."
+      />
+      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {categories.map((c) => (
+          <CategoryCard
+            href={c.href}
+            title={c.title}
+            description={c.description}
+            icon={c.icon}
+            count={c.count}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- C. WYRÓŻNIONE NARZĘDZIA -->
+  <section class="section">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="Katalog"
+        title="Wybrane narzędzia"
+        lead="Sprawdzone projekty open source, które realnie oszczędzają czas w codziennym zarządzaniu. Pełna lista — z licencjami i datami aktualizacji — czeka w katalogu."
+        actionHref="/narzedzia/"
+        actionLabel={`Wszystkie ${tools.length} narzędzi`}
+      />
+      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {featuredTools.map((t) => (
+          <ToolCard
+            name={t.name}
+            who={t.who}
+            description={t.description}
+            stars={t.stars}
+            license={t.license}
+            pushed_at={t.pushed_at}
+            archived={t.archived}
+            categoryLabel={CAT_LABELS[t.category] || t.category}
+            level={t.level}
+            guide={t.guide || undefined}
+            url={t.url}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- D. NAJNOWSZE PORADNIKI -->
+  <section class="section-alt section">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="Poradniki"
+        title="Najnowsze poradniki"
+        lead="Instrukcje, które da się odtworzyć: co zainstalować, co skopiować, gdzie kliknąć. Bez ogólników."
+        actionHref="/blog/"
+        actionLabel="Wszystkie poradniki"
+      />
+      <div class="mt-10 grid gap-5 md:grid-cols-3">
+        {posts.map((post) => (
+          <ArticleCard
+            id={post.id}
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            tags={post.data.tags}
+            readingTime={post.data.readingTime}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- E. PROJEKTY DO SAMODZIELNEGO URUCHOMIENIA -->
+  <section class="section">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="Projekty"
+        title="Projekty do samodzielnego uruchomienia"
+        lead="Skopiuj, skonfiguruj, uruchom. Do każdego projektu wymagania startowe i link do kodu albo poradnika."
+        actionHref="/programy/"
+        actionLabel="Wszystkie projekty"
+      />
+      <div class="mt-10 grid gap-5 md:grid-cols-2">
+        {projects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            level={project.data.level}
+            requirements={project.data.requirements}
+            tags={project.data.tags}
+            repoUrl={project.data.repoUrl || undefined}
+            demoUrl={project.data.demoUrl || undefined}
+            guideUrl={project.data.guideUrl || undefined}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- F. CTA KOŃCOWE (niesprzedażowe) -->
+  <section class="section-dark section">
+    <div class="container-site mx-auto max-w-2xl text-center">
+      <p class="eyebrow mb-4 justify-center">Dołącz do bazy</p>
+      <h2 class="mb-4">Masz pomysł na narzędzie lub poradnik?</h2>
+      <p class="mx-auto mb-9 max-w-xl text-lg leading-relaxed text-cream/80">
+        Ta baza rośnie dzięki pomysłom czytelników. Podpowiedz, co dodać — albo wyłap
+        błąd w instrukcji, a poprawię ją w kolejnej wersji.
+      </p>
+      <div class="flex flex-col justify-center gap-3 sm:flex-row">
+        <a href="/kontakt/" class="btn btn-primary btn-lg">Napisz do mnie</a>
+        <a href="#kategorie" class="btn btn-secondary btn-lg">Wróć do kategorii</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero-section {
+    background:
+      radial-gradient(52rem 26rem at 82% -12%, rgb(201 162 77 / 0.16) 0%, transparent 62%),
+      radial-gradient(40rem 22rem at -8% 8%, rgb(23 54 67 / 0.07) 0%, transparent 58%),
+      var(--color-background);
+  }
+</style>
+```
+
+
+---
+
+## `src/pages/kontakt.astro`
+
+```astro
+---
+import Layout from '../layouts/Layout.astro';
+import { CONTACT } from '../consts';
+
+const telegram =
+  CONTACT.telegram && CONTACT.telegram !== '{{DO_UZUPEŁNIENIA}}' ? CONTACT.telegram : null;
+const email = CONTACT.email && CONTACT.email !== '{{DO_UZUPEŁNIENIA}}' ? CONTACT.email : null;
+---
+
+<Layout
+  title="Kontakt"
+  description="Napisz: pytanie do poradnika, pomysł na narzędzie albo zgłoszenie błędu w instrukcji."
+>
+  <section class="mx-auto max-w-3xl px-4 py-14 md:px-8 md:py-16">
+    <p class="eyebrow mb-3">Kontakt</p>
+    <h1 class="mb-4">Kontakt</h1>
+    <p class="mb-9 max-w-2xl text-lg leading-relaxed text-text-muted">
+      Masz pytanie do poradnika, pomysł na nowe narzędzie albo znalazłeś błąd w instrukcji?
+      Najprościej napisać — odpowiadam na wszystko, co dotyczy bazy.
+    </p>
+
+    <div class="card p-6 md:p-8">
+      {telegram || email ? (
+        <ul class="space-y-3">
+          {telegram ? (
+            <li>
+              <a
+                href={telegram}
+                target="_blank"
+                rel="noopener"
+                class="group flex items-center justify-between gap-3 rounded-xl border border-border bg-background px-5 py-4 transition-colors hover:border-primary"
+              >
+                <span>
+                  <span class="block font-semibold text-primary">Telegram</span>
+                  <span class="block text-sm text-text-muted">Najszybsza droga — odpisuję pierwszy</span>
+                </span>
+                <span class="card-arrow text-primary" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </a>
+            </li>
+          ) : null}
+          {email ? (
+            <li>
+              <a
+                href={`mailto:${email}`}
+                class="group flex items-center justify-between gap-3 rounded-xl border border-border bg-background px-5 py-4 transition-colors hover:border-primary"
+              >
+                <span>
+                  <span class="block font-semibold text-primary">{email}</span>
+                  <span class="block text-sm text-text-muted">E-mail — dla dłuższych opisów i załączników</span>
+                </span>
+                <span class="card-arrow text-primary" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M3 8h10M9 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+              </a>
+            </li>
+          ) : null}
+        </ul>
+      ) : (
+        <p class="text-text-muted">
+          Dane kontaktowe w przygotowaniu — wrzuć link do kanału na
+          <a href="https://github.com" class="font-semibold text-accent-dark underline underline-offset-2">GitHub</a>
+          albo śledź bieżące porady na stronie.
+        </p>
+      )}
+
+      <p class="mt-6 text-sm leading-relaxed text-text-muted">
+        Staram się odpowiadać w ciągu 1–2 dni. Zgłoszenia błędów w poradnikach traktuję
+        priorytetowo — dzięki nim instrukcje się poprawiają.
+      </p>
+    </div>
+  </section>
+</Layout>
+```
+
+
+---
+
+## `src/pages/kursy/index.astro`
+
+```astro
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const courses = (await getCollection('kursy'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const levelLabels: Record<string, string> = {
+  'początkujący': '🌱 Początkujący',
+  'średni': '📈 Średni',
+  'zaawansowany': '🚀 Zaawansowany',
+};
+---
+
+<Layout title="Kursy — Najem KŚ" description="Kursy wideo i szkolenia z automatyzacji najmu krótkoterminowego.">
+  <section class="mx-auto max-w-6xl px-4 py-16 md:px-8">
+    <h1>Kursy</h1>
+    <p class="mt-4 text-lg text-text-muted">
+      Szkolenia wideo i kursy krok po kroku dla gospodarzy najmu krótkoterminowego.
+    </p>
+
+    {courses.length === 0 ? (
+      <p class="mt-8 text-text-muted">Brak kursów.</p>
+    ) : (
+      <div class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {courses.map((course) => (
+          <a
+            href={`/kursy/${course.id}/`}
+            class="group block rounded-xl border border-secondary-dark bg-secondary p-6 transition-shadow hover:shadow-lg"
+          >
+            <div class="flex items-center justify-between">
+              <time class="text-xs font-semibold uppercase tracking-wide text-accent">
+                {course.data.pubDate.toLocaleDateString('pl-PL', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })}
+              </time>
+              <span class={`badge ${course.data.access === 'free' ? 'badge-free' : 'badge-paid'}`}>
+                {course.data.access === 'free' ? 'Darmowy' : 'Premium'}
+              </span>
+            </div>
+            <h3 class="mt-3 text-primary group-hover:text-accent transition-colors">
+              {course.data.title}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-text-muted">{course.data.description}</p>
+            {course.data.level && (
+              <div class="mt-3 text-xs font-medium text-accent">
+                {levelLabels[course.data.level] || course.data.level}
+              </div>
+            )}
+            {course.data.price && (
+              <div class="mt-2 text-sm font-semibold text-primary">
+                {course.data.price}
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+</Layout>
+```
+
+
+---
+
+## `src/pages/narzedzia/index.astro`
+
+```astro
+---
+import Layout from '../../layouts/Layout.astro';
+import tools from '../../data/tools.json';
+
+const CATS: { key: string; label: string; desc: string }[] = [
+  { key: 'ical', label: 'Kalendarze iCal', desc: 'Sync kalendarzy Airbnb/Booking, parsowanie feedów, kalendarze dla ekipy.' },
+  { key: 'locks', label: 'Zamki i IoT', desc: 'Kody do drzwi generowane z rezerwacji, czujniki temperatury i ruchu, smart home.' },
+  { key: 'comm', label: 'Komunikacja', desc: 'Skrzynki omnichannel, boty Telegram, czat dla ekipy sprzątającej.' },
+  { key: 'auto', label: 'Automatyzacja', desc: 'Wizualne workflow bez kodu: n8n, Node-RED i alternatywy.' },
+  { key: 'ai', label: 'Agenci AI', desc: 'Wizualne buildery agentów, RAG i serwery MCP — AI w codziennej pracy.' },
+  { key: 'data', label: 'Dane i ceny', desc: 'Dashboardy, transformacje danych, analizy rynku i ceny.' },
+].filter((c) => tools.some((t) => t.category === c.key));
+
+const LIC_OK = /^(MIT|Apache-2\.0|BSD|BSD-2|BSD-3|BSD-3-Clause|ISC|Unlicense|CC0|CC-BY|Zlib)/;
+
+function licClass(l: string | undefined): string {
+  if (!l || l === 'null' || l === 'None') return 'lic-bad';
+  if (LIC_OK.test(l)) return 'lic-ok';
+  return 'lic-warn';
+}
+
+const year = new Date().getFullYear();
+---
+
+<Layout
+  title="Katalog narzędzi"
+  description={`Zweryfikowane darmowe narzędzia open source dla hostów najmu krótkoterminowego: kalendarze, zamki, komunikacja, automatyzacja, AI i dane. Z licencjami i polskimi opisami.`}
+>
+  <section class="mx-auto max-w-6xl px-4 py-14 md:px-8 md:py-16">
+    <p class="eyebrow mb-3">Katalog</p>
+    <h1 class="mb-4">Katalog narzędzi</h1>
+    <p class="max-w-3xl text-lg leading-relaxed text-text-muted">
+      {tools.length} zweryfikowanych narzędzi open source dla hostów najmu krótkoterminowego.
+      Każda pozycja: licencja, gwiazdki i data ostatniej zmiany (dane z GitHub API, {year}).
+    </p>
+
+    <div class="mt-6 max-w-3xl rounded-2xl border border-border bg-cream p-5 text-sm leading-relaxed text-text-muted">
+      <strong class="text-primary">Kolor licencji:</strong>&nbsp;
+      <span class="lic lic-ok">MIT / Apache / BSD</span> = możesz używać komercyjnie,
+      <span class="lic lic-warn">copyleft / inna</span> = używaj jako usługa, nie wbudowuj w produkt,
+      <span class="lic lic-bad">brak licencji</span> = all rights reserved, nie kopiuj kodu.
+      Szczegóły: <a href="/blog/licencje-open-source-dla-hostow/" class="font-semibold text-accent-dark underline underline-offset-2 hover:text-primary">poradnik o licencjach</a>.
+    </div>
+
+    <nav class="mt-9 flex flex-wrap gap-2.5" aria-label="Kategorie narzędzi">
+      {CATS.map((c) => (
+        <a
+          href={`#${c.key}`}
+          class="pill !px-4 !py-2 !text-[0.85rem] border !border-border-strong !bg-surface transition-colors hover:!border-primary hover:!bg-primary/5"
+        >
+          {c.label} ({tools.filter((t) => t.category === c.key).length})
+        </a>
+      ))}
+    </nav>
+
+    {CATS.map((c) => (
+      <section id={c.key} class="mt-12 scroll-mt-24">
+        <h2 class="mb-1.5">{c.label}</h2>
+        <p class="mb-5 text-text-muted">{c.desc}</p>
+        <div class="table-wrap">
+          <div class="table-scroll">
+            <table class="w-full min-w-[720px] border-collapse text-sm">
+              <thead>
+                <tr class="border-b border-border-strong bg-cream text-left">
+                  <th class="px-5 py-3.5 font-semibold text-primary">Narzędzie</th>
+                  <th class="px-5 py-3.5 font-semibold text-primary">Do czego</th>
+                  <th class="px-5 py-3.5 font-semibold text-primary">Gwiazdki</th>
+                  <th class="px-5 py-3.5 font-semibold text-primary">Licencja</th>
+                  <th class="px-5 py-3.5 font-semibold text-primary">Ostatnia zmiana</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tools
+                  .filter((t) => t.category === c.key)
+                  .sort((a, b) => b.stars - a.stars)
+                  .map((t, i, arr) => (
+                    <tr class={`align-top ${i < arr.length - 1 ? 'border-b border-border' : ''}`}>
+                      <td class="px-5 py-4">
+                        <a
+                          href={t.url}
+                          target="_blank"
+                          rel="noopener"
+                          class="font-semibold text-primary transition-colors hover:text-accent-dark"
+                        >
+                          {t.name}
+                        </a>
+                        {t.archived ? (
+                          <span class="lic lic-bad ml-2" title="Repo zarchiwizowane">archiwum</span>
+                        ) : null}
+                        <div class="mt-1 text-xs text-text-muted">{t.who}</div>
+                      </td>
+                      <td class="max-w-md px-5 py-4 text-text-muted">{t.description}</td>
+                      <td class="whitespace-nowrap px-5 py-4">
+                        <span class="inline-flex items-center gap-1.5 text-primary">
+                          <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor" class="text-accent" aria-hidden="true">
+                            <path d="M8 1.5l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.3l-3.8 2-.7-4.3-3.1-3 4.3-.6z" />
+                          </svg>
+                          {t.stars.toLocaleString('pl-PL')}
+                        </span>
+                      </td>
+                      <td class="whitespace-nowrap px-5 py-4">
+                        <span class={`lic ${licClass(t.license)}`}>{t.license}</span>
+                      </td>
+                      <td class="whitespace-nowrap px-5 py-4 text-xs text-text-muted">{t.pushed_at}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    ))}
+
+    <section class="mt-16 rounded-2xl border border-border bg-cream p-7 md:p-9">
+      <h2 class="mb-2 text-xl">Brakuje tu czegoś konkretnego?</h2>
+      <p class="max-w-2xl text-sm leading-relaxed text-text-muted">
+        Podpowiedz, które narzędzie zweryfikować jako następne albo zaproponuj temat
+        poradnika, który pomoże je uruchomić. Kategoria rośnie z każdym zgłoszeniem —
+        <a href="/kontakt/" class="font-semibold text-accent-dark underline underline-offset-2 hover:text-primary">
+          napisz
+        </a>.
+      </p>
+    </section>
+  </section>
+</Layout>
+```
+
+
+---
+
+## `src/pages/programy/index.astro`
+
+```astro
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('programy'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<Layout title="Projekty — Najem KŚ" description="Gotowe projekty i szablony automatyzacji dla najmu krótkoterminowego.">
+  <section class="mx-auto max-w-6xl px-4 py-16 md:px-8">
+    <h1>Projekty</h1>
+    <p class="mt-4 text-lg text-text-muted">
+      Gotowe projekty i szablony automatyzacji — kod do skopiowania i uruchomienia u siebie.
+    </p>
+
+    {projects.length === 0 ? (
+      <p class="mt-8 text-text-muted">Brak projektów.</p>
+    ) : (
+      <div class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project) => (
+          <div class="group block rounded-xl border border-secondary-dark bg-secondary p-6 transition-shadow hover:shadow-lg">
+            <div class="flex items-center justify-between">
+              <time class="text-xs font-semibold uppercase tracking-wide text-accent">
+                {project.data.pubDate.toLocaleDateString('pl-PL', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })}
+              </time>
+              <span class={`badge ${project.data.access === 'free' ? 'badge-free' : 'badge-paid'}`}>
+                {project.data.access === 'free' ? 'Darmowe' : 'Premium'}
+              </span>
+            </div>
+            <h3 class="mt-3 text-primary group-hover:text-accent transition-colors">
+              {project.data.title}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-text-muted">{project.data.description}</p>
+            {project.data.tags && project.data.tags.length > 0 && (
+              <div class="mt-4 flex flex-wrap gap-2">
+                {project.data.tags.map((tag: string) => (
+                  <span class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+            {/* Przyciski GitHub / Demo */}
+            <div class="mt-4 flex gap-3">
+              {project.data.repoUrl && (
+                <a
+                  href={project.data.repoUrl}
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-primary-light"
+                >
+                  <svg viewBox="0 0 16 16" aria-hidden="true" width="14" height="14" fill="currentColor">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+                  </svg>
+                  GitHub
+                </a>
+              )}
+              {project.data.demoUrl && (
+                <a
+                  href={project.data.demoUrl}
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-flex items-center gap-1.5 rounded-lg border border-accent px-3 py-1.5 text-xs font-semibold text-accent transition-colors hover:bg-accent hover:text-primary-dark"
+                >
+                  Demo →
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </section>
+</Layout>
+```
+
+
+---
+
+## `src/pages/rss.xml.js`
+
+```javascript
+import { getCollection } from 'astro:content';
+import rss from '@astrojs/rss';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+export async function GET(context) {
+	const posts = await getCollection('blog');
+	return rss({
+		title: SITE_TITLE,
+		description: SITE_DESCRIPTION,
+		site: context.site,
+		items: posts.map((post) => ({
+			...post.data,
+			link: `/blog/${post.id}/`,
+		})),
+	});
+}
+```
+
+
+---
+
+## `src/pages/wideo/index.astro`
+
+```astro
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { SITE_TITLE } from '../../consts';
+
+const tutorials = (await getCollection('wideo'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const levelLabels: Record<string, string> = {
+  'początkujący': 'Początkujący',
+  'średni': 'Poziom średni',
+  'zaawansowany': 'Zaawansowany',
+};
+
+function embedUrl(videoUrl: string): string {
+  // YouTube: https://www.youtube.com/watch?v=ID lub youtu.be/ID → oembed
+  const yt = videoUrl.match(
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]{6,})/
+  );
+  if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
+  // Vimeo: https://vimeo.com/123456
+  const vm = videoUrl.match(/vimeo\.com\/(\d+)/);
+  if (vm) return `https://player.vimeo.com/video/${vm[1]}`;
+  return videoUrl;
+}
+---
+
+<Layout
+  title={`${SITE_TITLE} – Wideo`}
+  description="Tutoriale wideo pokazujące krok po kroku uruchamianie i konfigurację narzędzi dla najmu krótkoterminowego."
+>
+  <section class="mx-auto max-w-6xl px-4 py-14 md:px-8 md:py-16">
+    <p class="eyebrow mb-3">Wideo</p>
+    <h1 class="mb-4">Wideo i tutoriale</h1>
+    <p class="max-w-3xl text-lg leading-relaxed text-text-muted">
+      Krok po kroku na ekranie: jak uruchomić, skonfigurować i połączyć usługi, o których
+      piszą poradniki. Nowe materiały pojawiają się w miarę rozwoju bazy.
+    </p>
+
+    <div class="mt-8 flex items-start gap-3 rounded-2xl border border-border bg-cream p-5 text-sm leading-relaxed text-text-muted">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="var(--color-accent)" stroke-width="1.7" class="mt-0.5 shrink-0" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="14" rx="3" />
+        <path d="M10.5 9.5l4.5 2.5-4.5 2.5z" fill="var(--color-accent)" stroke="none" />
+      </svg>
+      <p>
+        <strong class="text-primary">Sekcja w budowie.</strong> Poniższe tutoriale mają
+        zaplanowany scenariusz i czekają na nagranie. W międzyczasie poradniki pisane
+        pokrywają te same tematy.
+      </p>
+    </div>
+
+    {tutorials.length === 0 ? (
+      <p class="mt-8 text-text-muted">Brak materiałów.</p>
+    ) : (
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        {tutorials.map((t) => (
+          <article class="card card-hover flex h-full flex-col overflow-hidden !p-0">
+            <div class="relative aspect-video w-full bg-primary-dark">
+              {t.data.videoUrl ? (
+                <iframe
+                  src={embedUrl(t.data.videoUrl)}
+                  title={t.data.title}
+                  class="absolute inset-0 h-full w-full"
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>
+              ) : (
+                <div class="video-placeholder absolute inset-0 flex flex-col items-center justify-center gap-3">
+                  <span class="play-badge">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+                      <path d="M8.5 5.5l11 6.5-11 6.5z" />
+                    </svg>
+                  </span>
+                  <span class="text-sm font-semibold text-cream/90">Materiał w przygotowaniu</span>
+                </div>
+              )}
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <div class="mb-3 flex flex-wrap items-center gap-2">
+                <span class="pill pill-accent">{levelLabels[t.data.level] || t.data.level}</span>
+                {t.data.duration ? <span class="pill pill-muted">{t.data.duration}</span> : null}
+              </div>
+              <h2 class="text-lg leading-snug">{t.data.title}</h2>
+              <p class="mt-2 text-sm leading-relaxed text-text-muted">{t.data.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+  </section>
+</Layout>
+
+<style>
+  .video-placeholder {
+    background:
+      radial-gradient(20rem 12rem at 70% 20%, rgb(201 162 77 / 0.12) 0%, transparent 60%),
+      var(--color-primary-dark);
+  }
+  .play-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 999px;
+    background: var(--color-accent-light);
+    color: var(--color-primary-dark);
+    box-shadow: 0 12px 30px -10px rgb(0 0 0 / 0.5);
+  }
+</style>
+```
+
+
+---
+
+## `src/styles/global.css`
+
+```css
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════
+   Najem KŚ — design system
+   Paleta: petrol (kolor mocny) + krem/jasne tła + złoty akcent.
+   Złoty jest kolorem AKCENTOWYM — nie malujemy nim całej strony.
+   ═══════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* Kolorystyka — baza z istniejącej palety, skorygowana pod kontrast */
+  --color-primary: #173643;
+  --color-primary-light: #2C4854;
+  --color-primary-dark: #0E232C;
+  --color-cream: #F5F1E6;
+  --color-background: #FBF9F5;
+  --color-surface: #FFFFFF;
+  --color-accent: #B3862C;
+  --color-accent-light: #C9A24D;
+  --color-accent-dark: #8A6420;
+  --color-text: #24282C;
+  --color-text-muted: #5A6068;
+  --color-border: #E7E0CF;
+  --color-border-strong: #D9D0BC;
+
+  /* Typografia: nagłówki Sora (charakterystyczny, techniczny sans),
+     tekst i interfejs Inter (czytelny, pełny latin-ext) */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-heading: "Sora", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  /* Zaokrąglenia — jeden system zamiast ostrych prostokątów */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  /* Cienie — bardzo subtelne */
+  --shadow-card: 0 1px 2px rgb(23 54 67 / 0.05);
+  --shadow-card-hover: 0 14px 30px -16px rgb(23 54 67 / 0.22);
+  --shadow-pop: 0 24px 48px -24px rgb(23 54 67 / 0.35);
+}
+
+/* ── Baza ─────────────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: #EAD9AF;
+  color: var(--color-primary-dark);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Skala typograficzna — jedna hierarchia na całej stronie */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 1.15rem + 3vw, 2.9rem);
+  line-height: 1.14;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 1.15rem + 1.3vw, 2.05rem);
+  line-height: 1.22;
+  letter-spacing: -0.018em;
+}
+
+h3 {
+  font-size: 1.1875rem;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+/* Lead — tekst prowadzący sekcji i hero */
+.lead {
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+}
+
+/* Dostępność: link "przejdź do treści" */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 0.6rem 1.1rem;
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* ── Kontener i sekcje — jeden system kontenerów ─────────────────── */
+
+.container-site {
+  width: 100%;
+  max-width: 74rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 768px) {
+  .container-site { padding-inline: 2rem; }
+}
+
+.section {
+  padding-block: 4rem;
+}
+@media (min-width: 768px) {
+  .section { padding-block: 6rem; }
+}
+
+.section-alt {
+  background-color: var(--color-cream);
+  border-block: 1px solid var(--color-border);
+}
+
+.section-dark {
+  background-color: var(--color-primary);
+  color: var(--color-cream);
+}
+.section-dark h1,
+.section-dark h2,
+.section-dark h3 {
+  color: #fff;
+}
+
+/* Nagłówek sekcji: nadpis (eyebrow) + tytuł + lead */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+}
+.eyebrow::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--color-accent-light);
+}
+.section-dark .eyebrow {
+  color: var(--color-accent-light);
+}
+
+/* ── Przyciski — zaokrąglone, z wyraźną hierarchią ───────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  padding: 0.72rem 1.55rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.2;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    color 0.18s ease, transform 0.12s ease;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-lg {
+  padding: 0.95rem 2rem;
+  font-size: 1.02rem;
+}
+.btn-sm {
+  padding: 0.5rem 1.05rem;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background-color: var(--color-accent-light);
+  color: var(--color-primary-dark);
+}
+.btn-primary:hover {
+  background-color: var(--color-accent);
+}
+
+.btn-secondary {
+  background-color: var(--color-surface);
+  border-color: var(--color-border-strong);
+  color: var(--color-primary);
+}
+.btn-secondary:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
+}
+
+/* Przyciski na ciemnym tle */
+.section-dark .btn-primary {
+  background-color: var(--color-accent-light);
+  color: var(--color-primary-dark);
+}
+.section-dark .btn-primary:hover {
+  background-color: #D6B265;
+}
+.section-dark .btn-secondary {
+  background-color: transparent;
+  border-color: rgb(247 243 234 / 0.4);
+  color: var(--color-cream);
+}
+.section-dark .btn-secondary:hover {
+  border-color: var(--color-accent-light);
+  color: var(--color-accent-light);
+  background-color: rgb(247 243 234 / 0.06);
+}
+
+/* ── Karty — spójne obramowanie, radius, hover ───────────────────── */
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 1.5rem;
+}
+
+.card-hover {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-border-strong);
+}
+.card-hover:hover .card-arrow {
+  transform: translateX(4px);
+  color: var(--color-accent-dark);
+}
+.card-arrow {
+  transition: transform 0.18s ease, color 0.18s ease;
+}
+
+/* ── Pigułki / badge — tagi, kategorie, statusy ──────────────────── */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  padding: 0.3rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  background-color: var(--color-cream);
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+.pill-accent {
+  background-color: #F6EBCF;
+  border-color: #EBD9AC;
+  color: #7A5A17;
+}
+.pill-green {
+  background-color: #E4F2E7;
+  border-color: #CCE6D4;
+  color: #1E6B3C;
+}
+.pill-muted {
+  background-color: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+.pill-dot::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: var(--color-accent-light);
+}
+
+/* Chipy licencji (katalog narzędzi) */
+.lic {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.18rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.lic-ok {
+  background: #E4F2E7;
+  color: #1E6B3C;
+}
+.lic-warn {
+  background: #FBF0D7;
+  color: #8A6420;
+}
+.lic-bad {
+  background: #FBE4E1;
+  color: #A33B2E;
+}
+
+/* ── Navbar ──────────────────────────────────────────────────────── */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: rgb(251 249 245 / 0.86);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.42rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.nav-link:hover {
+  background-color: var(--color-cream);
+  color: var(--color-primary-dark);
+}
+.nav-link-active,
+.nav-link-active:hover {
+  background-color: var(--color-primary);
+  color: var(--color-cream);
+}
+
+/* ── Tabele (katalog narzędzi) ────────────────────────────────────── */
+
+.table-wrap {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.table-scroll {
+  overflow-x: auto;
+}
+
+/* ── Treść artykułów ─────────────────────────────────────────────── */
+
+.prose-content {
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+.prose-content h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.45rem;
+  line-height: 1.3;
+  color: var(--color-primary);
+}
+.prose-content h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+  color: var(--color-primary);
+}
+.prose-content p {
+  margin-bottom: 1.25rem;
+  color: var(--color-text);
+}
+.prose-content a {
+  color: var(--color-accent-dark);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: #D8C58F;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+.prose-content a:hover {
+  color: var(--color-primary);
+  text-decoration-color: var(--color-primary);
+}
+.prose-content ul,
+.prose-content ol {
+  margin: 0 0 1.25rem 1.4rem;
+}
+.prose-content ul {
+  list-style: disc;
+}
+.prose-content ol {
+  list-style: decimal;
+}
+.prose-content li {
+  margin-bottom: 0.5rem;
+}
+.prose-content li::marker {
+  color: var(--color-accent);
+}
+.prose-content code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--color-cream);
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  padding: 0.1rem 0.35rem;
+  color: var(--color-primary);
+}
+.prose-content pre {
+  background: var(--color-primary-dark);
+  color: #DCE8EC;
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.25rem;
+  overflow-x: auto;
+  margin: 0 0 1.5rem;
+}
+.prose-content pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+.prose-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+}
+.prose-content th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-primary);
+  border-bottom: 2px solid var(--color-border-strong);
+  padding: 0.55rem 0.75rem;
+}
+.prose-content td {
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.55rem 0.75rem;
+  vertical-align: top;
+}
+.prose-content blockquote {
+  border-left: 3px solid var(--color-accent-light);
+  padding: 0.25rem 0 0.25rem 1rem;
+  margin: 0 0 1.5rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* ── Ruch — szanujemy prefers-reduced-motion ─────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .card-hover,
+  .btn,
+  .card-arrow {
+    transition: none;
+  }
+  .card-hover:hover {
+    transform: none;
+  }
+}
+```
+
+
+---
+
+## `tsconfig.json`
+
+```json
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "strictNullChecks": true
+  }
+}
+```
+
+
+---

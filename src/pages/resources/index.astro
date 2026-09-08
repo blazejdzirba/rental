@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { getResourceEntries } from '../../lib/content';
+
+const entries = await getResourceEntries();
+---
+
+<Layout title="Resources" description="Things I found around the web worth bookmarking.">
+  <section class="container-prose py-16">
+    <h1>Resources</h1>
+    <p class="lead mt-3">Things I found around the web worth bookmarking.</p>
+
+    <div class="mt-10 divide-y divide-[--color-border] border-t border-[--color-border]">
+      {entries.map((entry) => (
+        <a href={`/resources/${entry.id}`} class="block py-5 link-underline">
+          <div class="flex items-baseline justify-between gap-4">
+            <h3 class="text-base">{entry.data.title}</h3>
+            <FormattedDate date={entry.data.date} />
+          </div>
+          <p class="mt-1 text-sm text-text-muted">{entry.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Interaktywne polskie demo channel managera, PMS, revenue management, obsługi gości, finansów i zespołu STR Operations OS."
+    />
+    <title>STR Operations OS — Channel Manager i PMS Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Przejdź do treści</a>
+    <div class="demo-banner">
+      <span><strong>TRYB DEMO</strong> · przykładowe dane, bez połączenia z OTA</span>
+      <span class="demo-banner__desktop">Akcje są symulowane i niczego nie wysyłają</span>
+    </div>
+    <div class="app-frame">
+      <aside class="sidebar" aria-label="Nawigacja panelu administracyjnego">
+        <a class="brand" href="#pulpit" data-view="pulpit">
+          <span class="brand__mark" aria-hidden="true">S</span>
+          <span><strong>STR Operations</strong><small>Panel operacyjny</small></span>
+        </a>
+        <nav id="desktop-nav" class="nav"></nav>
+        <div class="profile">
+          <span class="avatar" aria-hidden="true">AD</span>
+          <span><strong>Anna Demo</strong><small>Superadministrator</small></span>
+        </div>
+      </aside>
+
+      <div class="app-content">
+        <header class="topbar">
+          <button class="menu-button" id="menu-button" type="button" aria-controls="mobile-nav" aria-expanded="false">Nawigacja</button>
+          <div><span class="eyebrow">Channel manager · PMS · operacje</span><strong>Centrum dowodzenia</strong></div>
+          <div class="topbar__actions"><span class="environment">● Środowisko demo</span><button class="icon-button" type="button" aria-label="Powiadomienia">3</button></div>
+        </header>
+        <nav id="mobile-nav" class="mobile-nav" aria-label="Nawigacja mobilna" hidden></nav>
+        <main id="main" class="main-content" tabindex="-1"></main>
+      </div>
+    </div>
+    <div id="toast" class="toast" aria-live="polite" role="status"></div>
+    <script src="./app.js"></script>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a37cb5c07b0a4107',t:'MTc4ODg1NzQ3Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

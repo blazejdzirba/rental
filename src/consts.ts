@@ -1,21 +1,14 @@
-// Globalne dane strony — importuj skąd chcesz: `import { NAV } from '../consts'`
-
-export const SITE_TITLE = 'RentalDev';
-export const SITE_DESCRIPTION =
-  'Twoja baza wiedzy o automatyzacji najmu krótkoterminowego.';
-
-// Menu główne — kolejność = kolejność w navbarze
+export const NAME = 'blaise';
+export const SITE_TITLE = `${NAME} — dev hub`;
+export const SITE_DESCRIPTION = 'I build things, find interesting projects, and share what I learn.';
+export const CURRENTLY_EXPLORING = 'Automation workflows and AI-driven dev tools.';
 export const NAV = [
-  { label: 'Start', href: '/' },
-  { label: 'Narzędzia', href: '/narzedzia' },
-  { label: 'Poradniki', href: '/blog' },
-  { label: 'Projekty', href: '/programy' },
-  { label: 'Wideo', href: '/wideo' },
-  { label: 'O stronie', href: '/about' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Posts', href: '/writing' },
+  { label: 'Resources', href: '/resources' },
+  { label: 'About', href: '/about' },
 ] as const;
-
-// Kontakt — {{DO_UZUPEŁNIENIA}}: podaj swoje dane
-export const CONTACT = {
-  telegram: '{{DO_UZUPEŁNIENIA}}', // np. https://t.me/twojanick
-  email: '{{DO_UZUPEŁNIENIA}}', // np. kontakt@twojadomena.pl
+export const SOCIAL = {
+  github: 'https://github.com/blaisedev',
+  email: 'blaise@example.com',
 };

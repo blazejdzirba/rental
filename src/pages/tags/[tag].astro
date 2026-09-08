@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import EntryCard from '../../components/EntryCard.astro';
+import { getAllTags, getEntriesByTag } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const tags = await getAllTags();
+  return Promise.all(
+    tags.map(async (tag) => ({
+      params: { tag },
+      props: { entries: await getEntriesByTag(tag) },
+    }))
+  );
+}
+
+const { tag } = Astro.params;
+const { entries } = Astro.props;
+---
+
+<Layout title={`#${tag}`} description={`Everything tagged ${tag}.`}>
+  <section class="container-wide py-16">
+    <p class="mono-label">Tag</p>
+    <h1>#{tag}</h1>
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {entries.map((entry, i) => <EntryCard entry={entry} index={i + 1} />)}
+    </div>
+  </section>
+</Layout>

@@ -1,238 +1,39 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import HeroVisual from '../components/HeroVisual.astro';
-import SectionHeading from '../components/SectionHeading.astro';
-import CategoryCard from '../components/CategoryCard.astro';
-import ToolCard from '../components/ToolCard.astro';
-import ArticleCard from '../components/ArticleCard.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { getCollection } from 'astro:content';
-import tools from '../data/tools.json';
+import EntryCard from '../components/EntryCard.astro';
+import CurrentlyExploring from '../components/CurrentlyExploring.astro';
+import { NAME, SITE_DESCRIPTION } from '../consts';
+import { getPublishedEntries, getFeatured } from '../lib/content';
 
-const allPosts = (await getCollection('blog'))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-const posts = allPosts.slice(0, 3);
-
-const projects = (await getCollection('programy'))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-const wideo = await getCollection('wideo');
-
-const featuredTools = tools.filter((t) => t.featured).slice(0, 6);
-
-const CAT_LABELS: Record<string, string> = {
-  ical: 'Kalendarze iCal',
-  locks: 'Zamki i IoT',
-  comm: 'Komunikacja',
-  ai: 'Agenci AI',
-  auto: 'Automatyzacja',
-  data: 'Dane i ceny',
-};
-
-const categories = [
-  {
-    href: '/narzedzia/',
-    title: 'Narzędzia',
-    description: 'Aplikacje i rozwiązania open source przydatne w codziennej pracy: kalendarze, komunikacja, zamki, dane.',
-    icon: 'tools' as const,
-    count: `${tools.length} pozycji`,
-  },
-  {
-    href: '/blog/',
-    title: 'Poradniki',
-    description: 'Instrukcje krok po kroku: jak uruchomić, skonfigurować i połączyć usługi — od podstaw po zaawansowane ustawienia.',
-    icon: 'guide' as const,
-    count: `${allPosts.length} poradników`,
-  },
-  {
-    href: '/programy/',
-    title: 'Projekty',
-    description: 'Gotowe projekty z GitHub i własne narzędzia — do sklonowania, skonfigurowania i uruchomienia u siebie.',
-    icon: 'projects' as const,
-    count: `${projects.length} projekty`,
-  },
-  {
-    href: '/wideo/',
-    title: 'Wideo',
-    description: 'Tutoriale wideo pokazujące uruchamianie i konfigurację krok po kroku. Nowe materiały wkrótce.',
-    icon: 'video' as const,
-    count: `${wideo.length} w przygotowaniu`,
-  },
-];
+const featured = await getFeatured(3);
+const latest = (await getPublishedEntries()).slice(0, 8);
 ---
 
-<Layout>
-  <!-- A. HERO -->
-  <section class="hero-section relative overflow-hidden">
-    <div class="container-site grid items-center gap-14 py-14 md:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
-      <div>
-        <span class="pill pill-accent pill-dot mb-6">
-          Darmowa baza narzędzi i poradników
-        </span>
-        <h1 class="mb-6">
-          Narzędzia, poradniki i projekty dla
-          <span class="text-accent-dark">najmu krótkoterminowego</span>
-        </h1>
-        <p class="lead mb-9 max-w-xl">
-          Zbieram tu sprawdzone aplikacje open source, projekty z GitHub i instrukcje
-          krok po kroku — wszystko do samodzielnego uruchomienia. Bez abonamentów,
-          bez pośredników, z konkretnymi ustawieniami.
-        </p>
-        <div class="flex flex-wrap gap-3">
-          <a href="/narzedzia/" class="btn btn-primary btn-lg">Przeglądaj narzędzia</a>
-          <a href="/blog/" class="btn btn-secondary btn-lg">Zobacz poradniki</a>
-        </div>
-        <ul class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-text-muted">
-          <li class="inline-flex items-center gap-2">
-            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="var(--color-accent)" stroke-width="1.8" aria-hidden="true">
-              <path d="M3 8.5l3 3 7-7" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            {tools.length} zweryfikowanych narzędzi
-          </li>
-          <li class="inline-flex items-center gap-2">
-            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="var(--color-accent)" stroke-width="1.8" aria-hidden="true">
-              <path d="M3 8.5l3 3 7-7" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            {allPosts.length} poradników krok po kroku
-          </li>
-          <li class="inline-flex items-center gap-2">
-            <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="var(--color-accent)" stroke-width="1.8" aria-hidden="true">
-              <path d="M3 8.5l3 3 7-7" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            100% darmowy dostęp
-          </li>
-        </ul>
-      </div>
-      <HeroVisual />
+<Layout title={NAME} description={SITE_DESCRIPTION}>
+  <section class="container-prose pt-20 pb-10">
+    <p class="mono-label mb-4">{NAME}</p>
+    <h1>I build things, find interesting projects, and share what I learn.</h1>
+    <div class="mt-6">
+      <CurrentlyExploring />
     </div>
   </section>
 
-  <!-- B. KATEGORIE -->
-  <section id="kategorie" class="section-alt section">
-    <div class="container-site">
-      <SectionHeading
-        eyebrow="Zacznij od kategorii"
-        title="Co znajdziesz w bazie?"
-        lead="Cztery obszary, jedna zasada: wszystko możesz uruchomić sam/sama, zgodnie z instrukcją."
-      />
-      <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {categories.map((c) => (
-          <CategoryCard
-            href={c.href}
-            title={c.title}
-            description={c.description}
-            icon={c.icon}
-            count={c.count}
-          />
-        ))}
+  {featured.length > 0 && (
+    <section class="container-wide py-10">
+      <h2 class="mb-6">Featured</h2>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {featured.map((entry, i) => <EntryCard entry={entry} index={i + 1} />)}
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <!-- C. WYRÓŻNIONE NARZĘDZIA -->
-  <section class="section">
-    <div class="container-site">
-      <SectionHeading
-        eyebrow="Katalog"
-        title="Wybrane narzędzia"
-        lead="Sprawdzone projekty open source, które realnie oszczędzają czas w codziennym zarządzaniu. Pełna lista — z licencjami i datami aktualizacji — czeka w katalogu."
-        actionHref="/narzedzia/"
-        actionLabel={`Wszystkie ${tools.length} narzędzi`}
-      />
-      <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {featuredTools.map((t) => (
-          <ToolCard
-            name={t.name}
-            who={t.who}
-            description={t.description}
-            stars={t.stars}
-            license={t.license}
-            pushed_at={t.pushed_at}
-            archived={t.archived}
-            categoryLabel={CAT_LABELS[t.category] || t.category}
-            level={t.level}
-            guide={t.guide || undefined}
-            url={t.url}
-          />
-        ))}
-      </div>
+  <section class="container-wide py-10">
+    <div class="mb-6 flex items-center justify-between">
+      <h2>Latest</h2>
+      <a href="/writing" class="mono-label link-underline">View all →</a>
     </div>
-  </section>
-
-  <!-- D. NAJNOWSZE PORADNIKI -->
-  <section class="section-alt section">
-    <div class="container-site">
-      <SectionHeading
-        eyebrow="Poradniki"
-        title="Najnowsze poradniki"
-        lead="Instrukcje, które da się odtworzyć: co zainstalować, co skopiować, gdzie kliknąć. Bez ogólników."
-        actionHref="/blog/"
-        actionLabel="Wszystkie poradniki"
-      />
-      <div class="mt-10 grid gap-5 md:grid-cols-3">
-        {posts.map((post) => (
-          <ArticleCard
-            id={post.id}
-            title={post.data.title}
-            description={post.data.description}
-            pubDate={post.data.pubDate}
-            tags={post.data.tags}
-            readingTime={post.data.readingTime}
-          />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- E. PROJEKTY DO SAMODZIELNEGO URUCHOMIENIA -->
-  <section class="section">
-    <div class="container-site">
-      <SectionHeading
-        eyebrow="Projekty"
-        title="Projekty do samodzielnego uruchomienia"
-        lead="Skopiuj, skonfiguruj, uruchom. Do każdego projektu wymagania startowe i link do kodu albo poradnika."
-        actionHref="/programy/"
-        actionLabel="Wszystkie projekty"
-      />
-      <div class="mt-10 grid gap-5 md:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            description={project.data.description}
-            level={project.data.level}
-            requirements={project.data.requirements}
-            tags={project.data.tags}
-            repoUrl={project.data.repoUrl || undefined}
-            demoUrl={project.data.demoUrl || undefined}
-            guideUrl={project.data.guideUrl || undefined}
-          />
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- F. CTA KOŃCOWE (niesprzedażowe) -->
-  <section class="section-dark section">
-    <div class="container-site mx-auto max-w-2xl text-center">
-      <p class="eyebrow mb-4 justify-center">Dołącz do bazy</p>
-      <h2 class="mb-4">Masz pomysł na narzędzie lub poradnik?</h2>
-      <p class="mx-auto mb-9 max-w-xl text-lg leading-relaxed text-cream/80">
-        Ta baza rośnie dzięki pomysłom czytelników. Podpowiedz, co dodać — albo wyłap
-        błąd w instrukcji, a poprawię ją w kolejnej wersji.
-      </p>
-      <div class="flex flex-col justify-center gap-3 sm:flex-row">
-        <a href="/kontakt/" class="btn btn-primary btn-lg">Napisz do mnie</a>
-        <a href="#kategorie" class="btn btn-secondary btn-lg">Wróć do kategorii</a>
-      </div>
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {latest.map((entry, i) => <EntryCard entry={entry} index={i + 1} />)}
     </div>
   </section>
 </Layout>
-
-<style>
-  .hero-section {
-    background:
-      radial-gradient(52rem 26rem at 82% -12%, rgb(201 162 77 / 0.16) 0%, transparent 62%),
-      radial-gradient(40rem 22rem at -8% 8%, rgb(23 54 67 / 0.07) 0%, transparent 58%),
-      var(--color-background);
-  }
-</style>

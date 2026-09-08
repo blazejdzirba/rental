@@ -1,51 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { NAME, SOCIAL } from '../consts';
 ---
 
-<Layout
-  title="O stronie"
-  description="Co to jest Najem KŚ: zasady bazy, zaufanie do treści i brak paywalla."
->
-  <section class="mx-auto max-w-3xl px-4 py-14 md:px-8 md:py-16">
-    <p class="eyebrow mb-3">O stronie</p>
-    <h1 class="mb-6">Dlaczego ta strona istnieje</h1>
-
-    <div class="prose-content">
+<Layout title="About" description={`About ${NAME}.`}>
+  <section class="container-prose py-16">
+    <h1>About</h1>
+    <div class="prose-content mt-6">
       <p>
-        <strong>Najem KŚ</strong> to otwarta baza wiedzy i narzędzi dla osób zarządzających
-        najmem krótkoterminowym. Zbieram tu to, co faktycznie działa: aplikacje open source,
-        projekty z GitHub i instrukcje, które da się odtworzyć krok po kroku.
+        Dwa-trzy akapity o Tobie — nie CV, nie "7 lat doświadczenia". Co budujesz, czego szukasz, dlaczego publikujesz.
       </p>
-      <p>
-        Cała treść jest <strong>darmowa</strong>. Nie sprzedaję wdrożeń, konsultacji ani
-        dostępów — strona ma jedną rolę: żebyś sam/samą potrafiła uruchomić i skonfigurować
-        rozwiązania, bez zależności od zewnętrznego usługodawcy.
-      </p>
-
-      <h2>Zasady bazy</h2>
-      <ul>
-        <li>
-          <strong>Każde narzędzie z katalogu jest weryfikowane</strong> — licencja, data
-          ostatniej zmiany, stan repozytorium. Nieaktywne projekty oznaczam.
-        </li>
-        <li>
-          <strong>Każdy poradnik opiera się na konfiguracji, którą da się odtworzyć</strong> —
-          jeśli instrukcja nie działa, jest do poprawienia.
-        </li>
-        <li>
-          <strong>Brak paywalla</strong> — nie ma dostępu premium ani płatnych pakietów.
-          Jeśli coś się zmieni (licencja, cena, projekt), poprawiam opis zamiast ukrywać.
-        </li>
-        <li>
-          <strong>Zgłoszenia czytelników decydują o kolejności tematów</strong> — pytania,
-          które pojawiają się najczęściej, trafiają do kolejnych poradników.
-        </li>
-      </ul>
-
-      <p>
-        Masz pomysł na narzędzie, projekt albo temat poradnika? Napisz przez
-        <a href="/kontakt/">stronę kontaktową</a> — lista pomysłów rośnie z każdą wiadomością.
-      </p>
+      <p>Stack, którego dziś realnie używasz.</p>
+    </div>
+    <div class="mt-8 flex gap-4">
+      <a href={SOCIAL.github} target="_blank" rel="noopener" class="btn">GitHub ↗</a>
+      <a href={`mailto:${SOCIAL.email}`} class="btn">Email</a>
     </div>
   </section>
 </Layout>

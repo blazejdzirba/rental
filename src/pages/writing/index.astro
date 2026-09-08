@@ -1,0 +1,18 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import EntryCard from '../../components/EntryCard.astro';
+import { getWritingEntries } from '../../lib/content';
+
+const entries = await getWritingEntries();
+---
+
+<Layout title="Posts" description="Short posts, tutorials, and the occasional video.">
+  <section class="container-wide py-16">
+    <h1>Posts</h1>
+    <p class="lead mt-3">Short posts, tutorials, and the occasional screen recording.</p>
+
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {entries.map((entry, i) => <EntryCard entry={entry} index={i + 1} />)}
+    </div>
+  </section>
+</Layout>

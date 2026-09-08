@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import EntryCard from '../../components/EntryCard.astro';
+import { getProjectEntries } from '../../lib/content';
+
+const url = new URL(Astro.request.url);
+const filter = url.searchParams.get('filter'); // 'mine' | 'found' | null
+
+let entries = await getProjectEntries();
+if (filter === 'mine') entries = entries.filter((e) => e.data.type === 'project');
+if (filter === 'found') entries = entries.filter((e) => e.data.type === 'github');
+---
+
+<Layout title="Projects" description="Things I've built, and interesting things I've found on GitHub.">
+  <section class="container-wide py-16">
+    <h1>Projects</h1>
+    <p class="lead mt-3">Things I've built, and interesting things I've found on GitHub.</p>
+
+    <div class="mt-6 flex gap-2">
+      <a href="/projects" class:list={['btn', !filter && 'btn-accent']}>All</a>
+      <a href="/projects?filter=mine" class:list={['btn', filter === 'mine' && 'btn-accent']}>Mine</a>
+      <a href="/projects?filter=found" class:list={['btn', filter === 'found' && 'btn-accent']}>Found on GitHub</a>
+    </div>
+
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {entries.map((entry, i) => <EntryCard entry={entry} index={i + 1} />)}
+    </div>
+  </section>
+</Layout>
