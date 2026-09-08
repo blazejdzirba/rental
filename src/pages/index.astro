@@ -14,7 +14,7 @@ const posts = (await getCollection('blog'))
       <p class="mt-6 text-lg text-text/80">
         Praktyczne poradniki dla gospodarzy najmu krótkoterminowego.
       </p>
-      
+      <a
         href="/blog"
         class="mt-8 inline-block rounded-full bg-primary px-8 py-3 font-semibold text-white transition-colors hover:bg-primary-light"
       >
@@ -28,7 +28,7 @@ const posts = (await getCollection('blog'))
 
     <div class="grid gap-8 md:grid-cols-3">
       {posts.map((post) => (
-        
+        <a
           href={`/blog/${post.slug}`}
           class="block rounded-lg border border-secondary-dark bg-secondary p-6 transition-shadow hover:shadow-lg"
         >
