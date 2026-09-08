@@ -1,37 +1,59 @@
 ---
+import { NAV, CONTACT } from '../consts';
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-primary-dark text-white">
+<footer class="bg-primary text-white">
   <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-3 md:px-8">
+    <!-- Kolumna 1: O platformie -->
     <div>
-      <h3 class="mb-3 font-heading text-lg font-semibold text-white">O nas</h3>
+      <h3 class="mb-3 font-heading text-lg font-semibold text-white">O platformie</h3>
       <p class="text-sm text-white/70">
-        Praktyczne poradniki, kursy i narzędzia AI dla gospodarzy najmu krótkoterminowego.
+        Praktyczne poradniki, kursy i narzędzia AI dla gospodarzy najmu krótkoterminowego. Automatyzacja, Beds24, systemy operacyjne.
       </p>
     </div>
 
+    <!-- Kolumna 2: Nawigacja -->
     <div>
-      <h3 class="mb-3 font-heading text-lg font-semibold text-white">Linki</h3>
+      <h3 class="mb-3 font-heading text-lg font-semibold text-white">Nawigacja</h3>
       <ul class="space-y-2 text-sm text-white/70">
-        <li><a href="/blog" class="hover:text-accent">Blog</a></li>
-        <li><a href="/kursy" class="hover:text-accent">Kursy</a></li>
-        <li><a href="/programy" class="hover:text-accent">Programy</a></li>
-        <li><a href="/kontakt" class="hover:text-accent">Kontakt</a></li>
+        {NAV.map((link) => (
+          <li>
+            <a href={link.href} class="hover:text-accent">
+              {link.label}
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
 
+    <!-- Kolumna 3: Kontakt -->
     <div>
-      <h3 class="mb-3 font-heading text-lg font-semibold text-white">Social Media</h3>
+      <h3 class="mb-3 font-heading text-lg font-semibold text-white">Kontakt</h3>
       <ul class="space-y-2 text-sm text-white/70">
-        <li><a href="https://instagram.com" class="hover:text-accent">Instagram</a></li>
-        <li><a href="https://facebook.com" class="hover:text-accent">Facebook</a></li>
-        <li><a href="https://youtube.com" class="hover:text-accent">YouTube</a></li>
+        {CONTACT.telegram && CONTACT.telegram !== '{{DO_UZUPEŁNIENIA}}' ? (
+          <li>
+            <a href={CONTACT.telegram} class="hover:text-accent" target="_blank" rel="noopener">
+              Telegram →
+            </a>
+          </li>
+        ) : null}
+        {CONTACT.email && CONTACT.email !== '{{DO_UZUPEŁNIENIA}}' ? (
+          <li>
+            <a href={`mailto:${CONTACT.email}`} class="hover:text-accent">
+              {CONTACT.email}
+            </a>
+          </li>
+        ) : null}
+        {(!CONTACT.telegram || CONTACT.telegram === '{{DO_UZUPEŁNIENIA}}') && (!CONTACT.email || CONTACT.email === '{{DO_UZUPEŁNIENIA}}') ? (
+          <li class="text-white/40 italic">Dane kontaktowe w przygotowaniu</li>
+        ) : null}
       </ul>
     </div>
   </div>
 
-  <div class="border-t border-white/10 py-6 text-center text-xs text-white/50">
-    © {year} NazwaTwojejStrony. Wszelkie prawa zastrzeżone.
+  <!-- Pasek dolny z granatowym tłem + złoty separator -->
+  <div class="border-t-2 border-accent bg-primary-dark py-6 text-center text-xs text-white/50">
+    © {year} Najem KŚ. Wszelkie prawa zastrzeżone.
   </div>
 </footer>

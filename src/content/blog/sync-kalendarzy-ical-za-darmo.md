@@ -3,6 +3,7 @@ title: "Sync kalendarzy Airbnb i Booking za darmo: iCal na własnym serwerze"
 description: "Krok po kroku: zbierasz feedy iCal wszystkich kanałów na własnym serwerze i widzisz jeden kalendarz. Zero abonamentu, pełna kontrola. Na bazie Sync-Rentals-Calendar."
 pubDate: 2026-09-08
 tags: ["kalendarze", "ical", "poradnik"]
+access: free
 ---
 
 Podwójne rezerwacje biorą się z tego, że każdy kanał ma „swój” kalendarz. Rozwiązanie znasz:

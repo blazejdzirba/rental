@@ -1,38 +1,45 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
- const blog = defineCollection({
-loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
-schema: z.object({
-title: z.string(),
-description: z.string(),
-pubDate: z.coerce.date(),
-updatedDate: z.coerce.date().optional(),
-heroImage: z.string().optional(),
-tags: z.array(z.string()).default([]),
-}),
+
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    heroImage: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    access: z.enum(['free', 'paid']).default('free'),
+    readingTime: z.string().optional(),
+  }),
 });
- const kursy = defineCollection({
-loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/kursy' }),
-schema: z.object({
-title: z.string(),
-description: z.string(),
-kolejnosc: z.number(), // numer lekcji w kursie
-modul: z.string(), // np. "Moduł 1: Podstawy"
-wideoUrl: z.string().optional(), // link do YouTube/Vimeo
-czasTrwania: z.string().optional(), // np. "12 min"
-darmowa: z.boolean().default(false), // czy lekcja jest darmowym preview
-}),
+
+const kursy = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/kursy' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    heroImage: z.string().optional(),
+    level: z.enum(['początkujący', 'średni', 'zaawansowany']).default('początkujący'),
+    access: z.enum(['free', 'paid']).default('free'),
+    price: z.string().optional(),
+  }),
 });
+
 const programy = defineCollection({
-loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/programy' }),
-schema: z.object({
-nazwa: z.string(),
-opis: z.string(),
-kategoria: z.string(), // np. "Automatyzacja", "Cennik dynamiczny"
-stronaWWW: z.string(),
-cena: z.string().optional(), // np. "od 15 USD/mies."
-ocena: z.number().min(1).max(5).optional(),
-kraj: z.string().optional(), // pochodzenie programu
-}),
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/programy' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    repoUrl: z.string().optional(),
+    demoUrl: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    access: z.enum(['free', 'paid']).default('free'),
+    thumbnail: z.string().optional(),
+  }),
 });
- export const collections = { blog, kursy, programy };
+
+export const collections = { blog, kursy, programy };

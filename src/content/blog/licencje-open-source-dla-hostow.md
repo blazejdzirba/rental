@@ -3,6 +3,7 @@ title: "Zanim użyjesz darmowego narzędzia z GitHub: licencje dla hostów, łam
 description: "MIT, Apache, GPL, AGPL — co wolno Ci robić z darmowym narzędziem jako host najmu krótkoterminowego, a co grozi mandatem. Bez prawnika, na przykładach."
 pubDate: 2026-09-08
 tags: ["licencje", "open-source", "poradnik"]
+access: free
 ---
 
 Darmowe nie znaczy „rób co chcesz”. Każde narzędzie z [katalogu](/narzedzia/) ma licencję,

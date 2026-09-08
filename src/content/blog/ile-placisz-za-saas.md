@@ -3,6 +3,7 @@ title: "Ile naprawdę płacisz za SaaS-y do najmu? Policz to, zanim kupisz kolej
 description: "PMS, channel manager, narzędzie do sprzątania, dynamiczne ceny — host z 5 obiektów płaci 300–800 zł/mies. Pokazuję, ile z tego pokrywają darmowe odpowiedniki z katalogu."
 pubDate: 2026-09-08
 tags: ["koszty", "saas", "open-source"]
+access: free
 ---
 
 Cena abonamentu nigdy nie boli, bo jest rozłożona. Ale zsumuj kwartalne wyciągi — większość
