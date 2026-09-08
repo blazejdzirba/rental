@@ -1,37 +1,60 @@
 ---
-interface VideoData {
-  youtubeId?: string;
-  file?: string;
-  url?: string;
-  caption?: string;
-}
 interface Props {
-  video: VideoData;
-  class?: string;
+  videoUrl?: string;
+  videoFile?: string;
+  title?: string;
 }
-const { video, class: className } = Astro.props;
+
+const { videoUrl, videoFile, title = 'Video' } = Astro.props;
+
+function toEmbed(url: string): { kind: 'iframe' | 'video'; src: string } | null {
+  try {
+    const u = new URL(url);
+    // YouTube
+    if (u.hostname.includes('youtu.be')) {
+      const id = u.pathname.slice(1);
+      return { kind: 'iframe', src: `https://www.youtube-nocookie.com/embed/${id}` };
+    }
+    if (u.hostname.includes('youtube.com')) {
+      const id = u.searchParams.get('v') || u.pathname.split('/embed/')[1];
+      if (id) return { kind: 'iframe', src: `https://www.youtube-nocookie.com/embed/${id}` };
+    }
+    // Vimeo
+    if (u.hostname.includes('vimeo.com')) {
+      const id = u.pathname.split('/').filter(Boolean).pop();
+      if (id) return { kind: 'iframe', src: `https://player.vimeo.com/video/${id}` };
+    }
+    // Direct media
+    if (/\.(mp4|webm|ogg)(\?|$)/i.test(u.pathname)) {
+      return { kind: 'video', src: url };
+    }
+    // fallback: try iframe
+    return { kind: 'iframe', src: url };
+  } catch {
+    return null;
+  }
+}
+
+const embed = videoUrl ? toEmbed(videoUrl) : videoFile ? { kind: 'video' as const, src: videoFile } : null;
 ---
 
-<div class:list={[className]}>
-  {video.youtubeId && (
-    <div class="aspect-video overflow-hidden rounded-md border border-[--color-border]">
-      <iframe
-        class="h-full w-full"
-        src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}`}
-        title={video.caption ?? 'Video'}
-        loading="lazy"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
+{
+  embed && (
+    <div class="video-frame">
+      {embed.kind === 'iframe' ? (
+        <iframe
+          src={embed.src}
+          title={title}
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        />
+      ) : (
+        <video controls preload="metadata" title={title}>
+          <source src={embed.src} />
+          <a href={embed.src}>Download video</a>
+        </video>
+      )}
     </div>
-  )}
-  {video.file && (
-    <video controls class="w-full rounded-md border border-[--color-border]">
-      <source src={video.file} />
-    </video>
-  )}
-  {!video.youtubeId && !video.file && video.url && (
-    <a href={video.url} target="_blank" rel="noopener" class="btn">Watch video ↗</a>
-  )}
-  {video.caption && <p class="mt-2 text-sm text-text-faint">{video.caption}</p>}
-</div>
+  )
+}

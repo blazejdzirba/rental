@@ -1,0 +1,63 @@
+---
+import type { Entry } from '../lib/entries';
+import { entryHref, formatDate, ownershipOf, padIndex, typeShort } from '../lib/entries';
+import { TYPE_META } from '../consts';
+
+interface Props {
+  entry: Entry;
+  index?: number;
+}
+
+const { entry, index } = Astro.props;
+const { data } = entry;
+const own = ownershipOf(entry);
+const href = entryHref(entry);
+---
+
+<article class="entry-row-wrap">
+  <a class="entry-row" href={href}>
+    <div class="entry-index" aria-hidden="true">
+      {typeof index === 'number' ? padIndex(index) : '—'}
+    </div>
+    <div>
+      <div class="entry-meta">
+        <span class="chip chip-accent">{typeShort(data.type)}</span>
+        <span class={`chip ${own === 'mine' ? 'chip-mine' : 'chip-found'}`}>
+          {own === 'mine' ? 'My work' : 'Found'}
+        </span>
+        {
+          data.author && own === 'found' && (
+            <span class="entry-date">by {data.author}</span>
+          )
+        }
+      </div>
+      <h3 class="entry-title">{data.title}</h3>
+      <p class="entry-desc">{data.description}</p>
+      <div class="entry-foot">
+        <time class="entry-date" datetime={data.date.toISOString()}>
+          {formatDate(data.date)}
+        </time>
+        {
+          data.tags.length > 0 && (
+            <div class="tags" aria-label="Tags">
+              {data.tags.slice(0, 4).map((t) => (
+                <span class="tag">{t}</span>
+              ))}
+            </div>
+          )
+        }
+      </div>
+    </div>
+  </a>
+</article>
+
+<style>
+  .entry-row-wrap {
+    /* keeps border continuity when nested */
+  }
+  .tags {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+</style>

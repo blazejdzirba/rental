@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import EntryList from '../../components/EntryList.astro';
+import FilterBar from '../../components/FilterBar.astro';
+import { getEntries } from '../../lib/entries';
+import { TYPE_META, type ContentType } from '../../consts';
+
+export function getStaticPaths() {
+  const segments = ['projects', 'posts', 'github', 'tutorials', 'resources', 'videos'] as const;
+  return segments.map((segment) => ({ params: { type: segment } }));
+}
+
+const SEGMENT_TO_TYPE: Record<string, ContentType> = {
+  projects: 'project',
+  posts: 'post',
+  github: 'github',
+  tutorials: 'tutorial',
+  resources: 'resource',
+  videos: 'video',
+};
+
+const segment = Astro.params.type as string;
+const type = SEGMENT_TO_TYPE[segment];
+
+if (!type) {
+  throw new Error(`Unknown explore segment: ${segment}`);
+}
+
+const meta = TYPE_META[type];
+const entries = await getEntries({ type });
+const all = await getEntries();
+
+const counts: Partial<Record<ContentType | 'all', number>> = { all: all.length };
+for (const t of Object.keys(TYPE_META) as ContentType[]) {
+  counts[t] = all.filter((e) => e.data.type === t).length;
+}
+---
+
+<Layout title={meta.label} description={meta.description}>
+  <section class="site-shell page-hero" style="padding-bottom: 1rem;">
+    <p class="eyebrow">
+      <span class="eyebrow-num">01</span>
+      <span>{meta.label}</span>
+    </p>
+    <h1 style="margin-bottom: 0.75rem;">{meta.label}</h1>
+    <p class="lead">{meta.description}</p>
+  </section>
+
+  <section class="site-shell" style="padding-bottom: 4rem;">
+    <FilterBar current={type} counts={counts} />
+
+    {
+      entries.length > 0 ? (
+        <EntryList entries={entries} startIndex={1} />
+      ) : (
+        <p class="muted" style="padding-block: 2rem;">Nothing in this category yet.</p>
+      )
+    }
+  </section>
+</Layout>

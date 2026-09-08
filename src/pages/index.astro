@@ -1,39 +1,149 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import EntryCard from '../components/EntryCard.astro';
-import CurrentlyExploring from '../components/CurrentlyExploring.astro';
-import { NAME, SITE_DESCRIPTION } from '../consts';
-import { getPublishedEntries, getFeatured } from '../lib/content';
+import EntryList from '../components/EntryList.astro';
+import { SITE_DESCRIPTION, SITE_TITLE, AUTHOR } from '../consts';
+import { getEntries } from '../lib/entries';
 
-const featured = await getFeatured(3);
-const latest = (await getPublishedEntries()).slice(0, 8);
+const featured = await getEntries({ featured: true, limit: 3 });
+const exploring = await getEntries({ exploring: true, limit: 5 });
+const latest = await getEntries({ limit: 8 });
+
+// Avoid duplicating featured in latest list
+const featuredIds = new Set(featured.map((e) => e.id));
+const latestFiltered = latest.filter((e) => !featuredIds.has(e.id)).slice(0, 6);
 ---
 
-<Layout title={NAME} description={SITE_DESCRIPTION}>
-  <section class="container-prose pt-20 pb-10">
-    <p class="mono-label mb-4">{NAME}</p>
-    <h1>I build things, find interesting projects, and share what I learn.</h1>
-    <div class="mt-6">
-      <CurrentlyExploring />
+<Layout title={undefined} description={SITE_DESCRIPTION}>
+  <!-- Hero — short, not half the viewport -->
+  <section class="site-shell page-hero">
+    <p class="eyebrow">
+      <span class="eyebrow-num">01</span>
+      <span>{SITE_TITLE}</span>
+    </p>
+    <h1 style="max-width: 18ch; margin-bottom: 1rem;">
+      Build. Find. Share what you learn.
+    </h1>
+    <p class="lead">
+      A quiet corner of the internet for things I build, open-source I stumble into,
+      short notes, and the occasional how-to. Not a portfolio — a curated hub.
+    </p>
+    <div style="display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem;">
+      <a class="btn btn-primary" href="/explore/">Explore the feed</a>
+      <a class="btn btn-ghost" href="/about/">About</a>
+      {
+        AUTHOR.github && (
+          <a class="btn btn-ghost" href={AUTHOR.github} target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+        )
+      }
     </div>
   </section>
 
-  {featured.length > 0 && (
-    <section class="container-wide py-10">
-      <h2 class="mb-6">Featured</h2>
-      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {featured.map((entry, i) => <EntryCard entry={entry} index={i + 1} />)}
-      </div>
-    </section>
-  )}
+  <hr class="rule site-shell" />
 
-  <section class="container-wide py-10">
-    <div class="mb-6 flex items-center justify-between">
-      <h2>Latest</h2>
-      <a href="/writing" class="mono-label link-underline">View all →</a>
+  <!-- Currently exploring -->
+  {
+    exploring.length > 0 && (
+      <section class="site-shell section" style="padding-top: 2.5rem; padding-bottom: 2rem;">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem;">
+          <p class="eyebrow">
+            <span class="eyebrow-num">02</span>
+            <span>Currently exploring</span>
+          </p>
+        </div>
+        <ul class="now-list">
+          {exploring.map((e) => (
+            <li>
+              <span class="now-label">{e.data.type}</span>
+              <span>
+                <a class="link-quiet" href={`/entries/${e.id}/`}>
+                  {e.data.title}
+                </a>
+                <span class="subtle"> — {e.data.description}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <!-- Featured -->
+  {
+    featured.length > 0 && (
+      <section class="site-shell section" style="padding-top: 1.5rem;">
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+          <div>
+            <p class="eyebrow">
+              <span class="eyebrow-num">03</span>
+              <span>Featured</span>
+            </p>
+            <h2 style="margin: 0.5rem 0 0;">Worth your attention</h2>
+          </div>
+          <a class="link-arrow" href="/explore/">
+            All entries
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="entry-card-grid">
+          {featured.map((entry, i) => (
+            <EntryCard entry={entry} index={i + 1} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Latest feed -->
+  <section class="site-shell section" style="padding-top: 1rem;">
+    <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem;">
+      <div>
+        <p class="eyebrow">
+          <span class="eyebrow-num">04</span>
+          <span>Latest</span>
+        </p>
+        <h2 style="margin: 0.5rem 0 0;">Recent additions</h2>
+      </div>
+      <a class="link-arrow" href="/explore/">
+        View archive
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
     </div>
-    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {latest.map((entry, i) => <EntryCard entry={entry} index={i + 1} />)}
+
+    {
+      latestFiltered.length > 0 ? (
+        <EntryList entries={latestFiltered} startIndex={1} />
+      ) : (
+        <p class="muted" style="padding-block: 2rem;">No entries yet.</p>
+      )
+    }
+  </section>
+
+  <!-- Soft footer CTA -->
+  <section class="site-shell" style="padding-bottom: 4rem;">
+    <div
+      style="
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        padding: 1.75rem 1.5rem;
+        background: var(--color-bg-elevated);
+        display: grid;
+        gap: 0.75rem;
+      "
+    >
+      <p class="eyebrow"><span class="eyebrow-num">//</span> Stay close</p>
+      <h2 style="margin: 0; font-size: 1.25rem;">New finds and notes, occasionally.</h2>
+      <p class="muted" style="margin: 0; max-width: 36rem; font-size: 0.9375rem;">
+        Subscribe via RSS, or browse the archive when something catches your eye.
+        No newsletter pressure — just a feed.
+      </p>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+        <a class="btn btn-accent" href="/rss.xml">RSS feed</a>
+        <a class="btn btn-ghost" href="/explore/">Browse everything</a>
+      </div>
     </div>
   </section>
 </Layout>

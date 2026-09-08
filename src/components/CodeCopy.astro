@@ -1,0 +1,42 @@
+---
+/**
+ * Progressive enhancement: wraps pre>code blocks with a copy button.
+ * Include once per page that has prose code.
+ */
+---
+
+<script>
+  function enhance() {
+    document.querySelectorAll('.prose pre').forEach((pre) => {
+      if (pre.parentElement?.classList.contains('code-block')) return;
+      const wrap = document.createElement('div');
+      wrap.className = 'code-block';
+      pre.parentNode?.insertBefore(wrap, pre);
+      wrap.appendChild(pre);
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'copy-btn';
+      btn.textContent = 'Copy';
+      btn.setAttribute('aria-label', 'Copy code');
+      wrap.appendChild(btn);
+
+      btn.addEventListener('click', async () => {
+        const code = pre.textContent ?? '';
+        try {
+          await navigator.clipboard.writeText(code);
+          btn.textContent = 'Copied';
+          btn.dataset.copied = 'true';
+          setTimeout(() => {
+            btn.textContent = 'Copy';
+            btn.dataset.copied = 'false';
+          }, 1600);
+        } catch {
+          btn.textContent = 'Failed';
+        }
+      });
+    });
+  }
+  enhance();
+  document.addEventListener('astro:page-load', enhance);
+</script>

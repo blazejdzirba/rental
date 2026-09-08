@@ -1,35 +1,41 @@
 ---
+title: "Langflow"
+description: "Visual builder for LLM flows in Python. Drag nodes, ship a prototype agent without starting from a blank repo."
+date: 2026-09-05
 type: github
-title: langflow
-description: A visual builder for LLM workflows in Python.
-date: 2026-08-20
-tags: [AI, Python, Open Source]
+ownership: found
 featured: true
-author: langflow-ai
-repoUrl: https://github.com/langflow-ai/langflow
-why: >
-  It's the fastest way I've found to sketch an agent flow before writing
-  any real code — good for validating an idea in an afternoon.
-installSteps:
-  - "git clone https://github.com/langflow-ai/langflow"
-  - "cd langflow"
-  - "uv pip install -e ."
-  - "langflow run"
-stack: [Python, React]
+author: "Langflow AI"
+authorUrl: https://github.com/langflow-ai
+github: https://github.com/langflow-ai/langflow
+url: https://www.langflow.org/
+tags: [ai, llm, open-source, python]
+why: "The fastest path I’ve seen from ‘idea for an agent’ to something you can click through. MIT-licensed core."
+install: |
+  # pip
+  pip install langflow
+  python -m langflow run
+
+  # or Docker
+  docker pull langflowai/langflow:latest
+  docker run -p 7860:7860 langflowai/langflow:latest
+exploring: true
 ---
 
-## Instrukcja instalacji (PL)
+## What it is
 
-1. Sklonuj repozytorium: `git clone https://github.com/langflow-ai/langflow`
-2. Wejdź do folderu: `cd langflow`
-3. Zainstaluj zależności: `uv pip install -e .`
-4. Uruchom: `langflow run`
-5. Otwórz `http://localhost:7860` w przeglądarce.
+Langflow is a visual IDE for building LLM applications. Nodes represent models, prompts, tools, and vector stores. You wire them, test in the UI, then export or serve.
 
-Wymaga Pythona 3.10+. Na Windowsie polecam WSL2 — natywnie miałem problemy
-z jedną z zależności natywnych.
+## Why I’m writing it up
 
-## Moje uwagi
+I keep meeting people who want a “small AI concierge” experiment — answer FAQs, draft messages, route tickets — but freeze at the empty `main.py`. Langflow removes that blank-page problem.
 
-Nie polecam tego do produkcji — traktuj jako prototypownię. Do szybkiego
-sprawdzenia pomysłu na agenta jest świetny.
+## Caveats
+
+- Visual builders hide complexity until they don’t. For production, expect to graduate some flows into plain code.
+- Check the license of any components you pin; the core is MIT, extras vary.
+- It’s a moving target. Pin versions.
+
+## Who should try it
+
+Anyone prototyping agent workflows who values speed over perfect architecture on day one.

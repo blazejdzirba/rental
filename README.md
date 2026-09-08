@@ -1,63 +1,108 @@
-# Astro Starter Kit: Blog
+# Corner
 
-```sh
-npm create astro@latest -- --template blog
+A minimal dark-mode personal hub for builders — projects, GitHub finds, posts, tutorials, resources, and video. Built with Astro 7 + Tailwind CSS 4 + MDX.
+
+Not a job portfolio. A curated corner of the internet.
+
+## Quick start
+
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Build:
 
-Features:
-
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+```bash
+npm run build
+npm run preview
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Requires **Node ≥ 22.12**.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Add content
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+Drop a Markdown/MDX file into `src/content/entries/<folder>/`:
 
-Any static assets, like images, can be placed in the `public/` directory.
+```
+src/content/entries/
+  projects/     # things you built
+  github/       # other people's repos you recommend
+  posts/        # short notes
+  tutorials/    # how-tos
+  resources/    # links & references
+  videos/       # screen recordings
+```
 
-## 🧞 Commands
+Folders are only for your sanity — the collection is unified. Frontmatter `type` drives the UI.
 
-All commands are run from the root of the project, from a terminal:
+### Frontmatter
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```yaml
+---
+title: "Title"
+description: "One or two sentences."
+date: 2026-09-08
+type: project          # project | github | post | tutorial | resource | video
+tags: [astro, tools]
+featured: false
+exploring: false
+draft: false
 
-## 👀 Want to learn more?
+# optional
+image: /images/shot.png
+imageAlt: "Screenshot"
+url: https://…
+github: https://github.com/…
+demo: https://…
+author: "Jane Doe"           # for found work
+authorUrl: https://…
+ownership: found             # mine | found (defaults from type)
+why: "Why this matters to me."
+install: |
+  git clone …
+  npm install
+videoUrl: https://youtube.com/watch?v=…
+videoFile: /videos/demo.mp4
+duration: "8 min"
+readingTime: "5 min"
+---
+```
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+**Ownership chips**
 
-## Credit
+- `project` / `post` / `tutorial` / `video` → default **My work**
+- `github` / `resource` → default **Found**
+- Override anytime with `ownership: mine | found`
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+Found entries always show an attribution note so you never look like the author.
+
+## Site identity
+
+Edit `src/consts.ts`:
+
+- `SITE_TITLE`, `SITE_DESCRIPTION`
+- `AUTHOR` (email, GitHub, socials)
+- `NAV` labels
+
+Set `site` in `astro.config.mjs` to your real domain (RSS + sitemap + canonical URLs).
+
+## Routes
+
+| Path | Purpose |
+|---|---|
+| `/` | Short hero + exploring + featured + latest |
+| `/explore/` | Full feed + tags |
+| `/explore/projects/` etc. | Filtered by type |
+| `/explore/tag/<slug>/` | Filtered by tag |
+| `/entries/<id>/` | Entry detail |
+| `/about/` | About |
+| `/rss.xml` | RSS |
+| `/sitemap-index.xml` | Sitemap |
+
+## Design notes
+
+- Dark only — near-black surfaces, off-white type, one warm accent
+- Editorial entry rows (index · type · ownership · title · body), not SaaS cards
+- Minimal JS (mobile nav + code copy)
+- Semantic HTML, skip link, focus styles, RSS, sitemap

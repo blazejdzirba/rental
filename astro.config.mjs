@@ -1,39 +1,26 @@
 // @ts-check
-
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import { defineConfig, fontProviders } from 'astro/config';
-
+import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
-// https://astro.build/config
 export default defineConfig({
-  site: 'https://{{DOMAIN}}',
+  site: 'https://example.com',
   integrations: [mdx(), sitemap()],
-
   markdown: {
     shikiConfig: {
-      theme: 'one-dark-pro',
+      theme: 'github-dark-default',
       wrap: true,
     },
   },
-
-  fonts: [
-    {
-      provider: fontProviders.google(),
-      name: 'Inter',
-      cssVariable: '--font-inter',
-      fallbacks: ['sans-serif'],
-      weights: [400, 500, 600, 700],
-    },
-  ],
-
+  server: {
+    host: true,
+    allowedHosts: true,
+  },
   vite: {
     plugins: [tailwindcss()],
-    css: {
-      postcss: {
-        plugins: [],
-      },
+    server: {
+      allowedHosts: true,
     },
   },
 });

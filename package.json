@@ -1,14 +1,14 @@
 {
-  "name": "rental",
+  "name": "corner",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --host 0.0.0.0",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "astro preview --host 0.0.0.0",
     "astro": "astro"
   },
   "dependencies": {
@@ -19,8 +19,5 @@
     "astro": "^7.3.1",
     "sharp": "^0.35.0",
     "tailwindcss": "^4.3.3"
-  },
-  "allowScripts": {
-    "esbuild": true
   }
 }

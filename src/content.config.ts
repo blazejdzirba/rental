@@ -1,73 +1,52 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const baseFields = ({ image }: { image: () => z.ZodType<string> }) => ({
-  title: z.string(),
-  description: z.string(),
-  date: z.coerce.date(),
-  updatedDate: z.coerce.date().optional(),
-  tags: z.array(z.string()).default([]),
-  image: image().optional(),
-  featured: z.boolean().default(false),
-  draft: z.boolean().default(false),
-  video: z
-    .object({
-      youtubeId: z.string().optional(),
-      file: z.string().optional(),
-      url: z.string().url().optional(),
-      caption: z.string().optional(),
-    })
-    .optional(),
-});
-
+/**
+ * Single unified collection — every entry is a curated piece of content.
+ * Type field drives presentation; optional fields stay optional.
+ */
 const entries = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/entries' }),
-  schema: ({ image }) =>
-    z.discriminatedUnion('type', [
-      z.object({
-        type: z.literal('project'),
-        ...baseFields({ image }),
-        repoUrl: z.string().url().optional(),
-        demoUrl: z.string().url().optional(),
-        stack: z.array(z.string()).default([]),
-        status: z.enum(['active', 'maintained', 'archived', 'wip']).default('active'),
-      }),
-      z.object({
-        type: z.literal('github'),
-        ...baseFields({ image }),
-        author: z.string(),
-        repoUrl: z.string().url(),
-        demoUrl: z.string().url().optional(),
-        why: z.string(),
-        installSteps: z.array(z.string()).default([]),
-        stack: z.array(z.string()).default([]),
-      }),
-      z.object({
-        type: z.literal('post'),
-        ...baseFields({ image }),
-      }),
-      z.object({
-        type: z.literal('tutorial'),
-        ...baseFields({ image }),
-        relatedSlug: z.string().optional(),
-        difficulty: z.enum(['beginner', 'intermediate', 'advanced']).default('beginner'),
-        estimatedTime: z.string().optional(),
-      }),
-      z.object({
-        type: z.literal('resource'),
-        ...baseFields({ image }),
-        url: z.string().url(),
-        sourceName: z.string().optional(),
-      }),
-      z.object({
-        type: z.literal('video'),
-        ...baseFields({ image }),
-        youtubeId: z.string().optional(),
-        file: z.string().optional(),
-        url: z.string().url().optional(),
-        duration: z.string().optional(),
-      }),
-    ]),
+  loader: glob({
+    pattern: '**/*.{md,mdx}',
+    base: './src/content/entries',
+  }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+    updated: z.coerce.date().optional(),
+    type: z.enum(['project', 'github', 'post', 'tutorial', 'resource', 'video']),
+    tags: z.array(z.string()).default([]),
+    featured: z.boolean().default(false),
+    draft: z.boolean().default(false),
+
+    // Visual
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
+
+    // Links
+    url: z.string().url().optional(),
+    github: z.string().url().optional(),
+    demo: z.string().url().optional(),
+
+    // Attribution (for found/github/resource — never imply authorship)
+    author: z.string().optional(),
+    authorUrl: z.string().url().optional(),
+    ownership: z.enum(['mine', 'found']).optional(),
+
+    // Editorial extras
+    why: z.string().optional(), // "Why I like it"
+    install: z.string().optional(), // short install blurb / commands
+    exploring: z.boolean().default(false), // "Currently exploring"
+
+    // Video
+    videoUrl: z.string().optional(), // YouTube/Vimeo embed or direct
+    videoFile: z.string().optional(), // local public path
+    duration: z.string().optional(),
+
+    // Reading / meta
+    readingTime: z.string().optional(),
+  }),
 });
 
 export const collections = { entries };

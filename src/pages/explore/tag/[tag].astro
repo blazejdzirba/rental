@@ -1,0 +1,54 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import EntryList from '../../../components/EntryList.astro';
+import FilterBar from '../../../components/FilterBar.astro';
+import { getEntries, allTags } from '../../../lib/entries';
+import { TYPE_META, type ContentType } from '../../../consts';
+
+export async function getStaticPaths() {
+  const entries = await getEntries();
+  const tags = allTags(entries);
+  return tags.map(({ tag }) => ({
+    params: { tag: tag.toLowerCase().replace(/\s+/g, '-') },
+    props: { tagLabel: tag },
+  }));
+}
+
+const { tagLabel } = Astro.props;
+const all = await getEntries({ tag: tagLabel });
+const everything = await getEntries();
+
+const counts: Partial<Record<ContentType | 'all', number>> = { all: everything.length };
+for (const t of Object.keys(TYPE_META) as ContentType[]) {
+  counts[t] = everything.filter((e) => e.data.type === t).length;
+}
+---
+
+<Layout title={`Tag: ${tagLabel}`} description={`Entries tagged “${tagLabel}”.`}>
+  <section class="site-shell page-hero" style="padding-bottom: 1rem;">
+    <p class="eyebrow">
+      <span class="eyebrow-num">01</span>
+      <span>Tag</span>
+    </p>
+    <h1 style="margin-bottom: 0.75rem;">#{tagLabel}</h1>
+    <p class="lead">{all.length} {all.length === 1 ? 'entry' : 'entries'} with this tag.</p>
+  </section>
+
+  <section class="site-shell" style="padding-bottom: 4rem;">
+    <FilterBar current="all" counts={counts} />
+
+    <p style="margin-bottom: 1.25rem;">
+      <a class="link-arrow" href="/explore/">
+        <span class="arrow">←</span> All entries
+      </a>
+    </p>
+
+    {
+      all.length > 0 ? (
+        <EntryList entries={all} startIndex={1} />
+      ) : (
+        <p class="muted" style="padding-block: 2rem;">No entries match.</p>
+      )
+    }
+  </section>
+</Layout>

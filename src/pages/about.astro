@@ -1,20 +1,96 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { NAME, SOCIAL } from '../consts';
+import { AUTHOR, SITE_TITLE } from '../consts';
 ---
 
-<Layout title="About" description={`About ${NAME}.`}>
-  <section class="container-prose py-16">
-    <h1>About</h1>
-    <div class="prose-content mt-6">
+<Layout
+  title="About"
+  description={`What ${SITE_TITLE} is — a personal hub for building, finding, and sharing.`}
+>
+  <section class="site-shell page-hero">
+    <p class="eyebrow">
+      <span class="eyebrow-num">01</span>
+      <span>About</span>
+    </p>
+    <h1 style="max-width: 16ch;">A corner, not a résumé.</h1>
+    <p class="lead">
+      This site is where I put things I find useful — projects I ship, repositories
+      I admire, short notes, install guides, and the odd screen recording.
+    </p>
+  </section>
+
+  <section class="site-shell" style="padding-bottom: 4rem;">
+    <div class="prose prose-width">
+      <h2>What you’ll find here</h2>
+      <ul>
+        <li>
+          <strong>My projects</strong> — things I built, with notes on why and how to run them.
+        </li>
+        <li>
+          <strong>Found on GitHub</strong> — other people’s open-source that earned a write-up.
+          I always credit the author. I am never claiming their work.
+        </li>
+        <li>
+          <strong>Posts</strong> — short observations. Not every entry needs a case study.
+        </li>
+        <li>
+          <strong>Tutorials</strong> — install and run guides, usually in plain language,
+          often in Polish when the audience is local.
+        </li>
+        <li>
+          <strong>Resources &amp; video</strong> — links worth keeping, and occasional
+          screen recordings with voiceover.
+        </li>
+      </ul>
+
+      <h2>What this is not</h2>
       <p>
-        Dwa-trzy akapity o Tobie — nie CV, nie "7 lat doświadczenia". Co budujesz, czego szukasz, dlaczego publikujesz.
+        Not a job-seeking portfolio. Not a SaaS landing page. Not a content farm.
+        Just a durable place to publish the trail of what I’m building and learning.
       </p>
-      <p>Stack, którego dziś realnie używasz.</p>
-    </div>
-    <div class="mt-8 flex gap-4">
-      <a href={SOCIAL.github} target="_blank" rel="noopener" class="btn">GitHub ↗</a>
-      <a href={`mailto:${SOCIAL.email}`} class="btn">Email</a>
+
+      <h2>How content is marked</h2>
+      <p>
+        Every entry has a type and an ownership chip:
+      </p>
+      <ul>
+        <li><strong>My work</strong> — I made this.</li>
+        <li><strong>Found</strong> — I discovered and recommend this; credit goes to the author.</li>
+      </ul>
+
+      <h2>Contact</h2>
+      <p>
+        {
+          AUTHOR.email && AUTHOR.email !== 'hello@example.com' ? (
+            <>
+              Write to <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>
+              {AUTHOR.github && (
+                <>
+                  , or find me on{' '}
+                  <a href={AUTHOR.github} target="_blank" rel="noopener noreferrer">
+                    GitHub
+                  </a>
+                </>
+              )}
+              .
+            </>
+          ) : (
+            <>
+              Update <code>src/consts.ts</code> with your email and socials.
+              {AUTHOR.github && (
+                <>
+                  {' '}
+                  Meanwhile:{' '}
+                  <a href={AUTHOR.github} target="_blank" rel="noopener noreferrer">
+                    GitHub
+                  </a>
+                  .
+                </>
+              )}
+            </>
+          )
+        }
+      </p>
     </div>
   </section>
 </Layout>

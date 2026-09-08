@@ -1,13 +1,15 @@
 ---
 import Layout from './Layout.astro';
-import TypeBadge from '../components/TypeBadge.astro';
-import TagList from '../components/TagList.astro';
+import CodeCopy from '../components/CodeCopy.astro';
 import VideoEmbed from '../components/VideoEmbed.astro';
-import InstallBlock from '../components/InstallBlock.astro';
-import FormattedDate from '../components/FormattedDate.astro';
-import { Image } from 'astro:assets';
-import { render } from 'astro:content';
-import type { Entry } from '../lib/content';
+import type { Entry } from '../lib/entries';
+import {
+  formatDate,
+  ownershipOf,
+  typeShort,
+  entryHref,
+} from '../lib/entries';
+import { TYPE_META } from '../consts';
 
 interface Props {
   entry: Entry;
@@ -15,64 +17,175 @@ interface Props {
 
 const { entry } = Astro.props;
 const { data } = entry;
-const { Content } = await render(entry);
+const own = ownershipOf(entry);
+const meta = TYPE_META[data.type];
 ---
 
-<Layout title={data.title} description={data.description} image={data.image?.src}>
-  <article class="container-prose py-16">
-    <div class="mb-6 flex items-center gap-3">
-      <TypeBadge type={data.type} author={'author' in data ? data.author : undefined} />
-      <FormattedDate date={data.date} />
+<Layout
+  title={data.title}
+  description={data.description}
+  image={data.image}
+  type="article"
+>
+  <article class="site-shell" style="padding-block: 2.5rem 4rem;">
+    <header class="prose-width" style="margin-bottom: 2.5rem;">
+      <p class="eyebrow">
+        <span class="eyebrow-num">{typeShort(data.type)}</span>
+        <span aria-hidden="true">/</span>
+        <span>{own === 'mine' ? 'My work' : 'Found'}</span>
+      </p>
+
+      <h1 style="margin: 0.75rem 0 1rem;">{data.title}</h1>
+
+      <p class="lead" style="margin: 0 0 1.25rem;">{data.description}</p>
+
+      <div class="entry-meta" style="margin-bottom: 0;">
+        <time class="entry-date" datetime={data.date.toISOString()}>
+          {formatDate(data.date)}
+        </time>
+        {
+          data.updated && (
+            <span class="entry-date">
+              Updated {formatDate(data.updated)}
+            </span>
+          )
+        }
+        {data.readingTime && <span class="entry-date">{data.readingTime}</span>}
+        {data.duration && <span class="entry-date">{data.duration}</span>}
+        {
+          data.author && own === 'found' && (
+            <span class="entry-date">
+              by{' '}
+              {data.authorUrl ? (
+                <a class="link-quiet" href={data.authorUrl} target="_blank" rel="noopener noreferrer">
+                  {data.author}
+                </a>
+              ) : (
+                data.author
+              )}
+            </span>
+          )
+        }
+      </div>
+
+      {
+        data.tags.length > 0 && (
+          <div style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem;">
+            {data.tags.map((t) => (
+              <a
+                class="chip"
+                href={`/explore/tag/${t.toLowerCase().replace(/\s+/g, '-')}/`}
+              >
+                {t}
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </header>
+
+    {
+      data.image && (
+        <figure class="content-width" style="margin: 0 0 2.5rem;">
+          <img
+            src={data.image}
+            alt={data.imageAlt || data.title}
+            style="width: 100%; border-radius: var(--radius-md); border: 1px solid var(--color-border);"
+          />
+        </figure>
+      )
+    }
+
+    {
+      (data.videoUrl || data.videoFile) && (
+        <div class="content-width" style="margin-bottom: 2rem;">
+          <VideoEmbed videoUrl={data.videoUrl} videoFile={data.videoFile} title={data.title} />
+        </div>
+      )
+    }
+
+    {
+      /* External links strip */
+      (data.github || data.demo || data.url) && (
+        <div
+          class="prose-width"
+          style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem;"
+        >
+          {data.github && (
+            <a class="btn btn-ghost" href={data.github} target="_blank" rel="noopener noreferrer">
+              GitHub →
+            </a>
+          )}
+          {data.demo && (
+            <a class="btn btn-ghost" href={data.demo} target="_blank" rel="noopener noreferrer">
+              Demo →
+            </a>
+          )}
+          {data.url && !data.demo && (
+            <a class="btn btn-ghost" href={data.url} target="_blank" rel="noopener noreferrer">
+              Visit →
+            </a>
+          )}
+        </div>
+      )
+    }
+
+    {
+      data.why && (
+        <aside class="prose-width callout" style="margin-bottom: 2rem;">
+          <div class="callout-label">Why I like it</div>
+          <p>{data.why}</p>
+        </aside>
+      )
+    }
+
+    {
+      data.install && (
+        <aside class="prose-width callout" style="margin-bottom: 2rem;">
+          <div class="callout-label">Install</div>
+          <div class="prose">
+            <pre><code>{data.install}</code></pre>
+          </div>
+        </aside>
+      )
+    }
+
+    {
+      own === 'found' && (
+        <p
+          class="prose-width"
+          style="font-size: 0.8125rem; color: var(--color-fg-subtle); margin-bottom: 2rem; padding: 0.75rem 1rem; border-left: 2px solid var(--color-found);"
+        >
+          This is a project I found and recommend — I am not the author
+          {data.author ? ` (${data.author})` : ''}.
+          {data.github && (
+            <>
+              {' '}
+              Original source:{' '}
+              <a class="link-quiet" href={data.github} target="_blank" rel="noopener noreferrer">
+                repository
+              </a>
+              .
+            </>
+          )}
+        </p>
+      )
+    }
+
+    <div class="prose prose-width">
+      <slot />
     </div>
 
-    <h1>{data.title}</h1>
-    <p class="lead mt-3">{data.description}</p>
-
-    {data.image && (
-      <Image src={data.image} alt={data.title} class="mt-8 w-full rounded-md border border-[--color-border]" />
-    )}
-
-    {data.type === 'github' && (
-      <div class="card mt-8">
-        <p class="mono-label mb-2">Why I like it</p>
-        <p class="text-text-muted">{data.why}</p>
-      </div>
-    )}
-
-    {data.type === 'github' && data.installSteps.length > 0 && (
-      <InstallBlock steps={data.installSteps} />
-    )}
-
-    {(data.type === 'project' || data.type === 'github') && data.stack.length > 0 && (
-      <div class="mt-6 flex flex-wrap gap-1.5">
-        {data.stack.map((s) => <span class="pill">{s}</span>)}
-      </div>
-    )}
-
-    {data.video && <VideoEmbed video={data.video} class="mt-10" />}
-    {data.type === 'video' && (data.youtubeId || data.file || data.url) && (
-      <VideoEmbed video={{ youtubeId: data.youtubeId, file: data.file, url: data.url }} class="mt-10" />
-    )}
-
-    <div class="prose-content mt-10">
-      <Content />
-    </div>
-
-    <hr class="divider my-10" />
-
-    <div class="flex flex-wrap items-center justify-between gap-4">
-      <TagList tags={data.tags} />
-      <div class="flex gap-3">
-        {'repoUrl' in data && data.repoUrl && (
-          <a class="btn" href={data.repoUrl} target="_blank" rel="noopener">GitHub ↗</a>
-        )}
-        {'demoUrl' in data && data.demoUrl && (
-          <a class="btn btn-accent" href={data.demoUrl} target="_blank" rel="noopener">Live demo ↗</a>
-        )}
-        {data.type === 'resource' && (
-          <a class="btn btn-accent" href={data.url} target="_blank" rel="noopener">Visit ↗</a>
-        )}
-      </div>
-    </div>
+    <footer
+      class="prose-width"
+      style="margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border);"
+    >
+      <a class="link-arrow" href="/explore/">
+        <span class="arrow" aria-hidden="true">←</span>
+        Back to explore
+      </a>
+    </footer>
   </article>
+
+  <CodeCopy />
 </Layout>

@@ -1,15 +1,28 @@
 ---
-import { NAME, SOCIAL } from '../consts';
+import { SITE_TITLE, AUTHOR, NAV } from '../consts';
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-[--color-border] py-10">
-  <div class="container-wide flex flex-col items-center justify-between gap-4 text-sm text-text-faint sm:flex-row">
-    <p>&copy; {year} {NAME}</p>
-    <div class="flex gap-5">
-      <a href="/rss.xml" class="link-underline">RSS</a>
-      <a href={SOCIAL.github} target="_blank" rel="noopener" class="link-underline">GitHub</a>
-      <a href={`mailto:${SOCIAL.email}`} class="link-underline">Email</a>
+<footer class="site-footer">
+  <div class="site-shell footer-inner">
+    <div class="footer-meta">
+      <div>
+        <strong style="color: var(--color-fg); font-weight: 500;">{SITE_TITLE}</strong>
+        <span aria-hidden="true"> — </span>
+        a personal corner for building &amp; finding.
+      </div>
+      <div>© {year}{AUTHOR.name ? ` · ${AUTHOR.name}` : ''}</div>
     </div>
+    <ul class="footer-links">
+      {NAV.map((item) => (
+        <li><a href={item.href}>{item.label}</a></li>
+      ))}
+      <li><a href="/rss.xml">RSS</a></li>
+      {AUTHOR.github && (
+        <li>
+          <a href={AUTHOR.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+        </li>
+      )}
+    </ul>
   </div>
 </footer>

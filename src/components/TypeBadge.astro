@@ -1,15 +1,24 @@
 ---
-import { TYPE_LABEL } from '../lib/content';
+import { TYPE_META, type ContentType } from '../consts';
 
 interface Props {
-  type: keyof typeof TYPE_LABEL;
-  author?: string;
+  type: ContentType;
+  ownership?: 'mine' | 'found';
+  showOwnership?: boolean;
 }
 
-const { type, author } = Astro.props;
-const isFound = type === 'github';
+const { type, ownership, showOwnership = true } = Astro.props;
+const meta = TYPE_META[type];
+const own = ownership ?? meta.ownership;
 ---
 
-<span class:list={['pill', isFound ? '' : 'pill-accent']}>
-  {isFound ? `Found on GitHub${author ? ` · by ${author}` : ''}` : TYPE_LABEL[type]}
+<span class="entry-meta">
+  <span class={`chip chip-accent`}>{meta.short}</span>
+  {
+    showOwnership && (
+      <span class={`chip ${own === 'mine' ? 'chip-mine' : 'chip-found'}`}>
+        {own === 'mine' ? 'My work' : 'Found'}
+      </span>
+    )
+  }
 </span>

@@ -1,0 +1,62 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import EntryList from '../../components/EntryList.astro';
+import FilterBar from '../../components/FilterBar.astro';
+import { getEntries, allTags } from '../../lib/entries';
+import { TYPE_META, type ContentType } from '../../consts';
+
+const all = await getEntries();
+
+const counts: Partial<Record<ContentType | 'all', number>> = { all: all.length };
+for (const t of Object.keys(TYPE_META) as ContentType[]) {
+  counts[t] = all.filter((e) => e.data.type === t).length;
+}
+
+const tags = allTags(all).slice(0, 16);
+
+function tagSlug(tag: string) {
+  return tag.toLowerCase().replace(/\s+/g, '-');
+}
+---
+
+<Layout
+  title="Explore"
+  description="Full archive — projects, finds, posts, tutorials, resources, and video."
+>
+  <section class="site-shell page-hero" style="padding-bottom: 1rem;">
+    <p class="eyebrow">
+      <span class="eyebrow-num">01</span>
+      <span>Explore</span>
+    </p>
+    <h1 style="margin-bottom: 0.75rem;">Everything</h1>
+    <p class="lead">
+      A single feed of everything published here — filter by type if you want a narrower view.
+    </p>
+  </section>
+
+  <section class="site-shell" style="padding-bottom: 4rem;">
+    <FilterBar current="all" counts={counts} />
+
+    {
+      tags.length > 0 && (
+        <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem;">
+          {tags.map((t) => (
+            <a class="chip" href={`/explore/tag/${tagSlug(t.tag)}/`}>
+              {t.tag}
+              <span style="opacity: 0.5;">{t.count}</span>
+            </a>
+          ))}
+        </div>
+      )
+    }
+
+    {
+      all.length > 0 ? (
+        <EntryList entries={all} startIndex={1} />
+      ) : (
+        <p class="muted" style="padding-block: 2rem;">No entries match.</p>
+      )
+    }
+  </section>
+</Layout>
+

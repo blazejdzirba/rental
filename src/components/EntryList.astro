@@ -1,0 +1,21 @@
+---
+import type { Entry } from '../lib/entries';
+import EntryRow from './EntryRow.astro';
+
+interface Props {
+  entries: Entry[];
+  startIndex?: number;
+}
+
+const { entries, startIndex = 1 } = Astro.props;
+---
+
+<div class="entry-list" role="list">
+  {
+    entries.map((entry, i) => (
+      <div role="listitem">
+        <EntryRow entry={entry} index={startIndex + i} />
+      </div>
+    ))
+  }
+</div>
