@@ -1,0 +1,59 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  pubDate: Date;
+  tags?: string[];
+  heroImage?: string;
+}
+
+const { title, description, pubDate, tags = [], heroImage } = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString('pl-PL', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Layout title={title} description={description}>
+  <article class="mx-auto max-w-3xl px-4 py-12 md:px-8">
+    {heroImage && (
+      <img
+        src={heroImage}
+        alt={title}
+        class="mb-8 h-64 w-full rounded-lg object-cover md:h-96"
+      />
+    )}
+
+    <div class="mb-6 flex flex-wrap items-center gap-3 text-sm text-text/60">
+      <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+      {tags.length > 0 && (
+        <div class="flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <span class="rounded-full bg-secondary px-3 py-1 text-xs font-medium uppercase tracking-wide text-primary">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <h1 class="mb-8">{title}</h1>
+
+    <div class="prose-content">
+      <slot />
+    </div>
+  </article>
+</Layout>
+
+<style is:global>
+  .prose-content h2 { @apply mt-10 mb-4 text-2xl text-primary; }
+  .prose-content h3 { @apply mt-8 mb-3 text-xl text-primary; }
+  .prose-content p { @apply mb-5 leading-relaxed text-text; }
+  .prose-content a { @apply text-accent underline hover:text-primary; }
+  .prose-content ul,
+  .prose-content ol { @apply mb-5 ml-6 list-disc space-y-2; }
+</style>
