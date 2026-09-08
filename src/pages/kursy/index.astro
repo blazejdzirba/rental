@@ -1,0 +1,62 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const courses = (await getCollection('kursy'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const levelLabels: Record<string, string> = {
+  'początkujący': '🌱 Początkujący',
+  'średni': '📈 Średni',
+  'zaawansowany': '🚀 Zaawansowany',
+};
+---
+
+<Layout title="Kursy — Najem KŚ" description="Kursy wideo i szkolenia z automatyzacji najmu krótkoterminowego.">
+  <section class="mx-auto max-w-6xl px-4 py-16 md:px-8">
+    <h1>Kursy</h1>
+    <p class="mt-4 text-lg text-text-muted">
+      Szkolenia wideo i kursy krok po kroku dla gospodarzy najmu krótkoterminowego.
+    </p>
+
+    {courses.length === 0 ? (
+      <p class="mt-8 text-text-muted">Brak kursów.</p>
+    ) : (
+      <div class="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {courses.map((course) => (
+          <a
+            href={`/kursy/${course.id}/`}
+            class="group block rounded-xl border border-secondary-dark bg-secondary p-6 transition-shadow hover:shadow-lg"
+          >
+            <div class="flex items-center justify-between">
+              <time class="text-xs font-semibold uppercase tracking-wide text-accent">
+                {course.data.pubDate.toLocaleDateString('pl-PL', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })}
+              </time>
+              <span class={`badge ${course.data.access === 'free' ? 'badge-free' : 'badge-paid'}`}>
+                {course.data.access === 'free' ? 'Darmowy' : 'Premium'}
+              </span>
+            </div>
+            <h3 class="mt-3 text-primary group-hover:text-accent transition-colors">
+              {course.data.title}
+            </h3>
+            <p class="mt-2 text-sm leading-relaxed text-text-muted">{course.data.description}</p>
+            {course.data.level && (
+              <div class="mt-3 text-xs font-medium text-accent">
+                {levelLabels[course.data.level] || course.data.level}
+              </div>
+            )}
+            {course.data.price && (
+              <div class="mt-2 text-sm font-semibold text-primary">
+                {course.data.price}
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+    )}
+  </section>
+</Layout>

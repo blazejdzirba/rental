@@ -99,6 +99,16 @@
   border-color: var(--color-accent);
   color: var(--color-primary-dark);
 }
+.badge-free {
+  background: #dcfce7; /* zielony */
+  border-color: #bbf7d0;
+  color: #166534;
+}
+.badge-paid {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-cream);
+}
 
 body {
   @apply bg-background text-text font-sans antialiased;
