@@ -1,0 +1,737 @@
+[
+  {
+    "ok": true,
+    "full_name": "prosperkartik/hostaway-mcp",
+    "description": "Open-source Model Context Protocol (MCP) server for the Hostaway PMS - connect  Claude to your vacation rental ops.",
+    "stars": 2,
+    "forks": 0,
+    "pushed_at": "2026-05-07T01:51:03Z",
+    "license": "MIT",
+    "archived": false,
+    "html_url": "https://github.com/prosperkartik/hostaway-mcp",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "guesty-mcp/guesty-mcp-server",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": true,
+    "full_name": "Gribadan/RentTools.io",
+    "description": "Free, open-source property manager for short-term rental hosts. Sync Airbnb + Booking.com calendars, automate cleaning schedules, extract guest passport data. Live at renttools.io.",
+    "stars": 22,
+    "forks": 6,
+    "pushed_at": "2026-09-07T08:29:09Z",
+    "license": "MIT",
+    "archived": false,
+    "html_url": "https://github.com/Gribadan/RentTools.io",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "yuens1002/stayops",
+    "description": "Chat-first, agent-driven short-term-rental operations: two-way Airbnb/Furnished Finder iCal sync, a guest concierge, and prescribed contractor checklists — the owner talks to an AI agent instead of filling forms. Next.js 16 · TypeScript · Drizzle/Neon · Vercel AI SDK. Single-operator, no payments, self-hostable.",
+    "stars": 0,
+    "forks": 0,
+    "pushed_at": "2026-08-11T11:11:31Z",
+    "license": "MIT",
+    "archived": false,
+    "html_url": "https://github.com/yuens1002/stayops",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "captainarcher/roost",
+    "description": "Automated vacation rental management — booking to accounting with zero manual intervention",
+    "stars": 3,
+    "forks": 1,
+    "pushed_at": "2026-05-26T04:00:35Z",
+    "license": "Apache-2.0",
+    "archived": true,
+    "html_url": "https://github.com/captainarcher/roost",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "t-h-e-m-a-c/livaround",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": true,
+    "full_name": "pesanio/pesan-pms",
+    "description": "Open Source Property Management System (PMS) from Pesan.io",
+    "stars": 58,
+    "forks": 13,
+    "pushed_at": "2025-05-18T13:10:33Z",
+    "license": "MIT",
+    "archived": false,
+    "html_url": "https://github.com/pesanio/pesan-pms",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "Qloapps/QloApps",
+    "description": "QloApps is a Free and Open-source hotel management and reservation system to take a hotel business online. QloApps offers a Property Management System (PMS), a Booking Engine, and an attractive Hotel Website. Elevate hotel operations with QloApps to streamline processes and provide an enhanced experience for both hoteliers and guests.",
+    "stars": 14340,
+    "forks": 808,
+    "pushed_at": "2026-09-07T15:02:43Z",
+    "license": "OSL-3.0",
+    "archived": false,
+    "html_url": "https://github.com/Qloapps/QloApps",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "DigitalDruid/hoteldruid",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": true,
+    "full_name": "Kamra-PMS/kamra-pms",
+    "description": "Open-source hotel & short-term rental PMS - front desk, booking engine, folios & GST/tax billing, housekeeping, POS, WhatsApp. Agent-ready via MCP (Claude). Built on Frappe. AGPL-3.0.",
+    "stars": 30,
+    "forks": 15,
+    "pushed_at": "2026-09-07T23:42:41Z",
+    "license": "AGPL-3.0",
+    "archived": false,
+    "html_url": "https://github.com/Kamra-PMS/kamra-pms",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "casadiamante/airbnb-manager",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": false,
+    "full_name": "apartmamatevz/cm-free",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": false,
+    "full_name": "openclaw/open-field-scheduling",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": true,
+    "full_name": "open-condo-software/condo",
+    "description": "Condo is an Open Source property management SaaS that allows users to manage tickets, resident contacts, properties, payment tracking, create invoices, and oversee a service marketplace, all while offering an extension system for mini-apps, making it an ideal platform for property management companies and those servicing shared properties.",
+    "stars": 404,
+    "forks": 149,
+    "pushed_at": "2026-09-07T14:57:23Z",
+    "license": "MIT",
+    "archived": false,
+    "html_url": "https://github.com/open-condo-software/condo",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "Cocolabs-SAS/cocorico",
+    "description": "🚀 Cocorico has evolved into Second (www.scnd.com) - a powerful, scalable, and enterprise-ready solution built specifically for advanced service and rental marketplaces. 🌟 Second delivers enhanced features, greater flexibility, and superior performance to meet the demands of today's digital marketplace platforms. 🔗 Explore Second: www.scnd.com",
+    "stars": 871,
+    "forks": 590,
+    "pushed_at": "2021-10-19T14:17:28Z",
+    "license": "MIT",
+    "archived": false,
+    "html_url": "https://github.com/Cocolabs-SAS/cocorico",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "nsstarr/airbnb-clone",
+    "description": "Next JS web application replicating key features of the popular accommodation platform",
+    "stars": 1,
+    "forks": 1,
+    "pushed_at": "2023-04-11T13:53:34Z",
+    "license": null,
+    "archived": false,
+    "html_url": "https://github.com/nsstarr/airbnb-clone",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "harsh661/airbnb-clone",
+    "description": "A fully responsive clone of popular booking website Airbnb, built with next.js, typescript, tailwind-css and prisma.",
+    "stars": 19,
+    "forks": 8,
+    "pushed_at": "2025-08-03T04:25:52Z",
+    "license": null,
+    "archived": false,
+    "html_url": "https://github.com/harsh661/airbnb-clone",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "shivansh-127/WanderLust",
+    "description": "A full-stack clone of Airbnb built using Node.js, Express, MongoDB, and EJS. Includes user authentication, property listings, booking management, and error handling.",
+    "stars": 1,
+    "forks": 0,
+    "pushed_at": "2026-07-25T08:43:49Z",
+    "license": null,
+    "archived": false,
+    "html_url": "https://github.com/shivansh-127/WanderLust",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "ZikaZaki/airbnb-mobile-app",
+    "description": "An Expo React Native app that clones the popular Airbnb platform, featuring a user-friendly UI, Reanimated animations, React Native Maps, and Clerk authentication.",
+    "stars": 17,
+    "forks": 13,
+    "pushed_at": "2024-06-24T01:29:36Z",
+    "license": "MIT",
+    "archived": false,
+    "html_url": "https://github.com/ZikaZaki/airbnb-mobile-app",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "alonaslonkina/RentalPriceAnalysis",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": true,
+    "full_name": "rsanjabi/short-term-rentals-warehouse",
+    "description": "Pipeline, warehouse, and visualization tools for investigating the impact of Airbnb short-term rentals on world cities.",
+    "stars": 15,
+    "forks": 1,
+    "pushed_at": "2023-06-09T22:55:38Z",
+    "license": null,
+    "archived": false,
+    "html_url": "https://github.com/rsanjabi/short-term-rentals-warehouse",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "Srihari231092/airbnb_zillow_analytics",
+    "description": "Data analytics on AirBnB and Zillow data",
+    "stars": 0,
+    "forks": 0,
+    "pushed_at": "2020-03-20T15:33:33Z",
+    "license": null,
+    "archived": false,
+    "html_url": "https://github.com/Srihari231092/airbnb_zillow_analytics",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "idswyft/idswyft",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": false,
+    "full_name": "JMRTD/jmrtd",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": true,
+    "full_name": "PaddlePaddle/Paddle.js",
+    "description": "Paddle.js is a web project for Baidu PaddlePaddle, which is an open source deep learning framework running in the browser. Paddle.js can either load a pre-trained model, or transforming a model from paddle-hub with model transforming tools provided by Paddle.js. It could run in every browser with WebGL/WebGPU/WebAssembly supported. It could also run in Baidu Smartprogram and WX miniprogram.",
+    "stars": 1104,
+    "forks": 154,
+    "pushed_at": "2024-04-03T03:25:39Z",
+    "license": "Apache-2.0",
+    "archived": false,
+    "html_url": "https://github.com/PaddlePaddle/Paddle.js",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "justadudewhohacks/face-api.js",
+    "description": "JavaScript API for face detection and face recognition in the browser and nodejs with tensorflow.js",
+    "stars": 17949,
+    "forks": 3886,
+    "pushed_at": "2024-01-24T09:25:35Z",
+    "license": "MIT",
+    "archived": false,
+    "html_url": "https://github.com/justadudewhohacks/face-api.js",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "n8n-io/n8n-workflows",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": false,
+    "full_name": "bright-data/n8n-nodes-brightdata",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": false,
+    "full_name": "zxyle/airbnb-api",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": true,
+    "full_name": "kewisch/ical.js",
+    "description": "Javascript parser for ics (rfc5545) and vcard (rfc6350) data",
+    "stars": 1177,
+    "forks": 156,
+    "pushed_at": "2026-08-31T22:12:50Z",
+    "license": "MPL-2.0",
+    "archived": false,
+    "html_url": "https://github.com/kewisch/ical.js",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "collective/icalendar",
+    "description": "icalendar parser library for Python",
+    "stars": 1171,
+    "forks": 406,
+    "pushed_at": "2026-09-08T00:43:52Z",
+    "license": "NOASSERTION",
+    "archived": false,
+    "html_url": "https://github.com/collective/icalendar",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "ttlock/TTLock-API-Demo",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": true,
+    "full_name": "home-assistant/core",
+    "description": ":house_with_garden: Open source home automation that puts local control and privacy first.",
+    "stars": 90315,
+    "forks": 38535,
+    "pushed_at": "2026-09-08T01:18:11Z",
+    "license": "Apache-2.0",
+    "archived": false,
+    "html_url": "https://github.com/home-assistant/core",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "tylercrumpton/Rental-Control",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": true,
+    "full_name": "java110/MicroCommunity",
+    "description": "HC is open source Property Management Software(saas)",
+    "stars": 955,
+    "forks": 401,
+    "pushed_at": "2025-06-05T06:42:08Z",
+    "license": "Apache-2.0",
+    "archived": false,
+    "html_url": "https://github.com/java110/MicroCommunity",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "AbhashK1/Property-Management-System",
+    "description": "Property Management System made in Angular using Firebase as Backend",
+    "stars": 4,
+    "forks": 2,
+    "pushed_at": "2023-06-23T18:39:13Z",
+    "license": null,
+    "archived": false,
+    "html_url": "https://github.com/AbhashK1/Property-Management-System",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "liberu-software/real-estate",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": true,
+    "full_name": "senatroxx/OpenKos",
+    "description": "Open-source property management platform for boarding houses (kos), rentals, and apartments.",
+    "stars": 99,
+    "forks": 35,
+    "pushed_at": "2026-09-04T10:32:22Z",
+    "license": "Apache-2.0",
+    "archived": false,
+    "html_url": "https://github.com/senatroxx/OpenKos",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "andrewkhoza/Student-Housing-Property-Management-CRM",
+    "description": "An enterprise-grade Student Housing CRM and Fintech portal. A technical proof-of-concept featuring Yoco payment integration, digital lease signing, and SA ID validation (Luhn Algorithm). Architected for POPIA compliance.",
+    "stars": 0,
+    "forks": 0,
+    "pushed_at": "2026-04-24T18:02:37Z",
+    "license": "NOASSERTION",
+    "archived": false,
+    "html_url": "https://github.com/andrewkhoza/Student-Housing-Property-Management-CRM",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "stayview/stayview",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": true,
+    "full_name": "ScrapingBee/scrapingbee-python",
+    "description": "A Python library to interact with ScrapingBee's API for headless browsers and proxy rotation",
+    "stars": 131,
+    "forks": 4,
+    "pushed_at": "2026-09-01T07:21:55Z",
+    "license": null,
+    "archived": false,
+    "html_url": "https://github.com/ScrapingBee/scrapingbee-python",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "api-evangelist/airdna",
+    "description": "AirDNA — independent third-party profile of a public API surface, by API Evangelist. AirDNA provides short-term rental market data and analytics for Airbnb and Vrbo, tracking over 10 million listings across 120,000+ markets. The AirDNA Enterprise API exposes market metrics, STR listing data, comparable property sets, Rentalizer revenue estimates, a",
+    "stars": 0,
+    "forks": 0,
+    "pushed_at": "2026-09-04T18:36:14Z",
+    "license": null,
+    "archived": false,
+    "html_url": "https://github.com/api-evangelist/airdna",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "api-evangelist/beds24",
+    "description": "Beds24 — independent third-party profile of a public API surface, by API Evangelist. Beds24 is a vacation rental and hotel channel manager, property management system (PMS), and online booking engine. It synchronizes availability, rates, and reservations across OTAs such as Booking.com, Airbnb, Expedia, Vrbo, and Google, and exposes a documented RE",
+    "stars": 0,
+    "forks": 0,
+    "pushed_at": "2026-09-04T18:46:26Z",
+    "license": null,
+    "archived": false,
+    "html_url": "https://github.com/api-evangelist/beds24",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "Hostaway/api",
+    "description": "Beautiful static documentation for your API",
+    "stars": 0,
+    "forks": 3,
+    "pushed_at": "2026-09-07T15:51:27Z",
+    "license": "NOASSERTION",
+    "archived": false,
+    "html_url": "https://github.com/Hostaway/api",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "Milvasoft/milvaion-scheduler",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": true,
+    "full_name": "Avaneesh40585/Nestoria",
+    "description": "A boutique-hotel booking platform for India — search, book, host, review. Editorial design system. Light + dark mode. Open source.",
+    "stars": 1,
+    "forks": 1,
+    "pushed_at": "2026-08-16T13:11:59Z",
+    "license": "MIT",
+    "archived": false,
+    "html_url": "https://github.com/Avaneesh40585/Nestoria",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "rutikss/stayease",
+    "description": "Full-stack Airbnb-style property listing and booking platform built with Node.js, Express, MongoDB and EJS",
+    "stars": 0,
+    "forks": 0,
+    "pushed_at": "2026-08-15T07:42:09Z",
+    "license": "MIT",
+    "archived": false,
+    "html_url": "https://github.com/rutikss/stayease",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "privacybydesign/irma-frontend",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": true,
+    "full_name": "jankln/tracksub",
+    "description": "A modern full-stack subscription management platform with email notifications, analytics dashboard, and comprehensive tracking features. Built with React, TypeScript, Node.js, and Chart.js.",
+    "stars": 1,
+    "forks": 0,
+    "pushed_at": "2025-12-18T21:20:18Z",
+    "license": null,
+    "archived": false,
+    "html_url": "https://github.com/jankln/tracksub",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "supabase/supabase",
+    "description": "The Postgres development platform. Supabase gives you a dedicated Postgres database to build your web, mobile, and AI applications.",
+    "stars": 108943,
+    "forks": 13723,
+    "pushed_at": "2026-09-08T02:17:40Z",
+    "license": "Apache-2.0",
+    "archived": false,
+    "html_url": "https://github.com/supabase/supabase",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "lkilpatrick/OpenSTR",
+    "description": "This is an open source adoptable management system for your short term rental, commonly called AirBNB or VBRO",
+    "stars": 1,
+    "forks": 1,
+    "pushed_at": "2026-04-07T04:35:10Z",
+    "license": "GPL-3.0",
+    "archived": false,
+    "html_url": "https://github.com/lkilpatrick/OpenSTR",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "LibreProperty/LibreProperty",
+    "description": "Property Management SaaS focusing on vacation rentals",
+    "stars": 20,
+    "forks": 7,
+    "pushed_at": "2023-03-23T03:01:51Z",
+    "license": "Apache-2.0",
+    "archived": false,
+    "html_url": "https://github.com/LibreProperty/LibreProperty",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "DrBookings/drbookings",
+    "description": "Booking managment through a rich graphical interface.",
+    "stars": 13,
+    "forks": 4,
+    "pushed_at": "2021-12-07T14:02:50Z",
+    "license": "GPL-2.0",
+    "archived": false,
+    "html_url": "https://github.com/DrBookings/drbookings",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "m-abrar/Laravel-Vacation-Rental-Property-Management",
+    "description": "Realtors and property owners can manage listings, reservations, calendars, payment processing, and generate reports.",
+    "stars": 0,
+    "forks": 0,
+    "pushed_at": "2023-03-02T17:22:06Z",
+    "license": null,
+    "archived": false,
+    "html_url": "https://github.com/m-abrar/Laravel-Vacation-Rental-Property-Management",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "aelassas/movinin",
+    "description": "Rental Property Management Platform with Mobile App",
+    "stars": 221,
+    "forks": 92,
+    "pushed_at": "2026-07-13T12:31:48Z",
+    "license": "MIT",
+    "archived": false,
+    "html_url": "https://github.com/aelassas/movinin",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "microrealestate/microrealestate",
+    "description": "Self-hosted property management app for landlords to manage leases, rents and receipts.",
+    "stars": 1186,
+    "forks": 408,
+    "pushed_at": "2026-09-01T22:38:12Z",
+    "license": "NOASSERTION",
+    "archived": false,
+    "html_url": "https://github.com/microrealestate/microrealestate",
+    "message": null
+  },
+  {
+    "ok": true,
+    "full_name": "pixelcrash/Sync-Rentals-Calendar",
+    "description": "Synchronize your Airbnb, Booking.com, and other iCal rental calendars on your own server - easy and free",
+    "stars": 41,
+    "forks": 14,
+    "pushed_at": "2020-01-23T12:16:03Z",
+    "license": null,
+    "archived": false,
+    "html_url": "https://github.com/pixelcrash/Sync-Rentals-Calendar",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "intelligentcompany/ical-booking",
+    "message": "HTTP 404"
+  },
+  {
+    "ok": true,
+    "full_name": "greasysock/bnbCalendar",
+    "description": "Airbnb and VRBO ical sync for teamwork",
+    "stars": 6,
+    "forks": 0,
+    "pushed_at": "2020-02-07T15:01:39Z",
+    "license": null,
+    "archived": true,
+    "html_url": "https://github.com/greasysock/bnbCalendar",
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "alejandro-castillo-delgado/ical-sync",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "AyoubAchour/airbnb-ical-sample",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "jens-maus/node-ical",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "ics-py/ics-py",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "kewisch/ical.js",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "niccokunzmann/python-recurring-ical-events",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "Kozea/Radicale",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "nextcloud/calendar",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "tykeal/homeassistant-rental-control",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "FutureTense/keymaster",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "seamapi/python",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "seamapi/javascript",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "pschmitt/pynuki",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "esphome/esphome",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "Koenkk/zigbee2mqtt",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "johnbalvin/pyairbnb",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "openbnb-org/mcp-server-airbnb",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "nderkach/airbnb-python",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "UPGo-McGill/strr",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "chatwoot/chatwoot",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "EvolutionAPI/evolution-api",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "WhiskeySockets/Baileys",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "pedroslopez/whatsapp-web.js",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "devlikeapro/waha",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "python-telegram-bot/python-telegram-bot",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "aiogram/aiogram",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "grammyjs/grammY",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "freescout-helpdesk/freescout",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "n8n-io/n8n",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "activepieces/activepieces",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "FlowiseAI/Flowise",
+    "message": "HTTP 403"
+  },
+  {
+    "ok": false,
+    "full_name": "langflow-ai/langflow",
+    "message": "HTTP 403"
+  }
+]

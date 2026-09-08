@@ -1,0 +1,517 @@
+[
+  {
+    "ok": false,
+    "full_name": "guesty-mcp/guesty-mcp-server",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "ok": false,
+    "full_name": "t-h-e-m-a-c/livaround",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "ok": false,
+    "full_name": "DigitalDruid/hoteldruid",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "ok": false,
+    "full_name": "casadiamante/airbnb-manager",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "ok": false,
+    "full_name": "apartmamatevz/cm-free",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "ok": false,
+    "full_name": "openclaw/open-field-scheduling",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "archived": false,
+    "description": "🚀 Cocorico has evolved into Second (www.scnd.com) - a powerful, scalable, and enterprise-ready solution built specifically for advanced service and rental marketplaces. 🌟 Second delivers enhanced features, greater flexibility, and superior performance to meet the demands of today's digital marketplace platforms. 🔗 Explore Second: www.scnd.com",
+    "forks": 590,
+    "full_name": "Cocolabs-SAS/cocorico",
+    "html_url": "https://github.com/Cocolabs-SAS/cocorico",
+    "license": "MIT",
+    "pushed_at": "2021-10-19T14:17:28Z",
+    "stars": 871,
+    "ok": true,
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "alonaslonkina/RentalPriceAnalysis",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "ok": false,
+    "full_name": "idswyft/idswyft",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "ok": false,
+    "full_name": "JMRTD/jmrtd",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "ok": false,
+    "full_name": "n8n-io/n8n-workflows",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "ok": false,
+    "full_name": "bright-data/n8n-nodes-brightdata",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "ok": false,
+    "full_name": "zxyle/airbnb-api",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "archived": false,
+    "description": "Javascript parser for ics (rfc5545) and vcard (rfc6350) data",
+    "forks": 156,
+    "full_name": "kewisch/ical.js",
+    "html_url": "https://github.com/kewisch/ical.js",
+    "license": "MPL-2.0",
+    "pushed_at": "2026-08-31T22:12:50Z",
+    "stars": 1177,
+    "ok": true,
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "ttlock/TTLock-API-Demo",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "ok": false,
+    "full_name": "tylercrumpton/Rental-Control",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "ok": false,
+    "full_name": "liberu-software/real-estate",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "ok": false,
+    "full_name": "stayview/stayview",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "archived": false,
+    "description": "A Python library to interact with ScrapingBee's API for headless browsers and proxy rotation",
+    "forks": 4,
+    "full_name": "ScrapingBee/scrapingbee-python",
+    "html_url": "https://github.com/ScrapingBee/scrapingbee-python",
+    "license": null,
+    "pushed_at": "2026-09-01T07:21:55Z",
+    "stars": 131,
+    "ok": true,
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "Milvasoft/milvaion-scheduler",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "ok": false,
+    "full_name": "privacybydesign/irma-frontend",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "archived": false,
+    "description": "This is an open source adoptable management system for your short term rental, commonly called AirBNB or VBRO",
+    "forks": 1,
+    "full_name": "lkilpatrick/OpenSTR",
+    "html_url": "https://github.com/lkilpatrick/OpenSTR",
+    "license": "GPL-3.0",
+    "pushed_at": "2026-04-07T04:35:10Z",
+    "stars": 1,
+    "ok": true,
+    "message": null
+  },
+  {
+    "ok": false,
+    "full_name": "intelligentcompany/ical-booking",
+    "message": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "archived": false,
+    "description": "Transforma URLs de calendarios de Airbnb en JSON estructurado con esta API ligera. Analiza archivos ICAL/ICS, extrayendo disponibilidad, precios y reservas. Ideal para herramientas de gestión de propiedades, dashboards de BI o sincronizar plataformas. ¡Integración simple y rápida! 🚀 Desarrollado en Express - Node.js",
+    "forks": 0,
+    "full_name": "alejandro-castillo-delgado/ical-sync",
+    "html_url": "https://github.com/alejandro-castillo-delgado/ical-sync",
+    "license": null,
+    "pushed_at": "2025-03-20T14:22:27Z",
+    "stars": 1,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "A sample Airbnb iCal calendar file for testing calendar synchronization implementations.",
+    "forks": 0,
+    "full_name": "AyoubAchour/airbnb-ical-sample",
+    "html_url": "https://github.com/AyoubAchour/airbnb-ical-sample",
+    "license": null,
+    "pushed_at": "2025-04-02T15:32:14Z",
+    "stars": 0,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Feature-rich iCalendar/ICS (RFC 5545) parser for Node.js with  a robust recurrence rule (RRULE) environment",
+    "forks": 63,
+    "full_name": "jens-maus/node-ical",
+    "html_url": "https://github.com/jens-maus/node-ical",
+    "license": "Apache-2.0",
+    "pushed_at": "2026-09-03T01:18:30Z",
+    "stars": 170,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Pythonic and easy iCalendar library (rfc5545)",
+    "forks": 132,
+    "full_name": "ics-py/ics-py",
+    "html_url": "https://github.com/ics-py/ics-py",
+    "license": "NOASSERTION",
+    "pushed_at": "2026-04-15T11:34:54Z",
+    "stars": 721,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Python library to calculate recurrence times of events, todos, alarms and journals based on icalendar RFC5545",
+    "forks": 30,
+    "full_name": "niccokunzmann/python-recurring-ical-events",
+    "html_url": "https://github.com/niccokunzmann/python-recurring-ical-events",
+    "license": "LGPL-3.0",
+    "pushed_at": "2026-07-20T06:21:48Z",
+    "stars": 121,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "A simple CalDAV (calendar) and CardDAV (contact) server.",
+    "forks": 522,
+    "full_name": "Kozea/Radicale",
+    "html_url": "https://github.com/Kozea/Radicale",
+    "license": "GPL-3.0",
+    "pushed_at": "2026-09-07T19:36:54Z",
+    "stars": 4977,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "📆 Calendar app for Nextcloud",
+    "forks": 326,
+    "full_name": "nextcloud/calendar",
+    "html_url": "https://github.com/nextcloud/calendar",
+    "license": "AGPL-3.0",
+    "pushed_at": "2026-09-08T00:53:20Z",
+    "stars": 1184,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Rental Control system for Home Assistant",
+    "forks": 9,
+    "full_name": "tykeal/homeassistant-rental-control",
+    "html_url": "https://github.com/tykeal/homeassistant-rental-control",
+    "license": "Apache-2.0",
+    "pushed_at": "2026-09-07T17:45:12Z",
+    "stars": 81,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Home Assistant integration for managing Z-Wave enabled locks",
+    "forks": 55,
+    "full_name": "FutureTense/keymaster",
+    "html_url": "https://github.com/FutureTense/keymaster",
+    "license": "MIT",
+    "pushed_at": "2026-09-07T18:00:25Z",
+    "stars": 348,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "SDK for the Seam API written in Python.",
+    "forks": 3,
+    "full_name": "seamapi/python",
+    "html_url": "https://github.com/seamapi/python",
+    "license": "MIT",
+    "pushed_at": "2026-09-02T06:35:00Z",
+    "stars": 19,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "JavaScript SDK for the Seam API written in TypeScript.",
+    "forks": 0,
+    "full_name": "seamapi/javascript",
+    "html_url": "https://github.com/seamapi/javascript",
+    "license": "MIT",
+    "pushed_at": "2026-09-07T19:05:42Z",
+    "stars": 17,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Python bindings for nuki.io bridges",
+    "forks": 17,
+    "full_name": "pschmitt/pynuki",
+    "html_url": "https://github.com/pschmitt/pynuki",
+    "license": "GPL-3.0",
+    "pushed_at": "2026-07-20T20:26:07Z",
+    "stars": 20,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "ESPHome is a system to control your ESP32, ESP8266, BK72xx, RP2040 by simple yet powerful configuration files and control them remotely through Home Automation systems.",
+    "forks": 5612,
+    "full_name": "esphome/esphome",
+    "html_url": "https://github.com/esphome/esphome",
+    "license": "NOASSERTION",
+    "pushed_at": "2026-09-08T02:15:30Z",
+    "stars": 11661,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Zigbee 🐝 to MQTT bridge 🌉, get rid of your proprietary Zigbee bridges 🔨",
+    "forks": 2007,
+    "full_name": "Koenkk/zigbee2mqtt",
+    "html_url": "https://github.com/Koenkk/zigbee2mqtt",
+    "license": "GPL-3.0",
+    "pushed_at": "2026-09-06T06:12:25Z",
+    "stars": 15610,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Airbnb scraper made in Python",
+    "forks": 46,
+    "full_name": "johnbalvin/pyairbnb",
+    "html_url": "https://github.com/johnbalvin/pyairbnb",
+    "license": "MIT",
+    "pushed_at": "2026-08-22T15:58:07Z",
+    "stars": 149,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Search Airbnb using your AI Agent",
+    "forks": 124,
+    "full_name": "openbnb-org/mcp-server-airbnb",
+    "html_url": "https://github.com/openbnb-org/mcp-server-airbnb",
+    "license": "MIT",
+    "pushed_at": "2026-08-06T05:21:57Z",
+    "stars": 527,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "A Python wrapper around the Airbnb API (unofficial)",
+    "forks": 67,
+    "full_name": "nderkach/airbnb-python",
+    "html_url": "https://github.com/nderkach/airbnb-python",
+    "license": "WTFPL",
+    "pushed_at": "2022-12-08T05:46:08Z",
+    "stars": 203,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Tools for Analysis of Short-Term Rental Data",
+    "forks": 1,
+    "full_name": "UPGo-McGill/strr",
+    "html_url": "https://github.com/UPGo-McGill/strr",
+    "license": null,
+    "pushed_at": "2024-06-09T22:24:33Z",
+    "stars": 5,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Open-source live-chat, email support, omni-channel desk. An alternative to Intercom, Zendesk, Salesforce Service Cloud etc. 🔥💬",
+    "forks": 8844,
+    "full_name": "chatwoot/chatwoot",
+    "html_url": "https://github.com/chatwoot/chatwoot",
+    "license": "NOASSERTION",
+    "pushed_at": "2026-09-07T19:58:10Z",
+    "stars": 36584,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Evolution API is an open-source WhatsApp integration API",
+    "forks": 7230,
+    "full_name": "evolution-foundation/evolution-api",
+    "html_url": "https://github.com/evolution-foundation/evolution-api",
+    "license": "NOASSERTION",
+    "pushed_at": "2026-07-14T19:50:55Z",
+    "stars": 9559,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Socket-based TS/JavaScript API for WhatsApp Web",
+    "forks": 3356,
+    "full_name": "WhiskeySockets/Baileys",
+    "html_url": "https://github.com/WhiskeySockets/Baileys",
+    "license": "MIT",
+    "pushed_at": "2026-09-06T18:18:41Z",
+    "stars": 10975,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "A WhatsApp client library for NodeJS that connects through the WhatsApp Web browser app",
+    "forks": 5141,
+    "full_name": "wwebjs/whatsapp-web.js",
+    "html_url": "https://github.com/wwebjs/whatsapp-web.js",
+    "license": "Apache-2.0",
+    "pushed_at": "2026-09-06T12:04:26Z",
+    "stars": 22530,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "WAHA - WhatsApp HTTP API (REST API) that you can configure in a click! 3 engines: WEBJS (browser based), NOWEB (websocket nodejs), GOWS (websocket go)",
+    "forks": 1727,
+    "full_name": "devlikeapro/waha",
+    "html_url": "https://github.com/devlikeapro/waha",
+    "license": "Apache-2.0",
+    "pushed_at": "2026-09-01T09:30:48Z",
+    "stars": 7348,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "We have made you a wrapper you can't refuse",
+    "forks": 6146,
+    "full_name": "python-telegram-bot/python-telegram-bot",
+    "html_url": "https://github.com/python-telegram-bot/python-telegram-bot",
+    "license": "GPL-3.0",
+    "pushed_at": "2026-09-06T01:37:00Z",
+    "stars": 29455,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "aiogram is a modern and fully asynchronous framework for Telegram Bot API written in Python using asyncio",
+    "forks": 964,
+    "full_name": "aiogram/aiogram",
+    "html_url": "https://github.com/aiogram/aiogram",
+    "license": "MIT",
+    "pushed_at": "2026-08-26T00:02:37Z",
+    "stars": 5860,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "The Telegram Bot Framework.",
+    "forks": 153,
+    "full_name": "grammyjs/grammY",
+    "html_url": "https://github.com/grammyjs/grammY",
+    "license": "MIT",
+    "pushed_at": "2026-08-26T20:29:41Z",
+    "stars": 3735,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "FreeScout — Free self-hosted omnichannel AI-powered helpdesk & shared mailbox",
+    "forks": 714,
+    "full_name": "freescout-help-desk/freescout",
+    "html_url": "https://github.com/freescout-help-desk/freescout",
+    "license": "AGPL-3.0",
+    "pushed_at": "2026-09-07T10:52:26Z",
+    "stars": 4528,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.",
+    "forks": 60603,
+    "full_name": "n8n-io/n8n",
+    "html_url": "https://github.com/n8n-io/n8n",
+    "license": "NOASSERTION",
+    "pushed_at": "2026-09-07T21:09:28Z",
+    "stars": 203679,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "AI Agents & MCPs & AI Workflow Automation • (~400 MCP servers for AI agents) • AI Automation / AI Agent with MCPs • AI Workflows & AI Agents • MCPs for AI Agents",
+    "forks": 4154,
+    "full_name": "activepieces/activepieces",
+    "html_url": "https://github.com/activepieces/activepieces",
+    "license": "NOASSERTION",
+    "pushed_at": "2026-09-08T01:07:32Z",
+    "stars": 24325,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": true,
+    "description": "Build AI Agents, Visually",
+    "forks": 24981,
+    "full_name": "FlowiseAI/Flowise",
+    "html_url": "https://github.com/FlowiseAI/Flowise",
+    "license": "NOASSERTION",
+    "pushed_at": "2026-08-13T12:38:19Z",
+    "stars": 55429,
+    "ok": true,
+    "message": null
+  },
+  {
+    "archived": false,
+    "description": "Langflow is a powerful tool for building and deploying AI-powered agents and workflows.",
+    "forks": 10046,
+    "full_name": "langflow-ai/langflow",
+    "html_url": "https://github.com/langflow-ai/langflow",
+    "license": "MIT",
+    "pushed_at": "2026-09-08T00:39:31Z",
+    "stars": 154412,
+    "ok": true,
+    "message": null
+  }
+]

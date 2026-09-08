@@ -50,10 +50,14 @@ const formattedDate = pubDate.toLocaleDateString('pl-PL', {
 </Layout>
 
 <style is:global>
-  .prose-content h2 { @apply mt-10 mb-4 text-2xl text-primary; }
-  .prose-content h3 { @apply mt-8 mb-3 text-xl text-primary; }
-  .prose-content p { @apply mb-5 leading-relaxed text-text; }
-  .prose-content a { @apply text-accent underline hover:text-primary; }
+  /* Style wpisu blogowego — czysty CSS (Tailwind v4 @apply nie działa w <style>) */
+  .prose-content h2 { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.5rem; line-height: 2rem; color: var(--color-primary); }
+  .prose-content h3 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.25rem; line-height: 1.75rem; color: var(--color-primary); }
+  .prose-content p { margin-bottom: 1.25rem; line-height: 1.625; color: var(--color-text); }
+  .prose-content a { color: var(--color-accent); text-decoration: underline; }
+  .prose-content a:hover { color: var(--color-primary); }
   .prose-content ul,
-  .prose-content ol { @apply mb-5 ml-6 list-disc space-y-2; }
+  .prose-content ol { margin-bottom: 1.25rem; margin-left: 1.5rem; list-style: disc; }
+  .prose-content ol { list-style: decimal; }
+  .prose-content li + li { margin-top: 0.5rem; }
 </style>
