@@ -15,9 +15,89 @@
   --color-background: #FFFFFF;
   --color-text: #2C2F33;
   --color-text-muted: #5C6066;
-  
+  --color-line: #DED5C4;        /* linie/obramowania z oferty PDF */
+  --color-cream: #F7F4EE;       /* kremowe tło z oferty PDF */
+
   --font-heading: "Playfair Display", serif;
   --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ── Klasy pomocnicze (design system z oferty PDF) ───────────────── */
+
+.container-site {
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+@media (min-width: 768px) {
+  .container-site { padding-inline: 2rem; }
+}
+
+.section { padding-block: 3.5rem; }
+@media (min-width: 768px) {
+  .section { padding-block: 5rem; }
+}
+
+/* Ciemna sekcja CTA — granat + kremowy tekst (jak w ofercie) */
+.section-dark {
+  background-color: var(--color-primary);
+  color: var(--color-cream);
+}
+.section-dark h1, .section-dark h2, .section-dark h3 { color: #fff; }
+
+/* Przyciski */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 8px;
+  padding: 0.7rem 1.4rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-gold {
+  background-color: var(--color-accent-light);
+  color: var(--color-primary-dark);
+}
+.btn-gold:hover { background-color: var(--color-accent); }
+.btn-outline {
+  border: 1.5px solid var(--color-line);
+  color: var(--color-text);
+  background: transparent;
+}
+.btn-outline:hover { border-color: var(--color-accent); color: var(--color-accent-dark); }
+.section-dark .btn-outline { border-color: rgba(247,244,238,0.4); color: var(--color-cream); }
+.section-dark .btn-outline:hover { border-color: var(--color-accent-light); color: var(--color-accent-light); }
+
+/* Karta */
+.card {
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(23, 54, 67, 0.08);
+  padding: 1.5rem;
+}
+
+/* Pigułka / badge (jak "OBSŁUGA 24/7" w ofercie) */
+.badge {
+  display: inline-block;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  padding: 0.25rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  background: var(--color-secondary);
+  color: var(--color-primary);
+}
+.badge-gold {
+  background: var(--color-accent-light);
+  border-color: var(--color-accent);
+  color: var(--color-primary-dark);
 }
 
 body {
