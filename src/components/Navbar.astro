@@ -18,7 +18,7 @@ const links = [
     <ul class="hidden md:flex md:items-center md:gap-8">
       {links.map((link) => (
         <li>
-          
+          <a
             href={link.href}
             class="text-sm font-medium uppercase tracking-wide hover:text-accent"
           >
@@ -39,7 +39,7 @@ const links = [
   <ul id="mobile-menu" class="hidden flex-col gap-1 border-t border-white/10 px-4 pb-4 md:hidden">
     {links.map((link) => (
       <li>
-        
+        <a
           href={link.href}
           class="block py-2 text-sm font-medium uppercase tracking-wide hover:text-accent"
         >
